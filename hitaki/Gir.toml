@@ -1,0 +1,115 @@
+[options]
+work_mode = "normal"
+library = "Hitaki"
+version = "0.0"
+use_gi_docgen = true
+min_cfg_version = "0.0"
+single_version_file = true
+
+generate = [
+    "Hitaki.AlsaFirewireType",
+    "Hitaki.AlsaFirewireError",
+    "Hitaki.EfwProtocolError",
+    "Hitaki.AlsaFirewire",
+    "Hitaki.QuadletNotification",
+    "Hitaki.SndUnit",
+    "Hitaki.SndDice",
+    "Hitaki.SndDigi00x",
+    "Hitaki.SndEfw",
+    "Hitaki.SndMotu",
+    "Hitaki.SndTascam",
+]
+
+manual = [
+    "GLib.Error",
+    "GLib.Source",
+]
+
+[[object]]
+name = "Hitaki.EfwProtocol"
+status = "generate"
+manual_traits = ["EfwProtocolExtManual"]
+    [[object.function]]
+    pattern = "transaction"
+    ignore = true
+    doc_trait_name = "EfwProtocolExtManual"
+    [[object.signal]]
+    pattern = "responded"
+    ignore = true
+    doc_trait_name = "EfwProtocolExtManual"
+
+[[object]]
+name = "Hitaki.MotuRegisterDsp"
+status = "generate"
+manual_traits = ["MotuRegisterDspManual"]
+    [[object.signal]]
+    pattern = "changed"
+    ignore = true
+    [[object.function]]
+    pattern = "read_parameter"
+    ignore = true
+    doc_trait_name = "SndMotuExtManual"
+    [[object.function]]
+    pattern = "read_meter"
+    ignore = true
+    doc_trait_name = "SndMotuExtManual"
+
+[[object]]
+name = "Hitaki.MotuCommandDsp"
+status = "generate"
+manual_traits = ["MotuCommandDspManual"]
+    [[object.function]]
+    pattern = "read_meter"
+    ignore = true
+    doc_trait_name = "MotuCommandDspManual"
+
+[[object]]
+name = "Hitaki.SndMotuRegisterDspParameter"
+status = "generate"
+concurrency = "send+sync"
+manual_traits = ["SndMotuRegisterDspParameterExtManual"]
+    [[object.function]]
+    pattern = "get_input_flag"
+    ignore = true
+    doc_trait_name = "SndMotuRegisterDspParameterExtManual"
+    [[object.function]]
+    pattern = "get_input_gain_and_invert"
+    ignore = true
+    doc_trait_name = "SndMotuRegisterDspParameterExtManual"
+    [[object.function]]
+    pattern = "get_mixer_output_paired_flag"
+    ignore = true
+    doc_trait_name = "SndMotuRegisterDspParameterExtManual"
+    [[object.function]]
+    pattern = "get_mixer_output_paired_volume"
+    ignore = true
+    doc_trait_name = "SndMotuRegisterDspParameterExtManual"
+    [[object.function]]
+    pattern = "get_mixer_source_flag"
+    ignore = true
+    doc_trait_name = "SndMotuRegisterDspParameterExtManual"
+    [[object.function]]
+    pattern = "get_mixer_source_gain"
+    ignore = true
+    doc_trait_name = "SndMotuRegisterDspParameterExtManual"
+    [[object.function]]
+    pattern = "get_mixer_source_paired_balance"
+    ignore = true
+    doc_trait_name = "SndMotuRegisterDspParameterExtManual"
+    [[object.function]]
+    pattern = "get_mixer_source_paired_width"
+    ignore = true
+    doc_trait_name = "SndMotuRegisterDspParameterExtManual"
+    [[object.function]]
+    pattern = "get_mixer_source_pan"
+    ignore = true
+    doc_trait_name = "SndMotuRegisterDspParameterExtManual"
+
+[[object]]
+name = "Hitaki.TascamProtocol"
+status = "generate"
+manual_traits = ["TascamProtocolExtManual"]
+    [[object.function]]
+    pattern = "read_state"
+    ignore = true
+    doc_trait_name = "TascamProtocolExtManual"

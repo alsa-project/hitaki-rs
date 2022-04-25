@@ -1,0 +1,10 @@
+[options]
+work_mode = "sys"
+library = "Hitaki"
+version = "0.0"
+min_cfg_version = "0.0"
+single_version_file = "."
+external_libraries = [
+  "GLib",
+  "GObject",
+]

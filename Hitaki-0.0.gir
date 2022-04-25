@@ -1,0 +1,2911 @@
+<?xml version="1.0"?>
+<!-- This file was automatically generated from C sources - DO NOT EDIT!
+To affect the contents of this file, edit the original C definitions,
+and/or use gtk-doc annotations.  -->
+<repository version="1.2"
+            xmlns="http://www.gtk.org/introspection/core/1.0"
+            xmlns:c="http://www.gtk.org/introspection/c/1.0"
+            xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <include name="GLib" version="2.0"/>
+  <include name="GObject" version="2.0"/>
+  <package name="hitaki"/>
+  <c:include name="hitaki.h"/>
+  <namespace name="Hitaki"
+             version="0.0"
+             shared-library="libhitaki.so.0"
+             c:identifier-prefixes="Hitaki"
+             c:symbol-prefixes="hitaki_">
+    <interface name="AlsaFirewire"
+               c:symbol-prefix="alsa_firewire"
+               c:type="HitakiAlsaFirewire"
+               glib:type-name="HitakiAlsaFirewire"
+               glib:get-type="hitaki_alsa_firewire_get_type"
+               glib:type-struct="AlsaFirewireInterface">
+      <doc xml:space="preserve"
+           filename="../src/alsa_firewire.c"
+           line="4">An interface to operate ALSA HwDep character device for Audio and Music unit in IEEE 1394 bus.
+All of driver in ALSA firewire stack allow userspace application to use specific function via
+ALSA HwDep character device. The function includes common and specific parts. The
+[iface@AlsaFirewire] is an object interface to operate the character device for the common
+functions.</doc>
+      <source-position filename="../src/alsa_firewire.h" line="71"/>
+      <virtual-method name="create_source" invoker="create_source" throws="1">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="193">Allocate [struct@GLib.Source]  to handle events from ALSA HwDep character device.</doc>
+        <source-position filename="../src/alsa_firewire.h" line="70"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/alsa_firewire.c"
+               line="201">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="195">A [iface@AlsaFirewire].</doc>
+            <type name="AlsaFirewire" c:type="HitakiAlsaFirewire*"/>
+          </instance-parameter>
+          <parameter name="source"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="196">A [struct@GLib.Source] to handle events from ALSA HwDep character device.</doc>
+            <type name="GLib.Source" c:type="GSource**"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="lock" invoker="lock" throws="1">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="157">Lock kernel driver bound to the associated ALSA HwDep character device so that it is prohibited
+to start packet streaming.</doc>
+        <source-position filename="../src/alsa_firewire.h" line="45"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/alsa_firewire.c"
+               line="165">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="159">A [iface@AlsaFirewire]</doc>
+            <type name="AlsaFirewire" c:type="HitakiAlsaFirewire*"/>
+          </instance-parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="open" invoker="open" throws="1">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="136">Open the special file for ALSA HwDep character device.</doc>
+        <source-position filename="../src/alsa_firewire.h" line="33"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/alsa_firewire.c"
+               line="145">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="138">A [iface@AlsaFirewire]</doc>
+            <type name="AlsaFirewire" c:type="HitakiAlsaFirewire*"/>
+          </instance-parameter>
+          <parameter name="path" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="139">A path to special file for ALSA HwDep character device.</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="open_flag" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="140">The flag of `open(2)` system call.</doc>
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="unlock" invoker="unlock" throws="1">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="175">Unlock kernel driver bound to the associated ALSA HwDep character device so that it can start
+packet streaming.</doc>
+        <source-position filename="../src/alsa_firewire.h" line="57"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/alsa_firewire.c"
+               line="183">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="177">A [iface@AlsaFirewire]</doc>
+            <type name="AlsaFirewire" c:type="HitakiAlsaFirewire*"/>
+          </instance-parameter>
+        </parameters>
+      </virtual-method>
+      <method name="create_source"
+              c:identifier="hitaki_alsa_firewire_create_source"
+              throws="1">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="193">Allocate [struct@GLib.Source]  to handle events from ALSA HwDep character device.</doc>
+        <source-position filename="../src/alsa_firewire.h" line="80"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/alsa_firewire.c"
+               line="201">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="195">A [iface@AlsaFirewire].</doc>
+            <type name="AlsaFirewire" c:type="HitakiAlsaFirewire*"/>
+          </instance-parameter>
+          <parameter name="source"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="196">A [struct@GLib.Source] to handle events from ALSA HwDep character device.</doc>
+            <type name="GLib.Source" c:type="GSource**"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="lock" c:identifier="hitaki_alsa_firewire_lock" throws="1">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="157">Lock kernel driver bound to the associated ALSA HwDep character device so that it is prohibited
+to start packet streaming.</doc>
+        <source-position filename="../src/alsa_firewire.h" line="76"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/alsa_firewire.c"
+               line="165">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="159">A [iface@AlsaFirewire]</doc>
+            <type name="AlsaFirewire" c:type="HitakiAlsaFirewire*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <method name="open" c:identifier="hitaki_alsa_firewire_open" throws="1">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="136">Open the special file for ALSA HwDep character device.</doc>
+        <source-position filename="../src/alsa_firewire.h" line="73"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/alsa_firewire.c"
+               line="145">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="138">A [iface@AlsaFirewire]</doc>
+            <type name="AlsaFirewire" c:type="HitakiAlsaFirewire*"/>
+          </instance-parameter>
+          <parameter name="path" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="139">A path to special file for ALSA HwDep character device.</doc>
+            <type name="utf8" c:type="const gchar*"/>
+          </parameter>
+          <parameter name="open_flag" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="140">The flag of `open(2)` system call.</doc>
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="unlock"
+              c:identifier="hitaki_alsa_firewire_unlock"
+              throws="1">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="175">Unlock kernel driver bound to the associated ALSA HwDep character device so that it can start
+packet streaming.</doc>
+        <source-position filename="../src/alsa_firewire.h" line="78"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/alsa_firewire.c"
+               line="183">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="177">A [iface@AlsaFirewire]</doc>
+            <type name="AlsaFirewire" c:type="HitakiAlsaFirewire*"/>
+          </instance-parameter>
+        </parameters>
+      </method>
+      <property name="card-id" transfer-ownership="none">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="77">The numeric identifier for sound card.</doc>
+        <type name="guint" c:type="guint"/>
+      </property>
+      <property name="guid" transfer-ownership="none">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="111">Global unique identifier for the node in IEEE 1394 bus.</doc>
+        <type name="guint64" c:type="guint64"/>
+      </property>
+      <property name="is-disconnected" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="122">Whether the sound card is unavailable. It becomes FALSE when the sound card is removed or
+driver is unbound to it. Then the owner of this object should call
+[method@GObject.Object.unref] as quickly as possible to release ALSA hwdep character device.</doc>
+        <type name="gboolean" c:type="gboolean"/>
+      </property>
+      <property name="is-locked" writable="1" transfer-ownership="none">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="100">Whether the associated unit is locked or not to start packet streaming.</doc>
+        <type name="gboolean" c:type="gboolean"/>
+      </property>
+      <property name="node-device" transfer-ownership="none">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="89">The name of node device in Linux FireWire subsystem which owns the unit; e.g. `fw1`.</doc>
+        <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="unit-type" transfer-ownership="none">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="65">The type of sound unit.</doc>
+        <type name="AlsaFirewireType"/>
+      </property>
+    </interface>
+    <enumeration name="AlsaFirewireError"
+                 glib:type-name="HitakiAlsaFirewireError"
+                 glib:get-type="hitaki_alsa_firewire_error_get_type"
+                 c:type="HitakiAlsaFirewireError"
+                 glib:error-domain="hitaki-alsa-firewire-error-quark">
+      <doc xml:space="preserve"
+           filename="../src/hitaki_enum_types.h"
+           line="29">The enumerations to report result of operation in [iface@AlsaFirewire].</doc>
+      <member name="failed"
+              value="0"
+              c:identifier="HITAKI_ALSA_FIREWIRE_ERROR_FAILED"
+              glib:nick="failed"
+              glib:name="HITAKI_ALSA_FIREWIRE_ERROR_FAILED">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="31">The system call fails.</doc>
+      </member>
+      <member name="is_opened"
+              value="1"
+              c:identifier="HITAKI_ALSA_FIREWIRE_ERROR_IS_OPENED"
+              glib:nick="is-opened"
+              glib:name="HITAKI_ALSA_FIREWIRE_ERROR_IS_OPENED">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="32">The instance is already associated to any ALSA HwDep
+                                             character device.</doc>
+      </member>
+      <member name="is_not_opened"
+              value="2"
+              c:identifier="HITAKI_ALSA_FIREWIRE_ERROR_IS_NOT_OPENED"
+              glib:nick="is-not-opened"
+              glib:name="HITAKI_ALSA_FIREWIRE_ERROR_IS_NOT_OPENED">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="34">The instance is not associated to any ALSA HwDep
+                                             character device yet.</doc>
+      </member>
+      <member name="is_used"
+              value="3"
+              c:identifier="HITAKI_ALSA_FIREWIRE_ERROR_IS_USED"
+              glib:nick="is-used"
+              glib:name="HITAKI_ALSA_FIREWIRE_ERROR_IS_USED">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="36">The ALSA HwDep character device is used by the other
+                                             process.</doc>
+      </member>
+      <member name="is_locked"
+              value="4"
+              c:identifier="HITAKI_ALSA_FIREWIRE_ERROR_IS_LOCKED"
+              glib:nick="is-locked"
+              glib:name="HITAKI_ALSA_FIREWIRE_ERROR_IS_LOCKED">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="38">The functionality of packet streaming is prohibited.</doc>
+      </member>
+      <member name="is_unlocked"
+              value="5"
+              c:identifier="HITAKI_ALSA_FIREWIRE_ERROR_IS_UNLOCKED"
+              glib:nick="is-unlocked"
+              glib:name="HITAKI_ALSA_FIREWIRE_ERROR_IS_UNLOCKED">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="39">The functionality of packet streaming is available.</doc>
+      </member>
+      <member name="is_disconnected"
+              value="6"
+              c:identifier="HITAKI_ALSA_FIREWIRE_ERROR_IS_DISCONNECTED"
+              glib:nick="is-disconnected"
+              glib:name="HITAKI_ALSA_FIREWIRE_ERROR_IS_DISCONNECTED">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="40">The sound card is disconnected.</doc>
+      </member>
+      <member name="wrong_class"
+              value="7"
+              c:identifier="HITAKI_ALSA_FIREWIRE_ERROR_WRONG_CLASS"
+              glib:nick="wrong-class"
+              glib:name="HITAKI_ALSA_FIREWIRE_ERROR_WRONG_CLASS">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="41">Mismatch between GObject class and thetype of sound
+                                             unit.</doc>
+      </member>
+      <function name="quark" c:identifier="hitaki_alsa_firewire_error_quark">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="15">Return the [alias@GLib.Quark] for [struct@GLib.Error] with code in Hitaki.AlsaFirewireError
+enumerations.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/alsa_firewire.c"
+               line="21">A [alias@GLib.Quark].</doc>
+          <type name="GLib.Quark" c:type="GQuark"/>
+        </return-value>
+      </function>
+      <function name="to_label"
+                c:identifier="hitaki_alsa_firewire_error_to_label">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="25">Retrieve the string label of error from code.</doc>
+        <source-position filename="../src/alsa_firewire.h" line="17"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="code" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="27">A Hitaki.AlsaFirewireError.</doc>
+            <type name="AlsaFirewireError" c:type="HitakiAlsaFirewireError"/>
+          </parameter>
+          <parameter name="label"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="28">The string label of error.</doc>
+            <type name="utf8" c:type="const char**"/>
+          </parameter>
+        </parameters>
+      </function>
+    </enumeration>
+    <record name="AlsaFirewireInterface"
+            c:type="HitakiAlsaFirewireInterface"
+            glib:is-gtype-struct-for="AlsaFirewire">
+      <source-position filename="../src/alsa_firewire.h" line="71"/>
+      <field name="iface">
+        <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
+      </field>
+      <field name="open">
+        <callback name="open" throws="1">
+          <source-position filename="../src/alsa_firewire.h" line="33"/>
+          <return-value transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="145">TRUE if the overall operation finished successfully, else FALSE.</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/alsa_firewire.c"
+                   line="138">A [iface@AlsaFirewire]</doc>
+              <type name="AlsaFirewire" c:type="HitakiAlsaFirewire*"/>
+            </parameter>
+            <parameter name="path" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/alsa_firewire.c"
+                   line="139">A path to special file for ALSA HwDep character device.</doc>
+              <type name="utf8" c:type="const gchar*"/>
+            </parameter>
+            <parameter name="open_flag" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/alsa_firewire.c"
+                   line="140">The flag of `open(2)` system call.</doc>
+              <type name="gint" c:type="gint"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="lock">
+        <callback name="lock" throws="1">
+          <source-position filename="../src/alsa_firewire.h" line="45"/>
+          <return-value transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="165">TRUE if the overall operation finished successfully, else FALSE.</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/alsa_firewire.c"
+                   line="159">A [iface@AlsaFirewire]</doc>
+              <type name="AlsaFirewire" c:type="HitakiAlsaFirewire*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="unlock">
+        <callback name="unlock" throws="1">
+          <source-position filename="../src/alsa_firewire.h" line="57"/>
+          <return-value transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="183">TRUE if the overall operation finished successfully, else FALSE.</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/alsa_firewire.c"
+                   line="177">A [iface@AlsaFirewire]</doc>
+              <type name="AlsaFirewire" c:type="HitakiAlsaFirewire*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="create_source">
+        <callback name="create_source" throws="1">
+          <source-position filename="../src/alsa_firewire.h" line="70"/>
+          <return-value transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/alsa_firewire.c"
+                 line="201">TRUE if the overall operation finished successfully, else FALSE.</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/alsa_firewire.c"
+                   line="195">A [iface@AlsaFirewire].</doc>
+              <type name="AlsaFirewire" c:type="HitakiAlsaFirewire*"/>
+            </parameter>
+            <parameter name="source"
+                       direction="out"
+                       caller-allocates="0"
+                       transfer-ownership="full">
+              <doc xml:space="preserve"
+                   filename="../src/alsa_firewire.c"
+                   line="196">A [struct@GLib.Source] to handle events from ALSA HwDep character device.</doc>
+              <type name="GLib.Source" c:type="GSource**"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <enumeration name="AlsaFirewireType"
+                 glib:type-name="HitakiAlsaFirewireType"
+                 glib:get-type="hitaki_alsa_firewire_type_get_type"
+                 c:type="HitakiAlsaFirewireType">
+      <doc xml:space="preserve"
+           filename="../src/hitaki_enum_types.h"
+           line="5">The enumerations for type of sound unit defined by ALSA firewire stack.</doc>
+      <member name="dice"
+              value="1"
+              c:identifier="HITAKI_ALSA_FIREWIRE_TYPE_DICE"
+              glib:nick="dice"
+              glib:name="HITAKI_ALSA_FIREWIRE_TYPE_DICE">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="7">The type of DICE ASIC.</doc>
+      </member>
+      <member name="fireworks"
+              value="2"
+              c:identifier="HITAKI_ALSA_FIREWIRE_TYPE_FIREWORKS"
+              glib:nick="fireworks"
+              glib:name="HITAKI_ALSA_FIREWIRE_TYPE_FIREWORKS">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="8">The type of Fireworks board module.</doc>
+      </member>
+      <member name="bebob"
+              value="3"
+              c:identifier="HITAKI_ALSA_FIREWIRE_TYPE_BEBOB"
+              glib:nick="bebob"
+              glib:name="HITAKI_ALSA_FIREWIRE_TYPE_BEBOB">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="9">The type of BeBoB ASIC.</doc>
+      </member>
+      <member name="oxfw"
+              value="4"
+              c:identifier="HITAKI_ALSA_FIREWIRE_TYPE_OXFW"
+              glib:nick="oxfw"
+              glib:name="HITAKI_ALSA_FIREWIRE_TYPE_OXFW">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="10">The type of OXFW ASIC</doc>
+      </member>
+      <member name="digi00x"
+              value="5"
+              c:identifier="HITAKI_ALSA_FIREWIRE_TYPE_DIGI00X"
+              glib:nick="digi00x"
+              glib:name="HITAKI_ALSA_FIREWIRE_TYPE_DIGI00X">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="11">The type of Digi00x series.</doc>
+      </member>
+      <member name="tascam"
+              value="6"
+              c:identifier="HITAKI_ALSA_FIREWIRE_TYPE_TASCAM"
+              glib:nick="tascam"
+              glib:name="HITAKI_ALSA_FIREWIRE_TYPE_TASCAM">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="12">The type of Tascam FireWire series.</doc>
+      </member>
+      <member name="motu"
+              value="7"
+              c:identifier="HITAKI_ALSA_FIREWIRE_TYPE_MOTU"
+              glib:nick="motu"
+              glib:name="HITAKI_ALSA_FIREWIRE_TYPE_MOTU">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="13">The type of MOTU FireWire series.</doc>
+      </member>
+      <member name="fireface"
+              value="8"
+              c:identifier="HITAKI_ALSA_FIREWIRE_TYPE_FIREFACE"
+              glib:nick="fireface"
+              glib:name="HITAKI_ALSA_FIREWIRE_TYPE_FIREFACE">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="14">The type of RME Fireface series.</doc>
+      </member>
+    </enumeration>
+    <interface name="EfwProtocol"
+               c:symbol-prefix="efw_protocol"
+               c:type="HitakiEfwProtocol"
+               glib:type-name="HitakiEfwProtocol"
+               glib:get-type="hitaki_efw_protocol_get_type"
+               glib:type-struct="EfwProtocolInterface">
+      <doc xml:space="preserve"
+           filename="../src/efw_protocol.c"
+           line="10">An interface for Fireworks Protocol.
+Echo Audio Fireworks devices listen to specific address space for specific request frame. When
+accepting and handling the request frame, it transfers response frame to specific address in
+requester. The [iface@EfwProtocol] is an object interface for the Fireworks protocol.</doc>
+      <source-position filename="../src/efw_protocol.h" line="61"/>
+      <virtual-method name="get_seqnum">
+        <doc xml:space="preserve"
+             filename="../src/efw_protocol.h"
+             line="34">Virtual function to retrieve the sequence number for request frame of transaction. The number
+is used for the frame transmitted to device, then the device is expected to transmit response
+frame with the number incremented by 1.</doc>
+        <source-position filename="../src/efw_protocol.h" line="43"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.h"
+                 line="36">A [iface@EfwProtocol].</doc>
+            <type name="EfwProtocol" c:type="HitakiEfwProtocol*"/>
+          </instance-parameter>
+          <parameter name="seqnum"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.h"
+                 line="37">The sequence number for request frame of transaction.</doc>
+            <type name="guint32" c:type="guint32*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="responded">
+        <doc xml:space="preserve"
+             filename="../src/efw_protocol.h"
+             line="45">Class closure for the [signal@EfwProtocol::responded] signal.</doc>
+        <source-position filename="../src/efw_protocol.h" line="59"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.h"
+                 line="47">A [iface@EfwProtocol].</doc>
+            <type name="EfwProtocol" c:type="HitakiEfwProtocol*"/>
+          </instance-parameter>
+          <parameter name="version" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.h"
+                 line="48">The version of transaction protocol.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="seqnum" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.h"
+                 line="49">The sequence number of response.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="category" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.h"
+                 line="50">The value of category field in the response.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="command" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.h"
+                 line="51">The value of command field in the response.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="status" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.h"
+                 line="52">The status of response.</doc>
+            <type name="EfwProtocolError" c:type="HitakiEfwProtocolError"/>
+          </parameter>
+          <parameter name="params" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.h"
+                 line="53">The array with quadlet elements
+         of parameters in response of Fireworks protocol.</doc>
+            <array length="6" zero-terminated="0" c:type="const guint32*">
+              <type name="guint32"/>
+            </array>
+          </parameter>
+          <parameter name="param_count" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.h"
+                 line="55">The number of elements of the array.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="transmit_request" throws="1">
+        <doc xml:space="preserve"
+             filename="../src/efw_protocol.h"
+             line="22">Virtual function to transmit the content of request frame to target device.</doc>
+        <source-position filename="../src/efw_protocol.h" line="31"/>
+        <return-value transfer-ownership="none">
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.h"
+                 line="24">A [iface@EfwProtocol].</doc>
+            <type name="EfwProtocol" c:type="HitakiEfwProtocol*"/>
+          </instance-parameter>
+          <parameter name="buffer" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.h"
+                 line="25">The content of request frame for transaction.</doc>
+            <array length="1" zero-terminated="0" c:type="const guint8*">
+              <type name="guint8" c:type="guint8"/>
+            </array>
+          </parameter>
+          <parameter name="length" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.h"
+                 line="26">The length of content.</doc>
+            <type name="gsize" c:type="gsize"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="receive_response"
+              c:identifier="hitaki_efw_protocol_receive_response">
+        <doc xml:space="preserve"
+             filename="../src/efw_protocol.c"
+             line="226">Parse the given buffer for response frame of Fireworks transaction. The buffer should includes
+one response frames at least. It results in [signal@EfwProtocol::responded] per response frame.
+It's expected that the function is used by any implementation of [iface@EfwProtocol].</doc>
+        <source-position filename="../src/efw_protocol.h" line="67"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="228">A [iface@EfwProtocol].</doc>
+            <type name="EfwProtocol" c:type="HitakiEfwProtocol*"/>
+          </instance-parameter>
+          <parameter name="buffer" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="229">The buffer for transaction frames.</doc>
+            <array length="1" zero-terminated="0" c:type="const guint8*">
+              <type name="guint8" c:type="guint8"/>
+            </array>
+          </parameter>
+          <parameter name="length" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="230">The length of buffer.</doc>
+            <type name="gsize" c:type="gsize"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="transaction"
+              c:identifier="hitaki_efw_protocol_transaction"
+              throws="1">
+        <doc xml:space="preserve"
+             filename="../src/efw_protocol.c"
+             line="295">Transfer asynchronous transaction for request frame of Echo Efw protocol and wait for response
+matched to the command. The call results in [signal@EfwProtocol::responded] signal with data of
+response.</doc>
+        <source-position filename="../src/efw_protocol.h" line="69"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/efw_protocol.c"
+               line="316">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="297">A [iface@EfwProtocol].</doc>
+            <type name="EfwProtocol" c:type="HitakiEfwProtocol*"/>
+          </instance-parameter>
+          <parameter name="category" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="298">One of category for the transaction.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="command" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="299">One of commands for the transaction.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="args"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="300">An array with elements for quadlet data as
+       arguments for command.</doc>
+            <array length="3" zero-terminated="0" c:type="const guint32*">
+              <type name="guint32" c:type="guint32"/>
+            </array>
+          </parameter>
+          <parameter name="arg_count" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="302">The number of quadlets in the args array.</doc>
+            <type name="gsize" c:type="gsize"/>
+          </parameter>
+          <parameter name="params"
+                     direction="inout"
+                     caller-allocates="0"
+                     transfer-ownership="full"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="303">An array with elements for quadlet data
+         to save parameters in response. Callers should give it for buffer with enough space
+         against the request since this library performs no reallocation. Due to the reason, the
+         value of this argument should point to the pointer to the array and immutable. The
+         content of array is mutable for parameters in response.</doc>
+            <array length="5" zero-terminated="0" c:type="guint32* const*">
+              <type name="guint32" c:type="guint32*"/>
+            </array>
+          </parameter>
+          <parameter name="param_count"
+                     direction="inout"
+                     caller-allocates="0"
+                     transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="308">The number of quadlets in the params array.</doc>
+            <type name="gsize" c:type="gsize*"/>
+          </parameter>
+          <parameter name="timeout_ms" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="309">The timeout to wait for response.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="transmit_request"
+              c:identifier="hitaki_efw_protocol_transmit_request"
+              throws="1">
+        <doc xml:space="preserve"
+             filename="../src/efw_protocol.c"
+             line="124">Transfer asynchronous transaction for request frame of Fireworks transaction. It calls
+[vfunc@EfwProtocol.transmit_request] internally after composing request frame. It results in
+[signal@EfwProtocol::responded] signal with response parameters when receiving response for the
+transaction.</doc>
+        <source-position filename="../src/efw_protocol.h" line="63"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/efw_protocol.c"
+               line="140">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="126">A [iface@EfwProtocol].</doc>
+            <type name="EfwProtocol" c:type="HitakiEfwProtocol*"/>
+          </instance-parameter>
+          <parameter name="category" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="127">One of category for the transaction.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="command" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="128">One of commands for the transaction.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="args"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="129">An array with elements of quadlet data for
+       arguments of command.</doc>
+            <array length="3" zero-terminated="0" c:type="const guint32*">
+              <type name="guint32" c:type="guint32"/>
+            </array>
+          </parameter>
+          <parameter name="arg_count" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="131">The number of quadlets in the args array.</doc>
+            <type name="gsize" c:type="gsize"/>
+          </parameter>
+          <parameter name="resp_seqnum"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="132">The sequence number to match response.</doc>
+            <type name="guint32" c:type="guint32*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <glib:signal name="responded" when="last" action="1">
+        <doc xml:space="preserve"
+             filename="../src/efw_protocol.c"
+             line="97">Emitted when the unit transfers asynchronous packet as response of Echo Audio Efw
+transaction and the process successfully reads the content of response from ALSA Efw
+driver.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="version" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="100">The version of transaction protocol.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="seqnum" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="101">The sequence number of response.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="category" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="102">The value of category field in the response.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="command" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="103">The value of command field in the response.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="status" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="104">The status of response.</doc>
+            <type name="EfwProtocolError"/>
+          </parameter>
+          <parameter name="params" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="105">The array with quadlet elements
+         of parameters in response of Fireworks protocol.</doc>
+            <array length="6" zero-terminated="0" c:type="gpointer">
+              <type name="guint32"/>
+            </array>
+          </parameter>
+          <parameter name="param_count" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="107">The number of elements of the array.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </interface>
+    <enumeration name="EfwProtocolError"
+                 glib:type-name="HitakiEfwProtocolError"
+                 glib:get-type="hitaki_efw_protocol_error_get_type"
+                 c:type="HitakiEfwProtocolError"
+                 glib:error-domain="hitaki-efw-protocol-error-quark">
+      <doc xml:space="preserve"
+           filename="../src/hitaki_enum_types.h"
+           line="57">The enumerations to report status of response in Fireworks protocol.</doc>
+      <member name="ok"
+              value="0"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_OK"
+              glib:nick="ok"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_OK">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="59">The transaction finished successfully.</doc>
+      </member>
+      <member name="bad"
+              value="1"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_BAD"
+              glib:nick="bad"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="60">The request or response includes invalid header.</doc>
+      </member>
+      <member name="bad_command"
+              value="2"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_BAD_COMMAND"
+              glib:nick="bad-command"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_COMMAND">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="61">The request includes invalid category or command.</doc>
+      </member>
+      <member name="comm_err"
+              value="3"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_COMM_ERR"
+              glib:nick="comm-err"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_COMM_ERR">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="62">The transaction fails due to communication error.</doc>
+      </member>
+      <member name="bad_quad_count"
+              value="4"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_BAD_QUAD_COUNT"
+              glib:nick="bad-quad-count"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_QUAD_COUNT">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="63">The number of quadlets in transaction is invalid.</doc>
+      </member>
+      <member name="unsupported"
+              value="5"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_UNSUPPORTED"
+              glib:nick="unsupported"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_UNSUPPORTED">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="64">The request is not supported.</doc>
+      </member>
+      <member name="timeout"
+              value="6"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_TIMEOUT"
+              glib:nick="timeout"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_TIMEOUT">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="65">The transaction is canceled due to response timeout.</doc>
+      </member>
+      <member name="dsp_timeout"
+              value="7"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_DSP_TIMEOUT"
+              glib:nick="dsp-timeout"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_DSP_TIMEOUT">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="66">The operation for DSP did not finish within timeout.</doc>
+      </member>
+      <member name="bad_rate"
+              value="8"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_BAD_RATE"
+              glib:nick="bad-rate"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_RATE">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="67">The request includes invalid value for sampling frequency.</doc>
+      </member>
+      <member name="bad_clock"
+              value="9"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_BAD_CLOCK"
+              glib:nick="bad-clock"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_CLOCK">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="68">The request includes invalid value for source of clock.</doc>
+      </member>
+      <member name="bad_channel"
+              value="10"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_BAD_CHANNEL"
+              glib:nick="bad-channel"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_CHANNEL">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="69">The request includes invalid value for the number of channel.</doc>
+      </member>
+      <member name="bad_pan"
+              value="11"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_BAD_PAN"
+              glib:nick="bad-pan"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_PAN">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="70">The request includes invalid value for panning.</doc>
+      </member>
+      <member name="flash_busy"
+              value="12"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_FLASH_BUSY"
+              glib:nick="flash-busy"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_FLASH_BUSY">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="71">The on-board flash is busy and not operable.</doc>
+      </member>
+      <member name="bad_mirror"
+              value="13"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_BAD_MIRROR"
+              glib:nick="bad-mirror"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_MIRROR">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="72">The request includes invalid value for mirroring channel.</doc>
+      </member>
+      <member name="bad_led"
+              value="14"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_BAD_LED"
+              glib:nick="bad-led"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_LED">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="73">The request includes invalid value for LED.</doc>
+      </member>
+      <member name="bad_parameter"
+              value="15"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_BAD_PARAMETER"
+              glib:nick="bad-parameter"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_PARAMETER">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="74">The request includes invalid value of parameter.</doc>
+      </member>
+      <member name="incomplete"
+              value="-2147483648"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_INCOMPLETE"
+              glib:nick="incomplete"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_INCOMPLETE">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="75">The transaction finishes incompletely.</doc>
+      </member>
+      <member name="invalid"
+              value="-1"
+              c:identifier="HITAKI_EFW_PROTOCOL_ERROR_INVALID"
+              glib:nick="invalid"
+              glib:name="HITAKI_EFW_PROTOCOL_ERROR_INVALID">
+        <doc xml:space="preserve"
+             filename="../src/hitaki_enum_types.h"
+             line="76">The transaction finished with invalid condition.</doc>
+      </member>
+      <function name="quark" c:identifier="hitaki_efw_protocol_error_quark">
+        <doc xml:space="preserve"
+             filename="../src/efw_protocol.c"
+             line="20">Return the [alias@GLib.Quark] for [struct@GLib.Error] with code in Hitaki.EfwProtocolError
+enumerations.</doc>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/efw_protocol.c"
+               line="26">A [alias@GLib.Quark].</doc>
+          <type name="GLib.Quark" c:type="GQuark"/>
+        </return-value>
+      </function>
+      <function name="to_label"
+                c:identifier="hitaki_efw_protocol_error_to_label">
+        <doc xml:space="preserve"
+             filename="../src/efw_protocol.c"
+             line="38">Retrieve the string label of error.</doc>
+        <source-position filename="../src/efw_protocol.h" line="17"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="code" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="40">A Hitaki.EfwProtocolError.</doc>
+            <type name="EfwProtocolError" c:type="HitakiEfwProtocolError"/>
+          </parameter>
+          <parameter name="label"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/efw_protocol.c"
+                 line="41">The string label of error.</doc>
+            <type name="utf8" c:type="const char**"/>
+          </parameter>
+        </parameters>
+      </function>
+    </enumeration>
+    <record name="EfwProtocolInterface"
+            c:type="HitakiEfwProtocolInterface"
+            glib:is-gtype-struct-for="EfwProtocol">
+      <source-position filename="../src/efw_protocol.h" line="61"/>
+      <field name="iface">
+        <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
+      </field>
+      <field name="transmit_request">
+        <callback name="transmit_request" throws="1">
+          <source-position filename="../src/efw_protocol.h" line="31"/>
+          <return-value transfer-ownership="none">
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/efw_protocol.h"
+                   line="24">A [iface@EfwProtocol].</doc>
+              <type name="EfwProtocol" c:type="HitakiEfwProtocol*"/>
+            </parameter>
+            <parameter name="buffer" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/efw_protocol.h"
+                   line="25">The content of request frame for transaction.</doc>
+              <array length="2" zero-terminated="0" c:type="const guint8*">
+                <type name="guint8" c:type="guint8"/>
+              </array>
+            </parameter>
+            <parameter name="length" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/efw_protocol.h"
+                   line="26">The length of content.</doc>
+              <type name="gsize" c:type="gsize"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="get_seqnum">
+        <callback name="get_seqnum">
+          <source-position filename="../src/efw_protocol.h" line="43"/>
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/efw_protocol.h"
+                   line="36">A [iface@EfwProtocol].</doc>
+              <type name="EfwProtocol" c:type="HitakiEfwProtocol*"/>
+            </parameter>
+            <parameter name="seqnum"
+                       direction="out"
+                       caller-allocates="0"
+                       transfer-ownership="full">
+              <doc xml:space="preserve"
+                   filename="../src/efw_protocol.h"
+                   line="37">The sequence number for request frame of transaction.</doc>
+              <type name="guint32" c:type="guint32*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="responded">
+        <callback name="responded">
+          <source-position filename="../src/efw_protocol.h" line="59"/>
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/efw_protocol.h"
+                   line="47">A [iface@EfwProtocol].</doc>
+              <type name="EfwProtocol" c:type="HitakiEfwProtocol*"/>
+            </parameter>
+            <parameter name="version" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/efw_protocol.h"
+                   line="48">The version of transaction protocol.</doc>
+              <type name="guint" c:type="guint"/>
+            </parameter>
+            <parameter name="seqnum" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/efw_protocol.h"
+                   line="49">The sequence number of response.</doc>
+              <type name="guint" c:type="guint"/>
+            </parameter>
+            <parameter name="category" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/efw_protocol.h"
+                   line="50">The value of category field in the response.</doc>
+              <type name="guint" c:type="guint"/>
+            </parameter>
+            <parameter name="command" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/efw_protocol.h"
+                   line="51">The value of command field in the response.</doc>
+              <type name="guint" c:type="guint"/>
+            </parameter>
+            <parameter name="status" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/efw_protocol.h"
+                   line="52">The status of response.</doc>
+              <type name="EfwProtocolError" c:type="HitakiEfwProtocolError"/>
+            </parameter>
+            <parameter name="params" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/efw_protocol.h"
+                   line="53">The array with quadlet elements
+         of parameters in response of Fireworks protocol.</doc>
+              <array length="7" zero-terminated="0" c:type="const guint32*">
+                <type name="guint32"/>
+              </array>
+            </parameter>
+            <parameter name="param_count" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/efw_protocol.h"
+                   line="55">The number of elements of the array.</doc>
+              <type name="guint" c:type="guint"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <interface name="MotuCommandDsp"
+               c:symbol-prefix="motu_command_dsp"
+               c:type="HitakiMotuCommandDsp"
+               glib:type-name="HitakiMotuCommandDsp"
+               glib:get-type="hitaki_motu_command_dsp_get_type"
+               glib:type-struct="MotuCommandDspInterface">
+      <doc xml:space="preserve"
+           filename="../src/motu_command_dsp.c"
+           line="4">An interface for protocol of command DSP model in MOTU FireWire series.
+The command DSP models in Mark of the Unicorn (MOTU) FireWire series transfer isochronous
+packets to deliver PCM frames and MIDI messages as well as metering information. The
+[iface@MotuCommandDsp] is an object interface for the metering information in the command DSP
+protocol.</doc>
+      <source-position filename="../src/motu_command_dsp.h" line="29"/>
+      <virtual-method name="read_float_meter"
+                      invoker="read_float_meter"
+                      throws="1">
+        <doc xml:space="preserve"
+             filename="../src/motu_command_dsp.c"
+             line="20">Read cached data of meter information for command DSP models.</doc>
+        <source-position filename="../src/motu_command_dsp.h" line="27"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/motu_command_dsp.c"
+               line="29">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/motu_command_dsp.c"
+                 line="22">A [iface@MotuCommandDsp]</doc>
+            <type name="MotuCommandDsp" c:type="HitakiMotuCommandDsp*"/>
+          </instance-parameter>
+          <parameter name="meter"
+                     direction="inout"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/motu_command_dsp.c"
+                 line="23">The data for meter.</doc>
+            <array zero-terminated="0"
+                   c:type="gfloat* const*"
+                   fixed-size="400">
+              <type name="gfloat" c:type="gfloat"/>
+            </array>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="read_float_meter"
+              c:identifier="hitaki_motu_command_dsp_read_float_meter"
+              throws="1">
+        <doc xml:space="preserve"
+             filename="../src/motu_command_dsp.c"
+             line="20">Read cached data of meter information for command DSP models.</doc>
+        <source-position filename="../src/motu_command_dsp.h" line="31"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/motu_command_dsp.c"
+               line="29">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/motu_command_dsp.c"
+                 line="22">A [iface@MotuCommandDsp]</doc>
+            <type name="MotuCommandDsp" c:type="HitakiMotuCommandDsp*"/>
+          </instance-parameter>
+          <parameter name="meter"
+                     direction="inout"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/motu_command_dsp.c"
+                 line="23">The data for meter.</doc>
+            <array zero-terminated="0"
+                   c:type="gfloat* const*"
+                   fixed-size="400">
+              <type name="gfloat" c:type="gfloat"/>
+            </array>
+          </parameter>
+        </parameters>
+      </method>
+    </interface>
+    <record name="MotuCommandDspInterface"
+            c:type="HitakiMotuCommandDspInterface"
+            glib:is-gtype-struct-for="MotuCommandDsp">
+      <source-position filename="../src/motu_command_dsp.h" line="29"/>
+      <field name="iface">
+        <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
+      </field>
+      <field name="read_float_meter">
+        <callback name="read_float_meter" throws="1">
+          <source-position filename="../src/motu_command_dsp.h" line="27"/>
+          <return-value transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/motu_command_dsp.c"
+                 line="29">TRUE if the overall operation finished successfully, else FALSE.</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/motu_command_dsp.c"
+                   line="22">A [iface@MotuCommandDsp]</doc>
+              <type name="MotuCommandDsp" c:type="HitakiMotuCommandDsp*"/>
+            </parameter>
+            <parameter name="meter"
+                       direction="inout"
+                       caller-allocates="0"
+                       transfer-ownership="full">
+              <doc xml:space="preserve"
+                   filename="../src/motu_command_dsp.c"
+                   line="23">The data for meter.</doc>
+              <array zero-terminated="0"
+                     c:type="gfloat* const*"
+                     fixed-size="400">
+                <type name="gfloat" c:type="gfloat"/>
+              </array>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <interface name="MotuRegisterDsp"
+               c:symbol-prefix="motu_register_dsp"
+               c:type="HitakiMotuRegisterDsp"
+               glib:type-name="HitakiMotuRegisterDsp"
+               glib:get-type="hitaki_motu_register_dsp_get_type"
+               glib:type-struct="MotuRegisterDspInterface">
+      <doc xml:space="preserve"
+           filename="../src/motu_register_dsp.c"
+           line="4">An interface for protocol of register DSP models in MOTU FireWire series.
+The register DSP models in Mark of the Unicorn (MOTU) FireWire series transfer isochronous
+packets to delivers PCM frames and MIDI messages as well as DSP parameters and metering
+information. The [iface@MotuRegisterDsp] is an object interface for the parameters and
+metering information in the register DSP protocol.</doc>
+      <source-position filename="../src/motu_register_dsp.h" line="55"/>
+      <virtual-method name="changed">
+        <doc xml:space="preserve"
+             filename="../src/motu_register_dsp.h"
+             line="45">Class closure for the [signal@MotuRegisterDsp::changed] signal.</doc>
+        <source-position filename="../src/motu_register_dsp.h" line="54"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/motu_register_dsp.h"
+                 line="47">A [iface@MotuRegisterDsp]</doc>
+            <type name="MotuRegisterDsp" c:type="HitakiMotuRegisterDsp*"/>
+          </instance-parameter>
+          <parameter name="events" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/motu_register_dsp.h"
+                 line="48">The array with element for unsigned
+         32 bit encoded data.</doc>
+            <array length="1" zero-terminated="0" c:type="const guint32*">
+              <type name="guint32"/>
+            </array>
+          </parameter>
+          <parameter name="length" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/motu_register_dsp.h"
+                 line="50">The length of events.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="read_byte_meter"
+                      invoker="read_byte_meter"
+                      throws="1">
+        <doc xml:space="preserve"
+             filename="../src/motu_register_dsp.c"
+             line="62">Read cached data of meter information for register DSP models.</doc>
+        <source-position filename="../src/motu_register_dsp.h" line="42"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/motu_register_dsp.c"
+               line="72">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/motu_register_dsp.c"
+                 line="64">A [iface@MotuRegisterDsp]</doc>
+            <type name="MotuRegisterDsp" c:type="HitakiMotuRegisterDsp*"/>
+          </instance-parameter>
+          <parameter name="meter"
+                     direction="inout"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/motu_register_dsp.c"
+                 line="65">The data of meter. Index 0 to 23 for inputs and index 24
+        to 47 for outputs.</doc>
+            <array zero-terminated="0" c:type="guint8* const*" fixed-size="48">
+              <type name="guint8" c:type="guint8"/>
+            </array>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="read_parameter"
+                      invoker="read_parameter"
+                      throws="1">
+        <doc xml:space="preserve"
+             filename="../src/motu_register_dsp.c"
+             line="40">Read cached parameter for register DSP models.</doc>
+        <source-position filename="../src/motu_register_dsp.h" line="27"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/motu_register_dsp.c"
+               line="49">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/motu_register_dsp.c"
+                 line="42">A [iface@MotuRegisterDsp].</doc>
+            <type name="MotuRegisterDsp" c:type="HitakiMotuRegisterDsp*"/>
+          </instance-parameter>
+          <parameter name="param"
+                     direction="inout"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/motu_register_dsp.c"
+                 line="43">A [struct@SndMotuRegisterDspParameter].</doc>
+            <type name="SndMotuRegisterDspParameter"
+                  c:type="HitakiSndMotuRegisterDspParameter* const*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="read_byte_meter"
+              c:identifier="hitaki_motu_register_dsp_read_byte_meter"
+              throws="1">
+        <doc xml:space="preserve"
+             filename="../src/motu_register_dsp.c"
+             line="62">Read cached data of meter information for register DSP models.</doc>
+        <source-position filename="../src/motu_register_dsp.h" line="61"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/motu_register_dsp.c"
+               line="72">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/motu_register_dsp.c"
+                 line="64">A [iface@MotuRegisterDsp]</doc>
+            <type name="MotuRegisterDsp" c:type="HitakiMotuRegisterDsp*"/>
+          </instance-parameter>
+          <parameter name="meter"
+                     direction="inout"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/motu_register_dsp.c"
+                 line="65">The data of meter. Index 0 to 23 for inputs and index 24
+        to 47 for outputs.</doc>
+            <array zero-terminated="0" c:type="guint8* const*" fixed-size="48">
+              <type name="guint8" c:type="guint8"/>
+            </array>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="read_parameter"
+              c:identifier="hitaki_motu_register_dsp_read_parameter"
+              throws="1">
+        <doc xml:space="preserve"
+             filename="../src/motu_register_dsp.c"
+             line="40">Read cached parameter for register DSP models.</doc>
+        <source-position filename="../src/motu_register_dsp.h" line="57"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/motu_register_dsp.c"
+               line="49">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/motu_register_dsp.c"
+                 line="42">A [iface@MotuRegisterDsp].</doc>
+            <type name="MotuRegisterDsp" c:type="HitakiMotuRegisterDsp*"/>
+          </instance-parameter>
+          <parameter name="param"
+                     direction="inout"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/motu_register_dsp.c"
+                 line="43">A [struct@SndMotuRegisterDspParameter].</doc>
+            <type name="SndMotuRegisterDspParameter"
+                  c:type="HitakiSndMotuRegisterDspParameter* const*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <glib:signal name="changed" when="last" action="1">
+        <doc xml:space="preserve"
+             filename="../src/motu_register_dsp.c"
+             line="17">Emitted when MOTU register DSP models transfer events by messages in the sequence of
+isochronous packet. The event consists of encoded data. The most significant byte is the
+type of message. The next two bytes are two identifiers. The least significant byte is
+value. The meaning of identifier 0, 1 and value is decided depending on the type. For
+detail, see `sound/firewire/motu/motu-register-dsp-message-parser.c` in Linux kernel.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="events" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/motu_register_dsp.c"
+                 line="20">The array with element for unsigned
+         32 bit encoded data.</doc>
+            <array length="1" zero-terminated="0" c:type="gpointer">
+              <type name="guint32"/>
+            </array>
+          </parameter>
+          <parameter name="length" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/motu_register_dsp.c"
+                 line="22">The length of events.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </interface>
+    <record name="MotuRegisterDspInterface"
+            c:type="HitakiMotuRegisterDspInterface"
+            glib:is-gtype-struct-for="MotuRegisterDsp">
+      <source-position filename="../src/motu_register_dsp.h" line="55"/>
+      <field name="iface">
+        <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
+      </field>
+      <field name="read_parameter">
+        <callback name="read_parameter" throws="1">
+          <source-position filename="../src/motu_register_dsp.h" line="27"/>
+          <return-value transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/motu_register_dsp.c"
+                 line="49">TRUE if the overall operation finished successfully, else FALSE.</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/motu_register_dsp.c"
+                   line="42">A [iface@MotuRegisterDsp].</doc>
+              <type name="MotuRegisterDsp" c:type="HitakiMotuRegisterDsp*"/>
+            </parameter>
+            <parameter name="param"
+                       direction="inout"
+                       caller-allocates="0"
+                       transfer-ownership="full">
+              <doc xml:space="preserve"
+                   filename="../src/motu_register_dsp.c"
+                   line="43">A [struct@SndMotuRegisterDspParameter].</doc>
+              <type name="SndMotuRegisterDspParameter"
+                    c:type="HitakiSndMotuRegisterDspParameter* const*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="read_byte_meter">
+        <callback name="read_byte_meter" throws="1">
+          <source-position filename="../src/motu_register_dsp.h" line="42"/>
+          <return-value transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/motu_register_dsp.c"
+                 line="72">TRUE if the overall operation finished successfully, else FALSE.</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/motu_register_dsp.c"
+                   line="64">A [iface@MotuRegisterDsp]</doc>
+              <type name="MotuRegisterDsp" c:type="HitakiMotuRegisterDsp*"/>
+            </parameter>
+            <parameter name="meter"
+                       direction="inout"
+                       caller-allocates="0"
+                       transfer-ownership="full">
+              <doc xml:space="preserve"
+                   filename="../src/motu_register_dsp.c"
+                   line="65">The data of meter. Index 0 to 23 for inputs and index 24
+        to 47 for outputs.</doc>
+              <array zero-terminated="0"
+                     c:type="guint8* const*"
+                     fixed-size="48">
+                <type name="guint8" c:type="guint8"/>
+              </array>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="changed">
+        <callback name="changed">
+          <source-position filename="../src/motu_register_dsp.h" line="54"/>
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/motu_register_dsp.h"
+                   line="47">A [iface@MotuRegisterDsp]</doc>
+              <type name="MotuRegisterDsp" c:type="HitakiMotuRegisterDsp*"/>
+            </parameter>
+            <parameter name="events" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/motu_register_dsp.h"
+                   line="48">The array with element for unsigned
+         32 bit encoded data.</doc>
+              <array length="2" zero-terminated="0" c:type="const guint32*">
+                <type name="guint32"/>
+              </array>
+            </parameter>
+            <parameter name="length" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/motu_register_dsp.h"
+                   line="50">The length of events.</doc>
+              <type name="guint" c:type="guint"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <interface name="QuadletNotification"
+               c:symbol-prefix="quadlet_notification"
+               c:type="HitakiQuadletNotification"
+               glib:type-name="HitakiQuadletNotification"
+               glib:get-type="hitaki_quadlet_notification_get_type"
+               glib:type-struct="QuadletNotificationInterface">
+      <doc xml:space="preserve"
+           filename="../src/quadlet_notification.c"
+           line="4">An interface to operate notification with quadlet message.
+Some of units supported by drivers in ALSA firewire stack have the function to notify quadlet
+message for specific purposes. The [iface@QuadletNotification] is an interface to operate
+the notification.</doc>
+      <source-position filename="../src/quadlet_notification.h" line="24"/>
+      <virtual-method name="notified">
+        <doc xml:space="preserve"
+             filename="../src/quadlet_notification.h"
+             line="16">Class closure for the [signal@QuadletNotification::notified] signal.</doc>
+        <source-position filename="../src/quadlet_notification.h" line="23"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/quadlet_notification.h"
+                 line="18">A [iface@QuadletNotification]</doc>
+            <type name="QuadletNotification"
+                  c:type="HitakiQuadletNotification*"/>
+          </instance-parameter>
+          <parameter name="message" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/quadlet_notification.h"
+                 line="19">A quadlet message in notification.</doc>
+            <type name="guint32" c:type="guint32"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <glib:signal name="notified" when="last" action="1">
+        <doc xml:space="preserve"
+             filename="../src/quadlet_notification.c"
+             line="16">Emitted when the target unit transfers notification.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="message" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/quadlet_notification.c"
+                 line="19">A quadlet message in notification.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </interface>
+    <record name="QuadletNotificationInterface"
+            c:type="HitakiQuadletNotificationInterface"
+            glib:is-gtype-struct-for="QuadletNotification">
+      <source-position filename="../src/quadlet_notification.h" line="24"/>
+      <field name="iface">
+        <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
+      </field>
+      <field name="notified">
+        <callback name="notified">
+          <source-position filename="../src/quadlet_notification.h" line="23"/>
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/quadlet_notification.h"
+                   line="18">A [iface@QuadletNotification]</doc>
+              <type name="QuadletNotification"
+                    c:type="HitakiQuadletNotification*"/>
+            </parameter>
+            <parameter name="message" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/quadlet_notification.h"
+                   line="19">A quadlet message in notification.</doc>
+              <type name="guint32" c:type="guint32"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <class name="SndDice"
+           c:symbol-prefix="snd_dice"
+           c:type="HitakiSndDice"
+           parent="GObject.Object"
+           glib:type-name="HitakiSndDice"
+           glib:get-type="hitaki_snd_dice_get_type"
+           glib:type-struct="SndDiceClass">
+      <doc xml:space="preserve"
+           filename="../src/snd_dice.c"
+           line="4">A GObject-derived object for sound unit of TCAT DICE ASICs.
+The [class@SndDice] is object class derived from [class@GObject.Object] for sound unit of TCAT
+DICE ASICs supported by ALSA dice driver (`snd-dice`).</doc>
+      <source-position filename="../src/snd_dice.h" line="15"/>
+      <implements name="AlsaFirewire"/>
+      <implements name="QuadletNotification"/>
+      <constructor name="new" c:identifier="hitaki_snd_dice_new">
+        <doc xml:space="preserve"
+             filename="../src/snd_dice.c"
+             line="155">Instantiate [class@SndDice] object and return the instance.</doc>
+        <source-position filename="../src/snd_dice.h" line="17"/>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve"
+               filename="../src/snd_dice.c"
+               line="160">an instance of [class@SndDice].</doc>
+          <type name="SndDice" c:type="HitakiSndDice*"/>
+        </return-value>
+      </constructor>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+    </class>
+    <record name="SndDiceClass"
+            c:type="HitakiSndDiceClass"
+            glib:is-gtype-struct-for="SndDice">
+      <source-position filename="../src/snd_dice.h" line="15"/>
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <class name="SndDigi00x"
+           c:symbol-prefix="snd_digi00x"
+           c:type="HitakiSndDigi00x"
+           parent="GObject.Object"
+           glib:type-name="HitakiSndDigi00x"
+           glib:get-type="hitaki_snd_digi00x_get_type"
+           glib:type-struct="SndDigi00xClass">
+      <doc xml:space="preserve"
+           filename="../src/snd_digi00x.c"
+           line="4">A GObject-derived object for sound unit of Digidesign Digi00x family.
+The [class@SndDigi00x] is an object class derived from [class@GObject.Object] for sound unit of
+Digidesign Digi00x family supported by ALSA firewire-digi00x driver (`snd-firewire-digi00x`).</doc>
+      <source-position filename="../src/snd_digi00x.h" line="15"/>
+      <implements name="AlsaFirewire"/>
+      <implements name="QuadletNotification"/>
+      <constructor name="new" c:identifier="hitaki_snd_digi00x_new">
+        <doc xml:space="preserve"
+             filename="../src/snd_digi00x.c"
+             line="155">Instantiate [class@SndDigi00x] object and return the instance.</doc>
+        <source-position filename="../src/snd_digi00x.h" line="17"/>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve"
+               filename="../src/snd_digi00x.c"
+               line="160">an instance of [class@SndDigi00x].</doc>
+          <type name="SndDigi00x" c:type="HitakiSndDigi00x*"/>
+        </return-value>
+      </constructor>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+    </class>
+    <record name="SndDigi00xClass"
+            c:type="HitakiSndDigi00xClass"
+            glib:is-gtype-struct-for="SndDigi00x">
+      <source-position filename="../src/snd_digi00x.h" line="15"/>
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <class name="SndEfw"
+           c:symbol-prefix="snd_efw"
+           c:type="HitakiSndEfw"
+           parent="GObject.Object"
+           glib:type-name="HitakiSndEfw"
+           glib:get-type="hitaki_snd_efw_get_type"
+           glib:type-struct="SndEfwClass">
+      <doc xml:space="preserve"
+           filename="../src/snd_efw.c"
+           line="7">A GObject-derived object for sound unit of Echo Audio Fireworks.
+The [class@SndEfw] is an object class derived from [class@GObject.Object] with protocol
+implementation for Echo Audio Fireworks devices supported by ALSA fireworks driver
+(`snd-fireworks`).</doc>
+      <source-position filename="../src/snd_efw.h" line="15"/>
+      <implements name="AlsaFirewire"/>
+      <implements name="EfwProtocol"/>
+      <constructor name="new" c:identifier="hitaki_snd_efw_new">
+        <doc xml:space="preserve"
+             filename="../src/snd_efw.c"
+             line="223">Instantiate [class@SndEfw] object and return it.</doc>
+        <source-position filename="../src/snd_efw.h" line="17"/>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve"
+               filename="../src/snd_efw.c"
+               line="228">an instance of [class@SndEfw].</doc>
+          <type name="SndEfw" c:type="HitakiSndEfw*"/>
+        </return-value>
+      </constructor>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+    </class>
+    <record name="SndEfwClass"
+            c:type="HitakiSndEfwClass"
+            glib:is-gtype-struct-for="SndEfw">
+      <source-position filename="../src/snd_efw.h" line="15"/>
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <class name="SndMotu"
+           c:symbol-prefix="snd_motu"
+           c:type="HitakiSndMotu"
+           parent="GObject.Object"
+           glib:type-name="HitakiSndMotu"
+           glib:get-type="hitaki_snd_motu_get_type"
+           glib:type-struct="SndMotuClass">
+      <doc xml:space="preserve"
+           filename="../src/snd_motu.c"
+           line="4">A GObject-derived object for sound unit of MOTU FireWire series.
+The [class@SndMotu] is an object class derived from [class@GObject.Object] with protocol
+implementation for Mark of the Unicorn (MOTU) FireWire series supported by ALSA firewire-motu
+driver (`snd-firewire-motu`).</doc>
+      <source-position filename="../src/snd_motu.h" line="15"/>
+      <implements name="AlsaFirewire"/>
+      <implements name="MotuCommandDsp"/>
+      <implements name="MotuRegisterDsp"/>
+      <implements name="QuadletNotification"/>
+      <constructor name="new" c:identifier="hitaki_snd_motu_new">
+        <doc xml:space="preserve"
+             filename="../src/snd_motu.c"
+             line="251">Instantiate [class@SndMotu] object and return the instance.</doc>
+        <source-position filename="../src/snd_motu.h" line="17"/>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve"
+               filename="../src/snd_motu.c"
+               line="256">an instance of [class@SndMotu].</doc>
+          <type name="SndMotu" c:type="HitakiSndMotu*"/>
+        </return-value>
+      </constructor>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+    </class>
+    <record name="SndMotuClass"
+            c:type="HitakiSndMotuClass"
+            glib:is-gtype-struct-for="SndMotu">
+      <source-position filename="../src/snd_motu.h" line="15"/>
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <record name="SndMotuRegisterDspParameter"
+            c:type="HitakiSndMotuRegisterDspParameter"
+            glib:type-name="HitakiSndMotuRegisterDspParameter"
+            glib:get-type="hitaki_snd_motu_register_dsp_parameter_get_type"
+            c:symbol-prefix="snd_motu_register_dsp_parameter">
+      <doc xml:space="preserve"
+           filename="../src/snd_motu_register_dsp_parameter.c"
+           line="4">A boxed object for parameters in MOTU register DSP model.
+A [struct@SndMotuRegisterDspParameter] is a boxed object for container of parameter in register
+DSP model of Mark of the Unicorn (MOTU) FireWire series.</doc>
+      <source-position filename="../src/snd_motu_register_dsp_parameter.h"
+                       line="16"/>
+      <field name="reserved" readable="0" private="1">
+        <array zero-terminated="0" fixed-size="512">
+          <type name="guint8" c:type="guint8"/>
+        </array>
+      </field>
+      <constructor name="new"
+                   c:identifier="hitaki_snd_motu_register_dsp_parameter_new">
+        <doc xml:space="preserve"
+             filename="../src/snd_motu_register_dsp_parameter.c"
+             line="26">Instantiate [struct@SndMotuRegisterDspParameter] object and return the instance.</doc>
+        <source-position filename="../src/snd_motu_register_dsp_parameter.h"
+                         line="20"/>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve"
+               filename="../src/snd_motu_register_dsp_parameter.c"
+               line="31">an instance of [struct@SndMotuRegisterDspParameter].</doc>
+          <type name="SndMotuRegisterDspParameter"
+                c:type="HitakiSndMotuRegisterDspParameter*"/>
+        </return-value>
+      </constructor>
+      <method name="get_headphone_output_paired_assignment"
+              c:identifier="hitaki_snd_motu_register_dsp_parameter_get_headphone_output_paired_assignment">
+        <doc xml:space="preserve"
+             filename="../src/snd_motu_register_dsp_parameter.c"
+             line="241">Get the array with elements for the data of paired headphone output source. The data has index
+value of source.</doc>
+        <source-position filename="../src/snd_motu_register_dsp_parameter.h"
+                         line="49"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="243">A [struct@SndMotuRegisterDspParameter].</doc>
+            <type name="SndMotuRegisterDspParameter"
+                  c:type="const HitakiSndMotuRegisterDspParameter*"/>
+          </instance-parameter>
+          <parameter name="assignment"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="244">The value of paired headphone assignment.</doc>
+            <type name="guint8" c:type="guint8*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_headphone_output_paired_volume"
+              c:identifier="hitaki_snd_motu_register_dsp_parameter_get_headphone_output_paired_volume">
+        <doc xml:space="preserve"
+             filename="../src/snd_motu_register_dsp_parameter.c"
+             line="221">Get the array with elements for the data of paired headphone output volume. The data has volume
+value between 0x00 and 0x80.</doc>
+        <source-position filename="../src/snd_motu_register_dsp_parameter.h"
+                         line="46"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="223">A [struct@SndMotuRegisterDspParameter].</doc>
+            <type name="SndMotuRegisterDspParameter"
+                  c:type="const HitakiSndMotuRegisterDspParameter*"/>
+          </instance-parameter>
+          <parameter name="volume"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="224">The value of paired headphone output.</doc>
+            <type name="guint8" c:type="guint8*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_input_flag"
+              c:identifier="hitaki_snd_motu_register_dsp_parameter_get_input_flag">
+        <doc xml:space="preserve"
+             filename="../src/snd_motu_register_dsp_parameter.c"
+             line="330">Get the array with elements for the data of input flags. The data consists of bit flags below:
+
+- 0x01: whether to make paired input
+- 0x02: whether to enable phantom powering
+- 0x04: whether to enable attenuation pad
+- 0x08: whether to detect plug insert to jack</doc>
+        <source-position filename="../src/snd_motu_register_dsp_parameter.h"
+                         line="61"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="332">A [struct@SndMotuRegisterDspParameter].</doc>
+            <type name="SndMotuRegisterDspParameter"
+                  c:type="const HitakiSndMotuRegisterDspParameter*"/>
+          </instance-parameter>
+          <parameter name="flag"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="333">The array with elements for the data of input
+       flags.</doc>
+            <array zero-terminated="0" c:type="const guint8**" fixed-size="10">
+              <type name="guint8" c:type="guint8"/>
+            </array>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_input_gain_and_invert"
+              c:identifier="hitaki_snd_motu_register_dsp_parameter_get_input_gain_and_invert">
+        <doc xml:space="preserve"
+             filename="../src/snd_motu_register_dsp_parameter.c"
+             line="302">Get the array with elements for input gain and invert flags. The interpretation of data is
+different in below two groups:
+
+- Ultralite
+    - 0x1f: the gain.
+    - 0x20: whether to invert phase of the input
+- Audio Express and 4 pre
+    - 0x3f: the gain
+    - 0x40: whether to invert phase of the input</doc>
+        <source-position filename="../src/snd_motu_register_dsp_parameter.h"
+                         line="58"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="304">A [struct@SndMotuRegisterDspParameter].</doc>
+            <type name="SndMotuRegisterDspParameter"
+                  c:type="const HitakiSndMotuRegisterDspParameter*"/>
+          </instance-parameter>
+          <parameter name="gain_and_invert"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="305">The array with elements for the data
+                  of input gain and invert flags.</doc>
+            <array zero-terminated="0" c:type="const guint8**" fixed-size="10">
+              <type name="guint8" c:type="guint8"/>
+            </array>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_line_input_boost_flag"
+              c:identifier="hitaki_snd_motu_register_dsp_parameter_get_line_input_boost_flag">
+        <doc xml:space="preserve"
+             filename="../src/snd_motu_register_dsp_parameter.c"
+             line="261">Get the data for flags of line input boost. The data consists of bit flags for corresponding line
+input channel. When the flag stands, the input is boosted.</doc>
+        <source-position filename="../src/snd_motu_register_dsp_parameter.h"
+                         line="52"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="263">A [struct@SndMotuRegisterDspParameter].</doc>
+            <type name="SndMotuRegisterDspParameter"
+                  c:type="const HitakiSndMotuRegisterDspParameter*"/>
+          </instance-parameter>
+          <parameter name="boost_flag"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="264">The flag of boost for line input.</doc>
+            <type name="guint8" c:type="guint8*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_line_input_nominal_level_flag"
+              c:identifier="hitaki_snd_motu_register_dsp_parameter_get_line_input_nominal_level_flag">
+        <doc xml:space="preserve"
+             filename="../src/snd_motu_register_dsp_parameter.c"
+             line="281">Get the data for flags of line input nominal level. The data consists of bit flags for
+corresponding line input channel. When the flag stands, the nominal level of input is +4 dBu,
+else -10 dBV.</doc>
+        <source-position filename="../src/snd_motu_register_dsp_parameter.h"
+                         line="55"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="283">A [struct@SndMotuRegisterDspParameter].</doc>
+            <type name="SndMotuRegisterDspParameter"
+                  c:type="const HitakiSndMotuRegisterDspParameter*"/>
+          </instance-parameter>
+          <parameter name="nominal_level_flag"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="284">The flag of boost for line input.</doc>
+            <type name="guint8" c:type="guint8*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_main_output_paired_volume"
+              c:identifier="hitaki_snd_motu_register_dsp_parameter_get_main_output_paired_volume">
+        <doc xml:space="preserve"
+             filename="../src/snd_motu_register_dsp_parameter.c"
+             line="201">Get the array with elements for the data of paired main output volume. The data has volume value
+between 0x00 and 0x80.</doc>
+        <source-position filename="../src/snd_motu_register_dsp_parameter.h"
+                         line="43"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="203">A [struct@SndMotuRegisterDspParameter].</doc>
+            <type name="SndMotuRegisterDspParameter"
+                  c:type="const HitakiSndMotuRegisterDspParameter*"/>
+          </instance-parameter>
+          <parameter name="volume"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="204">The value of paired main output.</doc>
+            <type name="guint8" c:type="guint8*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_mixer_output_paired_flag"
+              c:identifier="hitaki_snd_motu_register_dsp_parameter_get_mixer_output_paired_flag">
+        <doc xml:space="preserve"
+             filename="../src/snd_motu_register_dsp_parameter.c"
+             line="177">Get the array with elements for the data of paired output flags in indicated mixer. The data
+consists of bit flags and masks below:
+
+ - 0x0f: the mask for destination of paired output
+ - 0x10: whether to enable mute for paired output</doc>
+        <source-position filename="../src/snd_motu_register_dsp_parameter.h"
+                         line="40"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="179">A [struct@SndMotuRegisterDspParameter].</doc>
+            <type name="SndMotuRegisterDspParameter"
+                  c:type="const HitakiSndMotuRegisterDspParameter*"/>
+          </instance-parameter>
+          <parameter name="flag"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="180">The array with elements for the data of paired
+       output flag.</doc>
+            <array zero-terminated="0" c:type="const guint8**" fixed-size="4">
+              <type name="guint8" c:type="guint8"/>
+            </array>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_mixer_output_paired_volume"
+              c:identifier="hitaki_snd_motu_register_dsp_parameter_get_mixer_output_paired_volume">
+        <doc xml:space="preserve"
+             filename="../src/snd_motu_register_dsp_parameter.c"
+             line="156">Get the array with elements for the data of paired output volume in indicated mixer. The data
+has gain value between 0x00 and 0x80.</doc>
+        <source-position filename="../src/snd_motu_register_dsp_parameter.h"
+                         line="37"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="158">A [struct@SndMotuRegisterDspParameter].</doc>
+            <type name="SndMotuRegisterDspParameter"
+                  c:type="const HitakiSndMotuRegisterDspParameter*"/>
+          </instance-parameter>
+          <parameter name="volume"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="159">The array with elements for the data of
+          paired output volume.</doc>
+            <array zero-terminated="0" c:type="const guint8**" fixed-size="4">
+              <type name="guint8" c:type="guint8"/>
+            </array>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_mixer_source_flag"
+              c:identifier="hitaki_snd_motu_register_dsp_parameter_get_mixer_source_flag">
+        <doc xml:space="preserve"
+             filename="../src/snd_motu_register_dsp_parameter.c"
+             line="84">Get the array with elements for the data of source flags in indicated mixer. The data consists of
+bit flags below:
+
+ - 0x01: whether to enable mute function for the source.
+ - 0x02: whether to enable solo function for the source.</doc>
+        <source-position filename="../src/snd_motu_register_dsp_parameter.h"
+                         line="28"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="86">A [struct@SndMotuRegisterDspParameter].</doc>
+            <type name="SndMotuRegisterDspParameter"
+                  c:type="const HitakiSndMotuRegisterDspParameter*"/>
+          </instance-parameter>
+          <parameter name="mixer" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="87">the numeric index of mixer, up to 4.</doc>
+            <type name="gsize" c:type="gsize"/>
+          </parameter>
+          <parameter name="flag"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="88">The array with elements for the data of source
+       flag.</doc>
+            <array zero-terminated="0" c:type="const guint8**" fixed-size="20">
+              <type name="guint8" c:type="guint8"/>
+            </array>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_mixer_source_gain"
+              c:identifier="hitaki_snd_motu_register_dsp_parameter_get_mixer_source_gain">
+        <doc xml:space="preserve"
+             filename="../src/snd_motu_register_dsp_parameter.c"
+             line="38">Get the array with elements for the data of source gains in indicated mixer. The data has gain
+value between 0x00 and 0x80.</doc>
+        <source-position filename="../src/snd_motu_register_dsp_parameter.h"
+                         line="22"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="40">A [struct@SndMotuRegisterDspParameter].</doc>
+            <type name="SndMotuRegisterDspParameter"
+                  c:type="const HitakiSndMotuRegisterDspParameter*"/>
+          </instance-parameter>
+          <parameter name="mixer" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="41">the numeric index of mixer, up to 4.</doc>
+            <type name="gsize" c:type="gsize"/>
+          </parameter>
+          <parameter name="gain"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="42">The array with elements for the data of source
+       gains.</doc>
+            <array zero-terminated="0" c:type="const guint8**" fixed-size="20">
+              <type name="guint8" c:type="guint8"/>
+            </array>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_mixer_source_paired_balance"
+              c:identifier="hitaki_snd_motu_register_dsp_parameter_get_mixer_source_paired_balance">
+        <doc xml:space="preserve"
+             filename="../src/snd_motu_register_dsp_parameter.c"
+             line="110">Get the array with elements for the data of paired source L/R balance in indicated mixer. The
+data has L/R balance value between 0x00 and 0x80.</doc>
+        <source-position filename="../src/snd_motu_register_dsp_parameter.h"
+                         line="31"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="112">A [struct@SndMotuRegisterDspParameter].</doc>
+            <type name="SndMotuRegisterDspParameter"
+                  c:type="const HitakiSndMotuRegisterDspParameter*"/>
+          </instance-parameter>
+          <parameter name="mixer" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="113">the numeric index of mixer, up to 4.</doc>
+            <type name="gsize" c:type="gsize"/>
+          </parameter>
+          <parameter name="balance"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="114">The array with elements for the data of
+          paired source L/R balance.</doc>
+            <array zero-terminated="0" c:type="const guint8**" fixed-size="20">
+              <type name="guint8" c:type="guint8"/>
+            </array>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_mixer_source_paired_width"
+              c:identifier="hitaki_snd_motu_register_dsp_parameter_get_mixer_source_paired_width">
+        <doc xml:space="preserve"
+             filename="../src/snd_motu_register_dsp_parameter.c"
+             line="133">Get the array with elements for the data of paired source width in indicated mixer. The data
+has width value between 0x00 and 0x80.</doc>
+        <source-position filename="../src/snd_motu_register_dsp_parameter.h"
+                         line="34"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="135">A [struct@SndMotuRegisterDspParameter].</doc>
+            <type name="SndMotuRegisterDspParameter"
+                  c:type="const HitakiSndMotuRegisterDspParameter*"/>
+          </instance-parameter>
+          <parameter name="mixer" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="136">the numeric index of mixer, up to 4.</doc>
+            <type name="gsize" c:type="gsize"/>
+          </parameter>
+          <parameter name="width"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="137">The array with elements for the data of
+        paired source width.</doc>
+            <array zero-terminated="0" c:type="const guint8**" fixed-size="20">
+              <type name="guint8" c:type="guint8"/>
+            </array>
+          </parameter>
+        </parameters>
+      </method>
+      <method name="get_mixer_source_pan"
+              c:identifier="hitaki_snd_motu_register_dsp_parameter_get_mixer_source_pan">
+        <doc xml:space="preserve"
+             filename="../src/snd_motu_register_dsp_parameter.c"
+             line="61">Get the array with elements for the data of source pans in indicated mixer. The data has pan
+value between 0x00 and 0x80.</doc>
+        <source-position filename="../src/snd_motu_register_dsp_parameter.h"
+                         line="25"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="63">A [struct@SndMotuRegisterDspParameter].</doc>
+            <type name="SndMotuRegisterDspParameter"
+                  c:type="const HitakiSndMotuRegisterDspParameter*"/>
+          </instance-parameter>
+          <parameter name="mixer" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="64">the numeric index of mixer, up to 4.</doc>
+            <type name="gsize" c:type="gsize"/>
+          </parameter>
+          <parameter name="pan"
+                     direction="out"
+                     caller-allocates="0"
+                     transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/snd_motu_register_dsp_parameter.c"
+                 line="65">The array with elements for the data of source
+      pan.</doc>
+            <array zero-terminated="0" c:type="const guint8**" fixed-size="20">
+              <type name="guint8" c:type="guint8"/>
+            </array>
+          </parameter>
+        </parameters>
+      </method>
+    </record>
+    <class name="SndTascam"
+           c:symbol-prefix="snd_tascam"
+           c:type="HitakiSndTascam"
+           parent="GObject.Object"
+           glib:type-name="HitakiSndTascam"
+           glib:get-type="hitaki_snd_tascam_get_type"
+           glib:type-struct="SndTascamClass">
+      <doc xml:space="preserve"
+           filename="../src/snd_tascam.c"
+           line="5">A GObject-derived object for sound unit of TASCAM FireWire series.
+The [class@SndTascam] is an object class derived from [class@GObject.Object] with protocol
+implementation for TASCAM FireWire series supported by ALSA firewire-tascam driver
+(`snd-firewire-tascam`). The image of state consists of 64 quadlets according to
+`SNDRV_FIREWIRE_TASCAM_STATE_COUNT` in UAPI of ALSA firewire stack.</doc>
+      <source-position filename="../src/snd_tascam.h" line="15"/>
+      <implements name="AlsaFirewire"/>
+      <implements name="TascamProtocol"/>
+      <constructor name="new" c:identifier="hitaki_snd_tascam_new">
+        <doc xml:space="preserve"
+             filename="../src/snd_tascam.c"
+             line="203">Instantiate [class@SndTascam] object and return the instance.</doc>
+        <source-position filename="../src/snd_tascam.h" line="17"/>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve"
+               filename="../src/snd_tascam.c"
+               line="208">an instance of [class@SndTascam].</doc>
+          <type name="SndTascam" c:type="HitakiSndTascam*"/>
+        </return-value>
+      </constructor>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+    </class>
+    <record name="SndTascamClass"
+            c:type="HitakiSndTascamClass"
+            glib:is-gtype-struct-for="SndTascam">
+      <source-position filename="../src/snd_tascam.h" line="15"/>
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <class name="SndUnit"
+           c:symbol-prefix="snd_unit"
+           c:type="HitakiSndUnit"
+           parent="GObject.Object"
+           glib:type-name="HitakiSndUnit"
+           glib:get-type="hitaki_snd_unit_get_type"
+           glib:type-struct="SndUnitClass">
+      <doc xml:space="preserve"
+           filename="../src/snd_unit.c"
+           line="4">A GObject-derived object for sound unit without specific function.
+The [class@SndUnit] is an object class derived from [class@GObject.Object] for sound unit with
+common functions supported by any driver in ALSA firewire stack.</doc>
+      <source-position filename="../src/snd_unit.h" line="15"/>
+      <implements name="AlsaFirewire"/>
+      <constructor name="new" c:identifier="hitaki_snd_unit_new">
+        <doc xml:space="preserve"
+             filename="../src/snd_unit.c"
+             line="138">Instantiate [class@SndUnit] object and return the instance.</doc>
+        <source-position filename="../src/snd_unit.h" line="17"/>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve"
+               filename="../src/snd_unit.c"
+               line="143">an instance of [class@SndUnit].</doc>
+          <type name="SndUnit" c:type="HitakiSndUnit*"/>
+        </return-value>
+      </constructor>
+      <field name="parent_instance">
+        <type name="GObject.Object" c:type="GObject"/>
+      </field>
+    </class>
+    <record name="SndUnitClass"
+            c:type="HitakiSndUnitClass"
+            glib:is-gtype-struct-for="SndUnit">
+      <source-position filename="../src/snd_unit.h" line="15"/>
+      <field name="parent_class">
+        <type name="GObject.ObjectClass" c:type="GObjectClass"/>
+      </field>
+    </record>
+    <interface name="TascamProtocol"
+               c:symbol-prefix="tascam_protocol"
+               c:type="HitakiTascamProtocol"
+               glib:type-name="HitakiTascamProtocol"
+               glib:get-type="hitaki_tascam_protocol_get_type"
+               glib:type-struct="TascamProtocolInterface">
+      <doc xml:space="preserve"
+           filename="../src/tascam_protocol.c"
+           line="4">An interface for protocol of TASCAM FireWire series.
+TASCAM FireWire series transfer image of device state by either isochronous or asynchronous
+packets. The [iface@TascamProtocol] is an object interface for the image and the change of state
+in the TASCAM FireWire protocol.</doc>
+      <source-position filename="../src/tascam_protocol.h" line="40"/>
+      <virtual-method name="changed">
+        <doc xml:space="preserve"
+             filename="../src/tascam_protocol.h"
+             line="30">Class closure for the [signal@TascamProtocol::changed] signal.</doc>
+        <source-position filename="../src/tascam_protocol.h" line="39"/>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/tascam_protocol.h"
+                 line="32">A [iface@TascamProtocol]</doc>
+            <type name="TascamProtocol" c:type="HitakiTascamProtocol*"/>
+          </instance-parameter>
+          <parameter name="index" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/tascam_protocol.h"
+                 line="33">the numeric index on image for status and control information.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="before" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/tascam_protocol.h"
+                 line="34">the value of information before changed.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="after" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/tascam_protocol.h"
+                 line="35">the value of information after changed.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <virtual-method name="read_state" invoker="read_state" throws="1">
+        <doc xml:space="preserve"
+             filename="../src/tascam_protocol.c"
+             line="35">Read the latest image of device state.</doc>
+        <source-position filename="../src/tascam_protocol.h" line="27"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/tascam_protocol.c"
+               line="44">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/tascam_protocol.c"
+                 line="37">A [iface@TascamProtocol].</doc>
+            <type name="TascamProtocol" c:type="HitakiTascamProtocol*"/>
+          </instance-parameter>
+          <parameter name="state"
+                     direction="inout"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/tascam_protocol.c"
+                 line="38">The image of state.</doc>
+            <array length="1" zero-terminated="0" c:type="guint32* const*">
+              <type name="guint32" c:type="guint32*"/>
+            </array>
+          </parameter>
+          <parameter name="count"
+                     direction="inout"
+                     caller-allocates="0"
+                     transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/tascam_protocol.c"
+                 line="39">The length of image for state.</doc>
+            <type name="gsize" c:type="gsize*"/>
+          </parameter>
+        </parameters>
+      </virtual-method>
+      <method name="read_state"
+              c:identifier="hitaki_tascam_protocol_read_state"
+              throws="1">
+        <doc xml:space="preserve"
+             filename="../src/tascam_protocol.c"
+             line="35">Read the latest image of device state.</doc>
+        <source-position filename="../src/tascam_protocol.h" line="42"/>
+        <return-value transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/tascam_protocol.c"
+               line="44">TRUE if the overall operation finished successfully, else FALSE.</doc>
+          <type name="gboolean" c:type="gboolean"/>
+        </return-value>
+        <parameters>
+          <instance-parameter name="self" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/tascam_protocol.c"
+                 line="37">A [iface@TascamProtocol].</doc>
+            <type name="TascamProtocol" c:type="HitakiTascamProtocol*"/>
+          </instance-parameter>
+          <parameter name="state"
+                     direction="inout"
+                     caller-allocates="0"
+                     transfer-ownership="full">
+            <doc xml:space="preserve"
+                 filename="../src/tascam_protocol.c"
+                 line="38">The image of state.</doc>
+            <array length="1" zero-terminated="0" c:type="guint32* const*">
+              <type name="guint32" c:type="guint32*"/>
+            </array>
+          </parameter>
+          <parameter name="count"
+                     direction="inout"
+                     caller-allocates="0"
+                     transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/tascam_protocol.c"
+                 line="39">The length of image for state.</doc>
+            <type name="gsize" c:type="gsize*"/>
+          </parameter>
+        </parameters>
+      </method>
+      <glib:signal name="changed" when="last" action="1">
+        <doc xml:space="preserve"
+             filename="../src/tascam_protocol.c"
+             line="16">Emitted when the part of image differed for the change of device state.</doc>
+        <return-value transfer-ownership="none">
+          <type name="none" c:type="void"/>
+        </return-value>
+        <parameters>
+          <parameter name="index" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/tascam_protocol.c"
+                 line="19">the numeric index on image of status and control info.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="before" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/tascam_protocol.c"
+                 line="20">the value of info before changed.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+          <parameter name="after" transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/tascam_protocol.c"
+                 line="21">the value of info after changed.</doc>
+            <type name="guint" c:type="guint"/>
+          </parameter>
+        </parameters>
+      </glib:signal>
+    </interface>
+    <record name="TascamProtocolInterface"
+            c:type="HitakiTascamProtocolInterface"
+            glib:is-gtype-struct-for="TascamProtocol">
+      <source-position filename="../src/tascam_protocol.h" line="40"/>
+      <field name="iface">
+        <type name="GObject.TypeInterface" c:type="GTypeInterface"/>
+      </field>
+      <field name="read_state">
+        <callback name="read_state" throws="1">
+          <source-position filename="../src/tascam_protocol.h" line="27"/>
+          <return-value transfer-ownership="none">
+            <doc xml:space="preserve"
+                 filename="../src/tascam_protocol.c"
+                 line="44">TRUE if the overall operation finished successfully, else FALSE.</doc>
+            <type name="gboolean" c:type="gboolean"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/tascam_protocol.c"
+                   line="37">A [iface@TascamProtocol].</doc>
+              <type name="TascamProtocol" c:type="HitakiTascamProtocol*"/>
+            </parameter>
+            <parameter name="state"
+                       direction="inout"
+                       caller-allocates="0"
+                       transfer-ownership="full">
+              <doc xml:space="preserve"
+                   filename="../src/tascam_protocol.c"
+                   line="38">The image of state.</doc>
+              <array length="2" zero-terminated="0" c:type="guint32* const*">
+                <type name="guint32" c:type="guint32*"/>
+              </array>
+            </parameter>
+            <parameter name="count"
+                       direction="inout"
+                       caller-allocates="0"
+                       transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/tascam_protocol.c"
+                   line="39">The length of image for state.</doc>
+              <type name="gsize" c:type="gsize*"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+      <field name="changed">
+        <callback name="changed">
+          <source-position filename="../src/tascam_protocol.h" line="39"/>
+          <return-value transfer-ownership="none">
+            <type name="none" c:type="void"/>
+          </return-value>
+          <parameters>
+            <parameter name="self" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/tascam_protocol.h"
+                   line="32">A [iface@TascamProtocol]</doc>
+              <type name="TascamProtocol" c:type="HitakiTascamProtocol*"/>
+            </parameter>
+            <parameter name="index" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/tascam_protocol.h"
+                   line="33">the numeric index on image for status and control information.</doc>
+              <type name="guint" c:type="guint"/>
+            </parameter>
+            <parameter name="before" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/tascam_protocol.h"
+                   line="34">the value of information before changed.</doc>
+              <type name="guint" c:type="guint"/>
+            </parameter>
+            <parameter name="after" transfer-ownership="none">
+              <doc xml:space="preserve"
+                   filename="../src/tascam_protocol.h"
+                   line="35">the value of information after changed.</doc>
+              <type name="guint" c:type="guint"/>
+            </parameter>
+          </parameters>
+        </callback>
+      </field>
+    </record>
+    <function name="alsa_firewire_error_quark"
+              c:identifier="hitaki_alsa_firewire_error_quark"
+              moved-to="AlsaFirewireError.quark">
+      <doc xml:space="preserve"
+           filename="../src/alsa_firewire.c"
+           line="15">Return the [alias@GLib.Quark] for [struct@GLib.Error] with code in Hitaki.AlsaFirewireError
+enumerations.</doc>
+      <return-value transfer-ownership="none">
+        <doc xml:space="preserve"
+             filename="../src/alsa_firewire.c"
+             line="21">A [alias@GLib.Quark].</doc>
+        <type name="GLib.Quark" c:type="GQuark"/>
+      </return-value>
+    </function>
+    <function name="alsa_firewire_error_to_label"
+              c:identifier="hitaki_alsa_firewire_error_to_label"
+              moved-to="AlsaFirewireError.to_label">
+      <doc xml:space="preserve"
+           filename="../src/alsa_firewire.c"
+           line="25">Retrieve the string label of error from code.</doc>
+      <source-position filename="../src/alsa_firewire.h" line="17"/>
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="code" transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/alsa_firewire.c"
+               line="27">A Hitaki.AlsaFirewireError.</doc>
+          <type name="AlsaFirewireError" c:type="HitakiAlsaFirewireError"/>
+        </parameter>
+        <parameter name="label"
+                   direction="out"
+                   caller-allocates="0"
+                   transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/alsa_firewire.c"
+               line="28">The string label of error.</doc>
+          <type name="utf8" c:type="const char**"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="efw_protocol_error_quark"
+              c:identifier="hitaki_efw_protocol_error_quark"
+              moved-to="EfwProtocolError.quark">
+      <doc xml:space="preserve"
+           filename="../src/efw_protocol.c"
+           line="20">Return the [alias@GLib.Quark] for [struct@GLib.Error] with code in Hitaki.EfwProtocolError
+enumerations.</doc>
+      <return-value transfer-ownership="none">
+        <doc xml:space="preserve"
+             filename="../src/efw_protocol.c"
+             line="26">A [alias@GLib.Quark].</doc>
+        <type name="GLib.Quark" c:type="GQuark"/>
+      </return-value>
+    </function>
+    <function name="efw_protocol_error_to_label"
+              c:identifier="hitaki_efw_protocol_error_to_label"
+              moved-to="EfwProtocolError.to_label">
+      <doc xml:space="preserve"
+           filename="../src/efw_protocol.c"
+           line="38">Retrieve the string label of error.</doc>
+      <source-position filename="../src/efw_protocol.h" line="17"/>
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="code" transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/efw_protocol.c"
+               line="40">A Hitaki.EfwProtocolError.</doc>
+          <type name="EfwProtocolError" c:type="HitakiEfwProtocolError"/>
+        </parameter>
+        <parameter name="label"
+                   direction="out"
+                   caller-allocates="0"
+                   transfer-ownership="none">
+          <doc xml:space="preserve"
+               filename="../src/efw_protocol.c"
+               line="41">The string label of error.</doc>
+          <type name="utf8" c:type="const char**"/>
+        </parameter>
+      </parameters>
+    </function>
+  </namespace>
+</repository>

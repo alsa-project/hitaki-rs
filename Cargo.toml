@@ -1,0 +1,13 @@
+[workspace]
+members = [
+    "hitaki-sys",
+    "hitaki",
+]
+
+exclude = [
+    "gir",
+]
+
+default-members = [
+    "hitaki",
+]
