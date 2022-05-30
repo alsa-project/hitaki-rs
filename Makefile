@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-GIR_EXEC = ./target/release/gir
+GIR_EXEC = ./gir/target/release/gir
 
 .PHONY: all clean test
 
