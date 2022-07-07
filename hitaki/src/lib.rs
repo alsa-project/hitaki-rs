@@ -1,19 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-//! Rust libhitaki bindings
-//!
-//! Rust bindings and wrappers for [hitaki library](https://github.com/alsa-project/libhitaki) to
-//! operate ALSA HwDep character device for model specific functionalities supported by drivers in
-//! ALSA firewire stack.
-//!
-//! The hitaki library v0.1.0 is the minimum supported version for underlying library.
-//!
-//! The crate depends on [glib crate v0.15](https://crates.io/crates/glib) provided by
-//! [gtk-rs project](https://gtk-rs.org/) for type/object system, event loop, and dispacher.
-//!
-//! # License
-//!
-//! Released under MIT license.
+#![doc = include_str!("../README.md")]
 
 mod auto;
 mod efw_protocol;
