@@ -62,7 +62,7 @@ unsafe extern "C" fn tascam_protocol_changed<T: TascamProtocolImpl>(
 
 #[cfg(test)]
 mod test {
-    use crate::subclass::tascam_protocol::*;
+    use crate::{prelude::*, subclass::tascam_protocol::*};
     use glib::{
         subclass::{
             object::*,

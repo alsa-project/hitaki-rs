@@ -40,7 +40,7 @@ unsafe extern "C" fn motu_command_dsp_read_float_meter<T: MotuCommandDspImpl>(
 
 #[cfg(test)]
 mod test {
-    use crate::subclass::motu_command_dsp::*;
+    use crate::{prelude::*, subclass::motu_command_dsp::*};
     use glib::{
         subclass::{
             object::*,

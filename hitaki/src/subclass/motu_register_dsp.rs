@@ -83,7 +83,7 @@ unsafe extern "C" fn motu_register_dsp_changed<T: MotuRegisterDspImpl>(
 
 #[cfg(test)]
 mod test {
-    use crate::subclass::motu_register_dsp::*;
+    use crate::{prelude::*, subclass::motu_register_dsp::*};
     use glib::{
         subclass::{
             object::*,
