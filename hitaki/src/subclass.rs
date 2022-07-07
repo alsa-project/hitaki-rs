@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 
-pub mod alsa_firewire;
-pub mod efw_protocol;
-pub mod motu_command_dsp;
-pub mod motu_register_dsp;
-pub mod quadlet_notification;
-pub mod tascam_protocol;
+mod alsa_firewire;
+mod efw_protocol;
+mod motu_command_dsp;
+mod motu_register_dsp;
+mod quadlet_notification;
+mod tascam_protocol;
 
 pub mod prelude {
     pub use {
