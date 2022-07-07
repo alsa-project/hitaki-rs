@@ -31,11 +31,11 @@ status = "generate"
 manual_traits = ["EfwProtocolExtManual"]
     [[object.function]]
     name = "transaction"
-    ignore = true
+    manual = true
     doc_trait_name = "EfwProtocolExtManual"
     [[object.signal]]
     name = "responded"
-    ignore = true
+    manual = true
     doc_trait_name = "EfwProtocolExtManual"
 
 [[object]]
@@ -44,14 +44,14 @@ status = "generate"
 manual_traits = ["MotuRegisterDspManual"]
     [[object.signal]]
     name = "changed"
-    ignore = true
+    manual = true
     [[object.function]]
     name = "read_parameter"
-    ignore = true
+    manual = true
     doc_trait_name = "SndMotuExtManual"
     [[object.function]]
     name = "read_meter"
-    ignore = true
+    manual = true
     doc_trait_name = "SndMotuExtManual"
 
 [[object]]
@@ -60,7 +60,7 @@ status = "generate"
 manual_traits = ["MotuCommandDspManual"]
     [[object.function]]
     name = "read_meter"
-    ignore = true
+    manual = true
     doc_trait_name = "MotuCommandDspManual"
 
 [[object]]
@@ -70,39 +70,39 @@ concurrency = "send+sync"
 manual_traits = ["SndMotuRegisterDspParameterExtManual"]
     [[object.function]]
     name = "get_input_flag"
-    ignore = true
+    manual = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
     [[object.function]]
     name = "get_input_gain_and_invert"
-    ignore = true
+    manual = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
     [[object.function]]
     name = "get_mixer_output_paired_flag"
-    ignore = true
+    manual = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
     [[object.function]]
     name = "get_mixer_output_paired_volume"
-    ignore = true
+    manual = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
     [[object.function]]
     name = "get_mixer_source_flag"
-    ignore = true
+    manual = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
     [[object.function]]
     name = "get_mixer_source_gain"
-    ignore = true
+    manual = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
     [[object.function]]
     name = "get_mixer_source_paired_balance"
-    ignore = true
+    manual = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
     [[object.function]]
     name = "get_mixer_source_paired_width"
-    ignore = true
+    manual = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
     [[object.function]]
     name = "get_mixer_source_pan"
-    ignore = true
+    manual = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
 
 [[object]]
@@ -111,5 +111,5 @@ status = "generate"
 manual_traits = ["TascamProtocolExtManual"]
     [[object.function]]
     name = "read_state"
-    ignore = true
+    manual = true
     doc_trait_name = "TascamProtocolExtManual"
