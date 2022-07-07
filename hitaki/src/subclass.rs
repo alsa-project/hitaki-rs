@@ -8,11 +8,9 @@ mod quadlet_notification;
 mod tascam_protocol;
 
 pub mod prelude {
-    pub use {
-        super::alsa_firewire::AlsaFirewireImpl, super::efw_protocol::EfwProtocolImpl,
-        super::motu_command_dsp::MotuCommandDspImpl, super::motu_register_dsp::MotuRegisterDspImpl,
-        super::quadlet_notification::QuadletNotificationImpl,
-        super::tascam_protocol::TascamProtocolImpl,
+    pub use super::{
+        alsa_firewire::*, efw_protocol::*, motu_command_dsp::*, motu_register_dsp::*,
+        quadlet_notification::*, tascam_protocol::*,
     };
 }
 

@@ -1,42 +1,58 @@
 // SPDX-License-Identifier: MIT
 use super::*;
 
-pub trait QuadletNotificationImpl: ObjectImpl + ObjectSubclass {
-    fn notified(&self, unit: &QuadletNotification, msg: u32);
+pub trait QuadletNotificationImpl: ObjectImpl {
+    fn notified(&self, unit: &Self::Type, msg: u32);
+}
+
+pub trait QuadletNotificationImplExt: ObjectSubclass {
+    fn parent_notified(&self, unit: &Self::Type, msg: u32);
+}
+
+impl<T: QuadletNotificationImpl> QuadletNotificationImplExt for T {
+    fn parent_notified(&self, unit: &Self::Type, msg: u32) {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface = type_data.as_ref().parent_interface::<QuadletNotification>()
+                as *const ffi::HitakiQuadletNotificationInterface;
+            let func = (*parent_iface)
+                .notified
+                .expect("no parent \"notified\" implementation");
+            func(
+                unit.unsafe_cast_ref::<QuadletNotification>()
+                    .to_glib_none()
+                    .0,
+                msg.into(),
+            )
+        }
+    }
 }
 
 unsafe impl<T: QuadletNotificationImpl> IsImplementable<T> for QuadletNotification {
-    unsafe extern "C" fn interface_init(
-        iface: glib_sys::gpointer,
-        _iface_data: glib_sys::gpointer,
-    ) {
-        let iface = &mut *(iface as *mut hitaki_sys::HitakiQuadletNotificationInterface);
+    fn interface_init(iface: &mut Interface<Self>) {
+        let iface = iface.as_mut();
         iface.notified = Some(quadlet_notification_notified::<T>);
     }
 }
 
 unsafe extern "C" fn quadlet_notification_notified<T: QuadletNotificationImpl>(
-    unit: *mut hitaki_sys::HitakiQuadletNotification,
+    unit: *mut ffi::HitakiQuadletNotification,
     msg: c_uint,
 ) {
     let instance = &*(unit as *mut T::Instance);
-    let imp = instance.get_impl();
-    imp.notified(&from_glib_borrow(unit), msg.into())
+    let imp = instance.imp();
+    imp.notified(
+        from_glib_borrow::<_, QuadletNotification>(unit).unsafe_cast_ref(),
+        msg.into(),
+    )
 }
 
 #[cfg(test)]
 mod test {
-    use crate::subclass::quadlet_notification::*;
-    use crate::{QuadletNotification, QuadletNotificationExt};
+    use crate::{prelude::*, subclass::quadlet_notification::*};
     use glib::{
-        subclass::{
-            object::*,
-            simple::{ClassStruct, InstanceStruct},
-            types::*,
-            InitializingType, Property,
-        },
-        translate::*,
-        Object, ParamFlags, ParamSpec, StaticType, ToValue, Value,
+        subclass::{object::*, types::*},
+        Object, ParamFlags, ParamSpec, ParamSpecUInt, ToValue, Value,
     };
 
     mod imp {
@@ -44,86 +60,66 @@ mod test {
         use std::cell::RefCell;
 
         #[derive(Default)]
-        pub struct QuadletNotificationTestPrivate(RefCell<u32>);
+        pub struct QuadletNotificationTest(RefCell<u32>, [u32; 4]);
 
-        static PROPERTIES: [Property; 1] = [Property("result", |result| {
-            ParamSpec::uint(
-                result,
-                "result",
-                "the result to handle notification",
-                0,
-                u32::MAX,
-                0,
-                ParamFlags::READABLE,
-            )
-        })];
-
-        impl ObjectSubclass for QuadletNotificationTestPrivate {
+        #[glib::object_subclass]
+        impl ObjectSubclass for QuadletNotificationTest {
             const NAME: &'static str = "QuadletNotificationTest";
-            type ParentType = Object;
-            type Instance = InstanceStruct<Self>;
-            type Class = ClassStruct<Self>;
-
-            glib_object_subclass!();
+            type Type = super::QuadletNotificationTest;
+            type Interfaces = (QuadletNotification,);
 
             fn new() -> Self {
                 Self::default()
             }
-
-            fn class_init(klass: &mut Self::Class) {
-                klass.install_properties(&PROPERTIES);
-            }
-
-            fn type_init(type_: &mut InitializingType<Self>) {
-                type_.add_interface::<QuadletNotification>();
-            }
         }
 
-        impl ObjectImpl for QuadletNotificationTestPrivate {
-            glib_object_impl!();
+        impl ObjectImpl for QuadletNotificationTest {
+            fn properties() -> &'static [ParamSpec] {
+                use once_cell::sync::Lazy;
+                static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+                    vec![ParamSpecUInt::new(
+                        "result",
+                        "result",
+                        "the result to handle notification",
+                        0,
+                        0x0000ffff as u32,
+                        0,
+                        ParamFlags::READABLE,
+                    )]
+                });
 
-            fn get_property(&self, _obj: &Object, id: usize) -> Result<Value, ()> {
-                let prop = &PROPERTIES[id];
+                PROPERTIES.as_ref()
+            }
 
-                match *prop {
-                    Property("result", ..) => Ok(self.0.borrow().to_value()),
+            fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
+                match pspec.name() {
+                    "result" => self.0.borrow().to_value(),
                     _ => unimplemented!(),
                 }
             }
         }
 
-        impl QuadletNotificationImpl for QuadletNotificationTestPrivate {
-            fn notified(&self, _unit: &QuadletNotification, msg: u32) {
+        impl QuadletNotificationImpl for QuadletNotificationTest {
+            fn notified(&self, _unit: &Self::Type, msg: u32) {
                 *self.0.borrow_mut() = msg;
             }
         }
     }
 
-    glib_wrapper! {
-        pub struct QuadletNotificationTest(
-            Object<InstanceStruct<imp::QuadletNotificationTestPrivate>,
-            ClassStruct<imp::QuadletNotificationTestPrivate>, QuadletNotificationTestClass>
-        ) @implements QuadletNotification;
-
-        match fn {
-            get_type => || imp::QuadletNotificationTestPrivate::get_type().to_glib(),
-        }
+    glib::wrapper! {
+        pub struct QuadletNotificationTest(ObjectSubclass<imp::QuadletNotificationTest>)
+            @implements QuadletNotification;
     }
 
+    #[allow(clippy::new_without_default)]
     impl QuadletNotificationTest {
         pub fn new() -> Self {
-            Object::new(Self::static_type(), &[])
-                .expect("Failed to create QuadletNotification")
-                .downcast()
-                .expect("Created row data is of wrong type")
+            Object::new(&[])
+                .expect("Failed creation/initialization of QuadletNotificationTest object")
         }
 
-        pub fn get_property_result(&self) -> u32 {
-            self.get_property("result")
-                .expect("Failed to get 'result' property")
-                .get::<u32>()
-                .expect("Failed to get str from 'result' property")
-                .unwrap()
+        pub fn result(&self) -> u32 {
+            self.property::<u32>("result")
         }
     }
 
@@ -131,8 +127,8 @@ mod test {
     fn quadlet_notification_iface() {
         let unit = QuadletNotificationTest::new();
 
-        assert_eq!(unit.get_property_result(), 0);
-        unit.emit_notified(128);
-        assert_eq!(unit.get_property_result(), 128);
+        assert_eq!(unit.result(), 0);
+        unit.emit_notified(123);
+        assert_eq!(unit.result(), 123);
     }
 }

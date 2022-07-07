@@ -1,39 +1,78 @@
 // SPDX-License-Identifier: MIT
 use super::*;
 
-pub trait MotuCommandDspImpl: ObjectImpl + ObjectSubclass {
+pub trait MotuCommandDspImpl: ObjectImpl {
     fn read_float_meter(
         &self,
-        unit: &MotuCommandDsp,
+        unit: &Self::Type,
         meter: &mut [f32; 400],
     ) -> Result<(), glib::Error>;
 }
 
+pub trait MotuCommandDspImplExt: ObjectSubclass {
+    fn parent_read_float_meter(
+        &self,
+        unit: &Self::Type,
+        meter: &mut [f32; 400],
+    ) -> Result<(), glib::Error>;
+}
+
+impl<T: MotuCommandDspImpl> MotuCommandDspImplExt for T {
+    fn parent_read_float_meter(
+        &self,
+        unit: &Self::Type,
+        meter: &mut [f32; 400],
+    ) -> Result<(), glib::Error> {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface = type_data.as_ref().parent_interface::<MotuCommandDsp>()
+                as *const ffi::HitakiMotuCommandDspInterface;
+            let func = (*parent_iface)
+                .read_float_meter
+                .expect("no parent \"read_float_meter\" implementation");
+
+            let ptr: *mut [f32; 400] = meter;
+            let mut error = std::ptr::null_mut();
+            let is_ok = func(
+                unit.unsafe_cast_ref::<MotuCommandDsp>().to_glib_none().0,
+                &ptr,
+                &mut error,
+            );
+            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
+}
+
 unsafe impl<T: MotuCommandDspImpl> IsImplementable<T> for MotuCommandDsp {
-    unsafe extern "C" fn interface_init(
-        iface: glib_sys::gpointer,
-        _iface_data: glib_sys::gpointer,
-    ) {
-        let iface = &mut *(iface as *mut hitaki_sys::HitakiMotuCommandDspInterface);
+    fn interface_init(iface: &mut Interface<Self>) {
+        let iface = iface.as_mut();
         iface.read_float_meter = Some(motu_command_dsp_read_float_meter::<T>);
     }
 }
 
 unsafe extern "C" fn motu_command_dsp_read_float_meter<T: MotuCommandDspImpl>(
-    unit: *mut hitaki_sys::HitakiMotuCommandDsp,
+    unit: *mut ffi::HitakiMotuCommandDsp,
     meter: *const *mut [c_float; 400],
-    error: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean {
+    error: *mut *mut glib::ffi::GError,
+) -> glib::ffi::gboolean {
     let instance = &*(unit as *mut T::Instance);
-    let imp = instance.get_impl();
-    match imp.read_float_meter(&from_glib_borrow(unit), &mut (**meter)) {
-        Ok(()) => glib_sys::GTRUE,
+    let imp = instance.imp();
+    match imp.read_float_meter(
+        from_glib_borrow::<_, MotuCommandDsp>(unit).unsafe_cast_ref(),
+        &mut **meter,
+    ) {
+        Ok(()) => glib::ffi::GTRUE,
         Err(err) => {
             if !error.is_null() {
-                let mut e = std::mem::ManuallyDrop::new(err);
-                *error = e.to_glib_none_mut().0;
+                *error = err.into_raw();
             }
-            glib_sys::GFALSE
+            glib::ffi::GFALSE
         }
     }
 }
@@ -41,47 +80,31 @@ unsafe extern "C" fn motu_command_dsp_read_float_meter<T: MotuCommandDspImpl>(
 #[cfg(test)]
 mod test {
     use crate::{prelude::*, subclass::motu_command_dsp::*};
-    use glib::{
-        subclass::{
-            object::*,
-            simple::{ClassStruct, InstanceStruct},
-            types::*,
-        },
-        translate::*,
-        Object, StaticType,
-    };
+    use glib::{subclass::prelude::*, Object};
 
     mod imp {
         use super::*;
 
         #[derive(Default)]
-        pub struct MotuCommandDspTestPrivate;
+        pub struct MotuCommandDspTest;
 
-        impl ObjectSubclass for MotuCommandDspTestPrivate {
+        #[glib::object_subclass]
+        impl ObjectSubclass for MotuCommandDspTest {
             const NAME: &'static str = "MotuCommandDspTest";
-            type ParentType = Object;
-            type Instance = InstanceStruct<Self>;
-            type Class = ClassStruct<Self>;
-
-            glib_object_subclass!();
+            type Type = super::MotuCommandDspTest;
+            type Interfaces = (MotuCommandDsp,);
 
             fn new() -> Self {
                 Self::default()
             }
-
-            fn type_init(type_: &mut InitializingType<Self>) {
-                type_.add_interface::<MotuCommandDsp>();
-            }
         }
 
-        impl ObjectImpl for MotuCommandDspTestPrivate {
-            glib_object_impl!();
-        }
+        impl ObjectImpl for MotuCommandDspTest {}
 
-        impl MotuCommandDspImpl for MotuCommandDspTestPrivate {
+        impl MotuCommandDspImpl for MotuCommandDspTest {
             fn read_float_meter(
                 &self,
-                _unit: &MotuCommandDsp,
+                _unit: &Self::Type,
                 _meter: &mut [f32; 400],
             ) -> Result<(), glib::Error> {
                 Ok(())
@@ -89,23 +112,15 @@ mod test {
         }
     }
 
-    glib_wrapper! {
-        pub struct MotuCommandDspTest(
-            Object<InstanceStruct<imp::MotuCommandDspTestPrivate>,
-            ClassStruct<imp::MotuCommandDspTestPrivate>, MotuCommandDspTestClass>
-        ) @implements MotuCommandDsp;
-
-        match fn {
-            get_type => || imp::MotuCommandDspTestPrivate::get_type().to_glib(),
-        }
+    glib::wrapper! {
+        pub struct MotuCommandDspTest(ObjectSubclass<imp::MotuCommandDspTest>)
+            @implements MotuCommandDsp;
     }
 
+    #[allow(clippy::new_without_default)]
     impl MotuCommandDspTest {
         pub fn new() -> Self {
-            Object::new(Self::static_type(), &[])
-                .expect("Failed to create MotuCommandDsp")
-                .downcast()
-                .expect("Created row data is of wrong type")
+            Object::new(&[]).expect("Failed creation/initialization of MotuCommandDspTest object")
         }
     }
 
@@ -113,7 +128,7 @@ mod test {
     fn motu_command_dsp_iface() {
         let unit = MotuCommandDspTest::new();
 
-        let mut meter = [0.0; 400];
+        let mut meter = [0f32; 400];
         assert_eq!(unit.read_float_meter(&mut meter), Ok(()));
     }
 }

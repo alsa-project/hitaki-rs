@@ -1,59 +1,110 @@
 // SPDX-License-Identifier: MIT
 use super::*;
 
-pub trait TascamProtocolImpl: ObjectImpl + ObjectSubclass {
-    fn read_state(&self, unit: &TascamProtocol, state: &mut Vec<u32>) -> Result<(), Error>;
-    fn changed(&self, unit: &TascamProtocol, index: u32, before: u32, after: u32);
+pub trait TascamProtocolImpl: ObjectImpl {
+    fn read_state(&self, unit: &Self::Type, state: &mut Vec<u32>) -> Result<(), Error>;
+    fn changed(&self, unit: &Self::Type, index: u32, before: u32, after: u32);
+}
+
+pub trait TascamProtocolImplExt: ObjectSubclass {
+    fn parent_read_state(&self, unit: &Self::Type, state: &mut Vec<u32>) -> Result<(), Error>;
+    fn parent_changed(&self, unit: &Self::Type, index: u32, before: u32, after: u32);
+}
+
+impl<T: TascamProtocolImpl> TascamProtocolImplExt for T {
+    fn parent_read_state(&self, unit: &Self::Type, state: &mut Vec<u32>) -> Result<(), Error> {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface = type_data.as_ref().parent_interface::<TascamProtocol>()
+                as *const ffi::HitakiTascamProtocolInterface;
+            let func = (*parent_iface)
+                .read_state
+                .expect("no parent \"read_state\" implementation");
+
+            let mut count = state.len();
+            let mut error = std::ptr::null_mut();
+            let is_ok = func(
+                unit.unsafe_cast_ref::<TascamProtocol>().to_glib_none().0,
+                &mut state.as_mut_ptr(),
+                &mut count,
+                &mut error,
+            );
+            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+
+            if error.is_null() {
+                state.set_len(count);
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
+
+    fn parent_changed(&self, unit: &Self::Type, index: u32, before: u32, after: u32) {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface = type_data.as_ref().parent_interface::<TascamProtocol>()
+                as *const ffi::HitakiTascamProtocolInterface;
+            let func = (*parent_iface)
+                .changed
+                .expect("no parent \"changed\" implementation");
+            func(
+                unit.unsafe_cast_ref::<TascamProtocol>().to_glib_none().0,
+                index.into(),
+                before.into(),
+                after.into(),
+            )
+        }
+    }
 }
 
 unsafe impl<T: TascamProtocolImpl> IsImplementable<T> for TascamProtocol {
-    unsafe extern "C" fn interface_init(
-        iface: glib_sys::gpointer,
-        _iface_data: glib_sys::gpointer,
-    ) {
-        let iface = &mut *(iface as *mut hitaki_sys::HitakiTascamProtocolInterface);
+    fn interface_init(iface: &mut Interface<Self>) {
+        let iface = iface.as_mut();
         iface.read_state = Some(tascam_protocol_read_state::<T>);
         iface.changed = Some(tascam_protocol_changed::<T>);
     }
 }
 
 unsafe extern "C" fn tascam_protocol_read_state<T: TascamProtocolImpl>(
-    unit: *mut hitaki_sys::HitakiTascamProtocol,
+    unit: *mut ffi::HitakiTascamProtocol,
     state: *const *mut u32,
-    count: *mut usize,
-    error: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean {
+    count: *mut size_t,
+    error: *mut *mut glib::ffi::GError,
+) -> glib::ffi::gboolean {
     let instance = &*(unit as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.imp();
     let s = std::slice::from_raw_parts_mut(*state, *count);
-    let mut buf = vec![0u32; s.len()];
-    match imp.read_state(&from_glib_borrow(unit), &mut buf) {
+    let mut buf = s.to_vec();
+    match imp.read_state(
+        from_glib_borrow::<_, TascamProtocol>(unit).unsafe_cast_ref(),
+        &mut buf,
+    ) {
         Ok(_) => {
             let length = std::cmp::min(s.len(), buf.len());
             s[..length].copy_from_slice(&buf[..length]);
-            *count = buf.len();
-            glib_sys::GTRUE
+            *count = length;
+            glib::ffi::GTRUE
         }
         Err(err) => {
             if !error.is_null() {
-                let mut e = std::mem::ManuallyDrop::new(err);
-                *error = e.to_glib_none_mut().0;
+                *error = err.into_raw();
             }
-            glib_sys::GFALSE
+            glib::ffi::GFALSE
         }
     }
 }
 
 unsafe extern "C" fn tascam_protocol_changed<T: TascamProtocolImpl>(
-    unit: *mut hitaki_sys::HitakiTascamProtocol,
+    unit: *mut ffi::HitakiTascamProtocol,
     index: c_uint,
     before: c_uint,
     after: c_uint,
 ) {
     let instance = &*(unit as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.imp();
     imp.changed(
-        &from_glib_borrow(unit),
+        from_glib_borrow::<_, TascamProtocol>(unit).unsafe_cast_ref(),
         index.into(),
         before.into(),
         after.into(),
@@ -64,14 +115,8 @@ unsafe extern "C" fn tascam_protocol_changed<T: TascamProtocolImpl>(
 mod test {
     use crate::{prelude::*, subclass::tascam_protocol::*};
     use glib::{
-        subclass::{
-            object::*,
-            simple::{ClassStruct, InstanceStruct},
-            types::*,
-            InitializingType,
-        },
-        translate::*,
-        Error, FileError, Object, StaticType,
+        subclass::{object::*, types::*},
+        FileError, Object,
     };
 
     mod imp {
@@ -79,74 +124,55 @@ mod test {
         use std::cell::RefCell;
 
         #[derive(Default)]
-        pub struct TascamProtocolTestPrivate(RefCell<[u32; 4]>);
+        pub struct TascamProtocolTest(RefCell<[u32; 4]>);
 
-        impl ObjectSubclass for TascamProtocolTestPrivate {
+        #[glib::object_subclass]
+        impl ObjectSubclass for TascamProtocolTest {
             const NAME: &'static str = "TascamProtocolTest";
-            type ParentType = Object;
-            type Instance = InstanceStruct<Self>;
-            type Class = ClassStruct<Self>;
-
-            glib_object_subclass!();
+            type Type = super::TascamProtocolTest;
+            type Interfaces = (TascamProtocol,);
 
             fn new() -> Self {
                 Self::default()
             }
-
-            fn type_init(type_: &mut InitializingType<Self>) {
-                type_.add_interface::<TascamProtocol>();
-            }
         }
 
-        impl ObjectImpl for TascamProtocolTestPrivate {
-            glib_object_impl!();
-        }
+        impl ObjectImpl for TascamProtocolTest {}
 
-        impl TascamProtocolImpl for TascamProtocolTestPrivate {
-            fn read_state(
-                &self,
-                _unit: &TascamProtocol,
-                state: &mut Vec<u32>,
-            ) -> Result<(), Error> {
+        impl TascamProtocolImpl for TascamProtocolTest {
+            fn read_state(&self, _unit: &Self::Type, state: &mut Vec<u32>) -> Result<(), Error> {
+                let count = self.0.borrow().as_ref().len();
                 if state.len() < 4 {
-                    Err(Error::new(
-                        FileError::Inval,
-                        "Insufficient length of image buffer",
-                    ))
+                    let msg = format!(
+                        "The size of buffer should be greater than{}, but {}",
+                        count,
+                        state.len()
+                    );
+                    Err(Error::new(FileError::Inval, &msg))
                 } else {
-                    let image = self.0.borrow();
-                    let length = std::cmp::min(state.len(), image.len());
-                    state[..length].copy_from_slice(&image[..length]);
-                    state.truncate(length);
+                    state[..count].copy_from_slice(&self.0.borrow()[..]);
+                    state.truncate(count);
                     Ok(())
                 }
             }
 
-            fn changed(&self, _unit: &TascamProtocol, index: u32, _before: u32, after: u32) {
-                if index < 4 {
+            fn changed(&self, _unit: &Self::Type, index: u32, _: u32, after: u32) {
+                if index < self.0.borrow().len() as u32 {
                     self.0.borrow_mut()[index as usize] = after;
                 }
             }
         }
     }
 
-    glib_wrapper! {
-        pub struct TascamProtocolTest(
-            Object<InstanceStruct<imp::TascamProtocolTestPrivate>,
-            ClassStruct<imp::TascamProtocolTestPrivate>, TascamProtocolTestClass>
-        ) @implements TascamProtocol;
-
-        match fn {
-            get_type => || imp::TascamProtocolTestPrivate::get_type().to_glib(),
-        }
+    glib::wrapper! {
+        pub struct TascamProtocolTest(ObjectSubclass<imp::TascamProtocolTest>)
+            @implements TascamProtocol;
     }
 
+    #[allow(clippy::new_without_default)]
     impl TascamProtocolTest {
         pub fn new() -> Self {
-            Object::new(Self::static_type(), &[])
-                .expect("Failed to create TascamProtocol")
-                .downcast()
-                .expect("Created row data is of wrong type")
+            Object::new(&[]).expect("Failed creation/initialization of TascamProtocolTest object")
         }
     }
 

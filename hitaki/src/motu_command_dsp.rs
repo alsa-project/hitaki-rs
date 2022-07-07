@@ -11,7 +11,7 @@ impl<O: IsA<MotuCommandDsp>> MotuCommandDspExtManual for O {
             let ptr: *mut [f32; 400] = meter;
             let mut error = std::ptr::null_mut();
 
-            hitaki_sys::hitaki_motu_command_dsp_read_float_meter(
+            ffi::hitaki_motu_command_dsp_read_float_meter(
                 self.as_ref().to_glib_none().0,
                 &ptr,
                 &mut error,

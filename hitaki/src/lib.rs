@@ -1,10 +1,4 @@
 // SPDX-License-Identifier: MIT
-#[macro_use]
-extern crate glib;
-extern crate glib_sys;
-extern crate gobject_sys;
-extern crate hitaki_sys;
-extern crate libc;
 
 mod auto;
 mod efw_protocol;
@@ -27,5 +21,8 @@ pub mod prelude {
 
 /// For subclass implementations derived from provided class.
 pub mod subclass;
+
+// To access to hinawa-sys crate for FFI.
+pub use ffi;
 
 use glib::{object::*, signal::*, translate::*};

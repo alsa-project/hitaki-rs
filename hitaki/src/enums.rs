@@ -6,7 +6,7 @@ impl AlsaFirewireError {
     pub fn to_label(&self) -> &'static str {
         unsafe {
             let mut ptr = std::ptr::null_mut() as *const i8;
-            hitaki_sys::hitaki_alsa_firewire_error_to_label(self.to_glib(), &mut ptr);
+            ffi::hitaki_alsa_firewire_error_to_label(self.into_glib(), &mut ptr);
             std::ffi::CStr::from_ptr(ptr).to_str().unwrap()
         }
     }
@@ -16,7 +16,7 @@ impl EfwProtocolError {
     pub fn to_label(&self) -> &'static str {
         unsafe {
             let mut ptr = std::ptr::null_mut() as *const i8;
-            hitaki_sys::hitaki_efw_protocol_error_to_label(self.to_glib(), &mut ptr);
+            ffi::hitaki_efw_protocol_error_to_label(self.into_glib(), &mut ptr);
             std::ffi::CStr::from_ptr(ptr).to_str().unwrap()
         }
     }

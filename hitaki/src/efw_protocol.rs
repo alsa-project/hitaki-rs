@@ -42,7 +42,7 @@ impl<O: IsA<EfwProtocol>> EfwProtocolExtManual for O {
             let mut param_count = params.len();
             let mut error = std::ptr::null_mut();
 
-            let is_ok = hitaki_sys::hitaki_efw_protocol_transaction(
+            let is_ok = ffi::hitaki_efw_protocol_transaction(
                 self.as_ref().to_glib_none().0,
                 category,
                 command,
@@ -53,7 +53,8 @@ impl<O: IsA<EfwProtocol>> EfwProtocolExtManual for O {
                 timeout_ms,
                 &mut error,
             );
-            assert_eq!(is_ok == glib_sys::GFALSE, !error.is_null());
+            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+            params.set_len(param_count);
             if error.is_null() {
                 params.set_len(param_count);
                 Ok(())
@@ -77,17 +78,17 @@ impl<O: IsA<EfwProtocol>> EfwProtocolExtManual for O {
             let mut signal_detail = 0;
 
             // Assesment data of the signal.
-            let found: bool = from_glib(gobject_sys::g_signal_parse_name(
+            let found: bool = from_glib(glib::gobject_ffi::g_signal_parse_name(
                 "responded".to_glib_none().0,
-                self.get_type().to_glib(),
+                self.type_().into_glib(),
                 &mut signal_id,
                 &mut signal_detail,
-                true.to_glib(),
+                true.into_glib(),
             ));
             assert!(found);
 
             let mut details = std::mem::MaybeUninit::zeroed();
-            gobject_sys::g_signal_query(signal_id, details.as_mut_ptr());
+            glib::gobject_ffi::g_signal_query(signal_id, details.as_mut_ptr());
             let details = details.assume_init();
             assert_eq!(signal_id, details.signal_id);
             assert_eq!(details.n_params, 7);
@@ -98,36 +99,36 @@ impl<O: IsA<EfwProtocol>> EfwProtocolExtManual for O {
             let mut args: Vec<glib::Value> = (0..(param_types.len() + 1))
                 .map(|_| glib::Value::uninitialized())
                 .collect();
-            gobject_sys::g_value_init(args[0].to_glib_none_mut().0, self.get_type().to_glib());
+            glib::gobject_ffi::g_value_init(args[0].to_glib_none_mut().0, self.type_().into_glib());
             args[1..]
                 .iter_mut()
                 .zip(param_types)
                 .for_each(|(arg, &param_type)| {
-                    gobject_sys::g_value_init(arg.to_glib_none_mut().0, param_type);
+                    glib::gobject_ffi::g_value_init(arg.to_glib_none_mut().0, param_type);
                 });
 
-            gobject_sys::g_value_set_object(
+            glib::gobject_ffi::g_value_set_object(
                 args[0].to_glib_none_mut().0,
                 self.as_object_ref().to_glib_none().0,
             );
-            gobject_sys::g_value_set_uint(args[1].to_glib_none_mut().0, version.into());
-            gobject_sys::g_value_set_uint(args[2].to_glib_none_mut().0, seqnum.into());
-            gobject_sys::g_value_set_uint(args[3].to_glib_none_mut().0, command.into());
-            gobject_sys::g_value_set_uint(args[4].to_glib_none_mut().0, category.into());
-            gobject_sys::g_value_set_enum(args[5].to_glib_none_mut().0, status.to_glib());
-            gobject_sys::g_value_set_pointer(
+            glib::gobject_ffi::g_value_set_uint(args[1].to_glib_none_mut().0, version.into());
+            glib::gobject_ffi::g_value_set_uint(args[2].to_glib_none_mut().0, seqnum.into());
+            glib::gobject_ffi::g_value_set_uint(args[3].to_glib_none_mut().0, command.into());
+            glib::gobject_ffi::g_value_set_uint(args[4].to_glib_none_mut().0, category.into());
+            glib::gobject_ffi::g_value_set_enum(args[5].to_glib_none_mut().0, status.into_glib());
+            glib::gobject_ffi::g_value_set_pointer(
                 args[6].to_glib_none_mut().0,
                 params.as_ptr() as *mut libc::c_void,
             );
-            gobject_sys::g_value_set_uint(args[7].to_glib_none_mut().0, params.len() as u32);
+            glib::gobject_ffi::g_value_set_uint(args[7].to_glib_none_mut().0, params.len() as u32);
 
             // Generate an GValue for return value.
             let mut return_value = glib::Value::uninitialized();
-            //gobject_sys::g_value_init(return_value.to_glib_none_mut().0, gobject_sys::G_TYPE_NONE);
+            //glib::gobject_ffi::g_value_init(return_value.to_glib_none_mut().0, glib::gobject_ffi::G_TYPE_NONE);
 
             // Let's emit the signal.
-            gobject_sys::g_signal_emitv(
-                mut_override(args.as_ptr()) as *mut gobject_sys::GValue,
+            glib::gobject_ffi::g_signal_emitv(
+                mut_override(args.as_ptr()) as *mut glib::gobject_ffi::GValue,
                 signal_id,
                 signal_detail,
                 return_value.to_glib_none_mut().0,
@@ -140,15 +141,15 @@ impl<O: IsA<EfwProtocol>> EfwProtocolExtManual for O {
         F: Fn(&Self, u32, u32, u32, u32, EfwProtocolError, &[u32]) + 'static,
     {
         unsafe extern "C" fn responded_trampoline<P, F>(
-            this: *mut hitaki_sys::HitakiEfwProtocol,
+            this: *mut ffi::HitakiEfwProtocol,
             version: u32,
             seqnum: u32,
             command: u32,
             category: u32,
-            status: hitaki_sys::HitakiEfwProtocolError,
+            status: ffi::HitakiEfwProtocolError,
             params: *const u32,
             params_count: libc::c_uint,
-            f: glib_sys::gpointer,
+            f: glib::ffi::gpointer,
         ) where
             P: IsA<EfwProtocol>,
             F: Fn(&P, u32, u32, u32, u32, EfwProtocolError, &[u32]) + 'static,

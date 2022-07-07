@@ -1,19 +1,125 @@
 // SPDX-License-Identifier: MIT
 use super::*;
 
-pub trait AlsaFirewireImpl: ObjectImpl + ObjectSubclass {
-    fn open(&self, unit: &AlsaFirewire, path: &str, open_flag: i32) -> Result<(), Error>;
-    fn lock(&self, unit: &AlsaFirewire) -> Result<(), Error>;
-    fn unlock(&self, unit: &AlsaFirewire) -> Result<(), Error>;
-    fn create_source(&self, unit: &AlsaFirewire) -> Result<Source, Error>;
+pub trait AlsaFirewireImpl: ObjectImpl {
+    fn open(&self, unit: &Self::Type, path: &str, open_flag: i32) -> Result<(), Error>;
+    fn lock(&self, unit: &Self::Type) -> Result<(), Error>;
+    fn unlock(&self, unit: &Self::Type) -> Result<(), Error>;
+    fn create_source(&self, unit: &Self::Type) -> Result<Source, Error>;
+}
+
+pub trait AlsaFirewireImplExt: ObjectSubclass {
+    fn parent_open(&self, unit: &Self::Type, path: &str, open_flag: i32) -> Result<(), Error>;
+    fn parent_lock(&self, unit: &Self::Type) -> Result<(), Error>;
+    fn parent_unlock(&self, unit: &Self::Type) -> Result<(), Error>;
+    fn parent_create_source(&self, unit: &Self::Type) -> Result<Source, Error>;
+}
+
+impl<T: AlsaFirewireImpl> AlsaFirewireImplExt for T {
+    fn parent_open(&self, unit: &Self::Type, path: &str, open_flag: i32) -> Result<(), Error> {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface = type_data.as_ref().parent_interface::<AlsaFirewire>()
+                as *const ffi::HitakiAlsaFirewireInterface;
+            let func = (*parent_iface)
+                .open
+                .expect("no parent \"open\" implementation");
+
+            let mut error = std::ptr::null_mut();
+            let is_ok = func(
+                unit.unsafe_cast_ref::<AlsaFirewire>().to_glib_none().0,
+                path.to_glib_none().0,
+                open_flag,
+                &mut error,
+            );
+            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
+
+    fn parent_lock(&self, unit: &Self::Type) -> Result<(), Error> {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface = type_data.as_ref().parent_interface::<AlsaFirewire>()
+                as *const ffi::HitakiAlsaFirewireInterface;
+            let func = (*parent_iface)
+                .lock
+                .expect("no parent \"lock\" implementation");
+
+            let mut error = std::ptr::null_mut();
+            let is_ok = func(
+                unit.unsafe_cast_ref::<AlsaFirewire>().to_glib_none().0,
+                &mut error,
+            );
+            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
+
+    fn parent_unlock(&self, unit: &Self::Type) -> Result<(), Error> {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface = type_data.as_ref().parent_interface::<AlsaFirewire>()
+                as *const ffi::HitakiAlsaFirewireInterface;
+            let func = (*parent_iface)
+                .unlock
+                .expect("no parent \"unlock\" implementation");
+
+            let mut error = std::ptr::null_mut();
+            let is_ok = func(
+                unit.unsafe_cast_ref::<AlsaFirewire>().to_glib_none().0,
+                &mut error,
+            );
+            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
+
+    fn parent_create_source(&self, unit: &Self::Type) -> Result<Source, Error> {
+        unsafe {
+            let type_data = Self::type_data();
+            let parent_iface = type_data.as_ref().parent_interface::<AlsaFirewire>()
+                as *const ffi::HitakiAlsaFirewireInterface;
+            let func = (*parent_iface)
+                .create_source
+                .expect("no parent \"create_source\" implementation");
+
+            let mut source = std::ptr::null_mut();
+            let mut error = std::ptr::null_mut();
+            let is_ok = func(
+                unit.unsafe_cast_ref::<AlsaFirewire>().to_glib_none().0,
+                &mut source,
+                &mut error,
+            );
+            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+
+            if error.is_null() {
+                Ok(from_glib_full(source))
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
 }
 
 unsafe impl<T: AlsaFirewireImpl> IsImplementable<T> for AlsaFirewire {
-    unsafe extern "C" fn interface_init(
-        iface: glib_sys::gpointer,
-        _iface_data: glib_sys::gpointer,
-    ) {
-        let iface = &mut *(iface as *mut hitaki_sys::HitakiAlsaFirewireInterface);
+    fn interface_init(iface: &mut Interface<Self>) {
+        let iface = iface.as_mut();
         iface.open = Some(alsa_firewire_open::<T>);
         iface.lock = Some(alsa_firewire_lock::<T>);
         iface.unlock = Some(alsa_firewire_unlock::<T>);
@@ -22,109 +128,103 @@ unsafe impl<T: AlsaFirewireImpl> IsImplementable<T> for AlsaFirewire {
 }
 
 unsafe extern "C" fn alsa_firewire_open<T: AlsaFirewireImpl>(
-    unit: *mut hitaki_sys::HitakiAlsaFirewire,
+    unit: *mut ffi::HitakiAlsaFirewire,
     path: *const c_char,
     open_flag: c_int,
-    error: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean {
+    error: *mut *mut glib::ffi::GError,
+) -> glib::ffi::gboolean {
     let instance = &*(unit as *mut T::Instance);
-    let imp = instance.get_impl();
+    let imp = instance.imp();
     match imp.open(
-        &from_glib_borrow(unit),
+        from_glib_borrow::<_, AlsaFirewire>(unit).unsafe_cast_ref(),
         std::ffi::CStr::from_ptr(path).to_str().unwrap(),
         open_flag,
     ) {
-        Ok(()) => glib_sys::GTRUE,
+        Ok(()) => glib::ffi::GTRUE,
         Err(err) => {
-            let mut e = std::mem::ManuallyDrop::new(err);
-            *error = e.to_glib_none_mut().0;
-            glib_sys::GFALSE
+            if !error.is_null() {
+                *error = err.into_raw();
+            }
+            glib::ffi::GFALSE
         }
     }
 }
 
 unsafe extern "C" fn alsa_firewire_lock<T: AlsaFirewireImpl>(
-    unit: *mut hitaki_sys::HitakiAlsaFirewire,
-    error: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean {
+    unit: *mut ffi::HitakiAlsaFirewire,
+    error: *mut *mut glib::ffi::GError,
+) -> glib::ffi::gboolean {
     let instance = &*(unit as *mut T::Instance);
-    let imp = instance.get_impl();
-    match imp.lock(&from_glib_borrow(unit)) {
-        Ok(()) => glib_sys::GTRUE,
+    let imp = instance.imp();
+    match imp.lock(from_glib_borrow::<_, AlsaFirewire>(unit).unsafe_cast_ref()) {
+        Ok(()) => glib::ffi::GTRUE,
         Err(err) => {
-            let mut e = std::mem::ManuallyDrop::new(err);
-            *error = e.to_glib_none_mut().0;
-            glib_sys::GFALSE
+            if !error.is_null() {
+                *error = err.into_raw();
+            }
+            glib::ffi::GFALSE
         }
     }
 }
 
 unsafe extern "C" fn alsa_firewire_unlock<T: AlsaFirewireImpl>(
-    unit: *mut hitaki_sys::HitakiAlsaFirewire,
-    error: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean {
+    unit: *mut ffi::HitakiAlsaFirewire,
+    error: *mut *mut glib::ffi::GError,
+) -> glib::ffi::gboolean {
     let instance = &*(unit as *mut T::Instance);
-    let imp = instance.get_impl();
-    match imp.unlock(&from_glib_borrow(unit)) {
-        Ok(()) => glib_sys::GTRUE,
+    let imp = instance.imp();
+    match imp.unlock(from_glib_borrow::<_, AlsaFirewire>(unit).unsafe_cast_ref()) {
+        Ok(()) => glib::ffi::GTRUE,
         Err(err) => {
-            let mut e = std::mem::ManuallyDrop::new(err);
-            *error = e.to_glib_none_mut().0;
-            glib_sys::GFALSE
+            if !error.is_null() {
+                *error = err.into_raw();
+            }
+            glib::ffi::GFALSE
         }
     }
 }
 
 unsafe extern "C" fn alsa_firewire_create_source<T: AlsaFirewireImpl>(
-    unit: *mut hitaki_sys::HitakiAlsaFirewire,
-    source: *mut *mut glib_sys::GSource,
-    error: *mut *mut glib_sys::GError,
-) -> glib_sys::gboolean {
+    unit: *mut ffi::HitakiAlsaFirewire,
+    source: *mut *mut glib::ffi::GSource,
+    error: *mut *mut glib::ffi::GError,
+) -> glib::ffi::gboolean {
     let instance = &*(unit as *mut T::Instance);
-    let imp = instance.get_impl();
-    match imp.create_source(&from_glib_borrow(unit)) {
+    let imp = instance.imp();
+    match imp.create_source(from_glib_borrow::<_, AlsaFirewire>(unit).unsafe_cast_ref()) {
         Ok(src) => {
             *source = src.to_glib_none().0;
-            glib_sys::GTRUE
+            glib::ffi::GTRUE
         }
         Err(err) => {
-            let mut e = std::mem::ManuallyDrop::new(err);
-            *error = e.to_glib_none_mut().0;
-            glib_sys::GFALSE
+            if !error.is_null() {
+                *error = err.into_raw();
+            }
+            glib::ffi::GFALSE
         }
     }
 }
 
 #[cfg(test)]
-mod test {
-    use crate::subclass::alsa_firewire::*;
-    use crate::{AlsaFirewire, AlsaFirewireError, AlsaFirewireExt, AlsaFirewireType};
-    use glib::{
-        subclass::{
-            object::*,
-            simple::{ClassStruct, InstanceStruct},
-            types::*,
-            InitializingType, Property,
-        },
-        translate::*,
-        Object, ParamFlags, ParamSpec, StaticType, ToValue, Value,
-    };
+mod tests {
+    use crate::{subclass::alsa_firewire::*, traits::*};
+    use glib::{subclass::prelude::*, Object, ParamSpec, ParamSpecOverride, ToValue, Value};
 
     const UNIT_TYPE: AlsaFirewireType = AlsaFirewireType::Tascam;
     const CARD_ID: u32 = 117;
     const NODE_DEVICE: &str = "blank";
     const GUID: u64 = 315;
 
-    mod imp {
+    pub mod imp {
         use super::*;
         use std::cell::RefCell;
 
-        pub struct AlsaFirewireTestPrivate {
+        pub struct AlsaFirewireTest {
             is_locked: RefCell<bool>,
             is_disconnected: RefCell<bool>,
         }
 
-        impl Default for AlsaFirewireTestPrivate {
+        impl Default for AlsaFirewireTest {
             fn default() -> Self {
                 Self {
                     is_locked: Default::default(),
@@ -133,170 +233,95 @@ mod test {
             }
         }
 
-        static PROPERTIES: [Property; 6] = [
-            Property("unit-type", |name| {
-                ParamSpec::enum_(
-                    name,
-                    "unit-type",
-                    "The type of sound unit",
-                    AlsaFirewireType::static_type(),
-                    AlsaFirewireType::Dice.to_glib(),
-                    ParamFlags::READABLE,
-                )
-            }),
-            Property("card-id", |name| {
-                ParamSpec::uint(
-                    name,
-                    "card-id",
-                    "The numeric identifier for sound card",
-                    0,
-                    u32::MAX,
-                    0,
-                    ParamFlags::READABLE,
-                )
-            }),
-            Property("node-device", |name| {
-                ParamSpec::string(
-                    name,
-                    "node-device",
-                    "The name of node device in Linux FireWire subsystem",
-                    None,
-                    ParamFlags::READABLE,
-                )
-            }),
-            Property("is-locked", |name| {
-                ParamSpec::boolean(
-                    name,
-                    "is-locked",
-                    "Whether the associated unit is locked or not",
-                    false,
-                    ParamFlags::READWRITE | ParamFlags::EXPLICIT_NOTIFY,
-                )
-            }),
-            Property("guid", |name| {
-                ParamSpec::uint64(
-                    name,
-                    "guid",
-                    "Global unique identifier for the node in IEEE 1394 bus.",
-                    0,
-                    u64::MAX,
-                    0,
-                    ParamFlags::READABLE,
-                )
-            }),
-            Property("is-disconnected", |name| {
-                ParamSpec::boolean(
-                    name,
-                    "is-disconnected",
-                    "Whether the sound card is unavailable",
-                    false,
-                    ParamFlags::READWRITE | ParamFlags::EXPLICIT_NOTIFY,
-                )
-            }),
-        ];
-
-        impl ObjectSubclass for AlsaFirewireTestPrivate {
+        #[glib::object_subclass]
+        impl ObjectSubclass for AlsaFirewireTest {
             const NAME: &'static str = "AlsaFirewireTest";
-            type ParentType = Object;
-            type Instance = InstanceStruct<Self>;
-            type Class = ClassStruct<Self>;
-
-            glib_object_subclass!();
+            type Type = super::AlsaFirewireTest;
+            type Interfaces = (AlsaFirewire,);
 
             fn new() -> Self {
                 Self::default()
             }
-
-            fn class_init(klass: &mut Self::Class) {
-                klass.install_properties(&PROPERTIES);
-            }
-
-            fn type_init(type_: &mut InitializingType<Self>) {
-                type_.add_interface::<AlsaFirewire>();
-            }
         }
 
-        impl ObjectImpl for AlsaFirewireTestPrivate {
-            glib_object_impl!();
-
-            fn get_property(&self, _obj: &Object, id: usize) -> Result<Value, ()> {
-                let prop = &PROPERTIES[id];
-
-                match *prop {
-                    Property("unit-type", ..) => Ok(UNIT_TYPE.to_value()),
-                    Property("card-id", ..) => Ok(CARD_ID.to_value()),
-                    Property("node-device", ..) => Ok(NODE_DEVICE.to_value()),
-                    Property("is-locked", ..) => Ok(self.is_locked.borrow().to_value()),
-                    Property("guid", ..) => Ok(GUID.to_value()),
-                    Property("is-disconnected", ..) => Ok(self.is_disconnected.borrow().to_value()),
-                    _ => unimplemented!(),
-                }
-            }
-
-            fn set_property(&self, _obj: &Object, id: usize, value: &Value) {
-                let prop = &PROPERTIES[id];
-
-                match *prop {
-                    Property("is-locked", ..) => {
-                        let is_locked = value
-                            .get()
-                            .expect("is-locked conformity checked by `Object::set_property`")
-                            .unwrap_or_default();
+        impl ObjectImpl for AlsaFirewireTest {
+            fn set_property(
+                &self,
+                _unit: &Self::Type,
+                _id: usize,
+                value: &Value,
+                pspec: &ParamSpec,
+            ) {
+                match pspec.name() {
+                    "is-locked" => {
+                        let is_locked = value.get().unwrap();
                         self.is_locked.replace(is_locked);
                     }
-                    Property("is-disconnected", ..) => {
-                        let is_disconnected = value
-                            .get()
-                            .expect("is-disconnected conformity checked by `Object::set_property`")
-                            .unwrap_or_default();
+                    "is-disconnected" => {
+                        let is_disconnected = value.get().unwrap();
                         self.is_disconnected.replace(is_disconnected);
                     }
                     _ => unimplemented!(),
                 }
             }
+
+            fn properties() -> &'static [ParamSpec] {
+                use once_cell::sync::Lazy;
+                static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+                    vec![
+                        ParamSpecOverride::for_interface::<AlsaFirewire>("unit-type"),
+                        ParamSpecOverride::for_interface::<AlsaFirewire>("card-id"),
+                        ParamSpecOverride::for_interface::<AlsaFirewire>("node-device"),
+                        ParamSpecOverride::for_interface::<AlsaFirewire>("is-locked"),
+                        ParamSpecOverride::for_interface::<AlsaFirewire>("guid"),
+                        ParamSpecOverride::for_interface::<AlsaFirewire>("is-disconnected"),
+                    ]
+                });
+
+                PROPERTIES.as_ref()
+            }
+
+            fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
+                match pspec.name() {
+                    "unit-type" => UNIT_TYPE.to_value(),
+                    "card-id" => CARD_ID.to_value(),
+                    "node-device" => NODE_DEVICE.to_value(),
+                    "is-locked" => self.is_locked.borrow().to_value(),
+                    "guid" => GUID.to_value(),
+                    "is-disconnected" => self.is_disconnected.borrow().to_value(),
+                    _ => unimplemented!(),
+                }
+            }
         }
 
-        impl AlsaFirewireImpl for AlsaFirewireTestPrivate {
-            fn open(
-                &self,
-                _unit: &AlsaFirewire,
-                _path: &str,
-                _open_flag: i32,
-            ) -> Result<(), Error> {
+        impl AlsaFirewireImpl for AlsaFirewireTest {
+            fn open(&self, _unit: &Self::Type, _path: &str, _open_flag: i32) -> Result<(), Error> {
                 Ok(())
             }
 
-            fn lock(&self, _unit: &AlsaFirewire) -> Result<(), Error> {
+            fn lock(&self, _unit: &Self::Type) -> Result<(), Error> {
                 Ok(())
             }
 
-            fn unlock(&self, _unit: &AlsaFirewire) -> Result<(), Error> {
+            fn unlock(&self, _unit: &Self::Type) -> Result<(), Error> {
                 Ok(())
             }
 
-            fn create_source(&self, _unit: &AlsaFirewire) -> Result<Source, Error> {
+            fn create_source(&self, _unit: &Self::Type) -> Result<Source, Error> {
                 Err(Error::new(AlsaFirewireError::Failed, "expected failure"))
             }
         }
     }
 
-    glib_wrapper! {
-        pub struct AlsaFirewireTest(
-            Object<InstanceStruct<imp::AlsaFirewireTestPrivate>,
-            ClassStruct<imp::AlsaFirewireTestPrivate>, AlsaFirewireTestClass>
-        ) @implements AlsaFirewire;
-
-        match fn {
-            get_type => || imp::AlsaFirewireTestPrivate::get_type().to_glib(),
-        }
+    glib::wrapper! {
+        pub struct AlsaFirewireTest(ObjectSubclass<imp::AlsaFirewireTest>)
+            @implements AlsaFirewire;
     }
 
+    #[allow(clippy::new_without_default)]
     impl AlsaFirewireTest {
         pub fn new() -> Self {
-            Object::new(Self::static_type(), &[])
-                .expect("Failed to create AlsaFirewire")
-                .downcast()
-                .expect("Created row data is of wrong type")
+            Object::new(&[]).expect("Failed creation/initialization of AlsaFirewireTest object")
         }
     }
 
@@ -309,20 +334,17 @@ mod test {
         assert_eq!(unit.unlock(), Ok(()));
         assert!(unit.create_source().is_err());
 
-        assert_eq!(unit.get_property_unit_type(), UNIT_TYPE);
-        assert_eq!(unit.get_property_card_id(), CARD_ID);
-        assert_eq!(
-            unit.get_property_node_device().unwrap().as_str(),
-            NODE_DEVICE
-        );
-        assert_eq!(unit.get_property_guid(), GUID);
+        assert_eq!(unit.unit_type(), UNIT_TYPE);
+        assert_eq!(unit.card_id(), CARD_ID);
+        assert_eq!(unit.node_device().unwrap().as_str(), NODE_DEVICE);
+        assert_eq!(unit.guid(), GUID);
 
-        assert_eq!(unit.get_property_is_locked(), false);
-        unit.set_property_is_locked(true);
-        assert_eq!(unit.get_property_is_locked(), true);
+        assert_eq!(unit.is_locked(), false);
+        unit.set_is_locked(true);
+        assert_eq!(unit.is_locked(), true);
 
-        assert_eq!(unit.get_property_is_disconnected(), false);
-        unit.set_property_is_disconnected(true);
-        assert_eq!(unit.get_property_is_disconnected(), true);
+        assert_eq!(unit.is_disconnected(), false);
+        unit.set_is_disconnected(true);
+        assert_eq!(unit.is_disconnected(), true);
     }
 }
