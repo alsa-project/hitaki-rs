@@ -3,8 +3,13 @@ edition = "2018"
 name = "hitaki"
 version = "0.1.0"
 # For publishing.
-authors = ["Takashi Sakamoto <o-takashi@sakamocchi.jp>"]
-description = "API bindings for libhitaki library"
+authors = ["Takashi Sakamoto"]
+categories = ["api-bindings", "hardware-support", "os::linux-apis"]
+description = "API bindings for hitaki library"
+documentation = "https://docs.rs/hitaki/"
+exclude = ["Gir.toml"]
+homepage = "https://alsa-project.github.io/gobject-introspection-docs/"
+keywords = ["ieee1394", "firewire", "alsa", "glib"]
 license = "MIT"
 repository = "https://github.com/alsa-project/hitaki-rs/"
 
