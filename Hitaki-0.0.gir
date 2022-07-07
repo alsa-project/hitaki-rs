@@ -285,7 +285,7 @@ driver is unbound to it. Then the owner of this object should call
                  glib:error-domain="hitaki-alsa-firewire-error-quark">
       <doc xml:space="preserve"
            filename="../src/hitaki_enum_types.h"
-           line="29">The enumerations to report result of operation in [iface@AlsaFirewire].</doc>
+           line="31">The enumerations to report result of operation in [iface@AlsaFirewire].</doc>
       <member name="failed"
               value="0"
               c:identifier="HITAKI_ALSA_FIREWIRE_ERROR_FAILED"
@@ -293,7 +293,7 @@ driver is unbound to it. Then the owner of this object should call
               glib:name="HITAKI_ALSA_FIREWIRE_ERROR_FAILED">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="31">The system call fails.</doc>
+             line="33">The system call fails.</doc>
       </member>
       <member name="is_opened"
               value="1"
@@ -302,7 +302,7 @@ driver is unbound to it. Then the owner of this object should call
               glib:name="HITAKI_ALSA_FIREWIRE_ERROR_IS_OPENED">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="32">The instance is already associated to any ALSA HwDep
+             line="34">The instance is already associated to any ALSA HwDep
                                              character device.</doc>
       </member>
       <member name="is_not_opened"
@@ -312,7 +312,7 @@ driver is unbound to it. Then the owner of this object should call
               glib:name="HITAKI_ALSA_FIREWIRE_ERROR_IS_NOT_OPENED">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="34">The instance is not associated to any ALSA HwDep
+             line="36">The instance is not associated to any ALSA HwDep
                                              character device yet.</doc>
       </member>
       <member name="is_used"
@@ -322,7 +322,7 @@ driver is unbound to it. Then the owner of this object should call
               glib:name="HITAKI_ALSA_FIREWIRE_ERROR_IS_USED">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="36">The ALSA HwDep character device is used by the other
+             line="38">The ALSA HwDep character device is used by the other
                                              process.</doc>
       </member>
       <member name="is_locked"
@@ -332,7 +332,7 @@ driver is unbound to it. Then the owner of this object should call
               glib:name="HITAKI_ALSA_FIREWIRE_ERROR_IS_LOCKED">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="38">The functionality of packet streaming is prohibited.</doc>
+             line="40">The functionality of packet streaming is prohibited.</doc>
       </member>
       <member name="is_unlocked"
               value="5"
@@ -341,7 +341,7 @@ driver is unbound to it. Then the owner of this object should call
               glib:name="HITAKI_ALSA_FIREWIRE_ERROR_IS_UNLOCKED">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="39">The functionality of packet streaming is available.</doc>
+             line="41">The functionality of packet streaming is available.</doc>
       </member>
       <member name="is_disconnected"
               value="6"
@@ -350,7 +350,7 @@ driver is unbound to it. Then the owner of this object should call
               glib:name="HITAKI_ALSA_FIREWIRE_ERROR_IS_DISCONNECTED">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="40">The sound card is disconnected.</doc>
+             line="42">The sound card is disconnected.</doc>
       </member>
       <member name="wrong_class"
               value="7"
@@ -359,7 +359,7 @@ driver is unbound to it. Then the owner of this object should call
               glib:name="HITAKI_ALSA_FIREWIRE_ERROR_WRONG_CLASS">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="41">Mismatch between GObject class and thetype of sound
+             line="43">Mismatch between GObject class and thetype of sound
                                              unit.</doc>
       </member>
       <function name="quark" c:identifier="hitaki_alsa_firewire_error_quark">
@@ -513,7 +513,7 @@ enumerations.</doc>
                  c:type="HitakiAlsaFirewireType">
       <doc xml:space="preserve"
            filename="../src/hitaki_enum_types.h"
-           line="5">The enumerations for type of sound unit defined by ALSA firewire stack.</doc>
+           line="7">The enumerations for type of sound unit defined by ALSA firewire stack.</doc>
       <member name="dice"
               value="1"
               c:identifier="HITAKI_ALSA_FIREWIRE_TYPE_DICE"
@@ -521,7 +521,7 @@ enumerations.</doc>
               glib:name="HITAKI_ALSA_FIREWIRE_TYPE_DICE">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="7">The type of DICE ASIC.</doc>
+             line="9">The type of DICE ASIC.</doc>
       </member>
       <member name="fireworks"
               value="2"
@@ -530,7 +530,7 @@ enumerations.</doc>
               glib:name="HITAKI_ALSA_FIREWIRE_TYPE_FIREWORKS">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="8">The type of Fireworks board module.</doc>
+             line="10">The type of Fireworks board module.</doc>
       </member>
       <member name="bebob"
               value="3"
@@ -539,7 +539,7 @@ enumerations.</doc>
               glib:name="HITAKI_ALSA_FIREWIRE_TYPE_BEBOB">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="9">The type of BeBoB ASIC.</doc>
+             line="11">The type of BeBoB ASIC.</doc>
       </member>
       <member name="oxfw"
               value="4"
@@ -548,7 +548,7 @@ enumerations.</doc>
               glib:name="HITAKI_ALSA_FIREWIRE_TYPE_OXFW">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="10">The type of OXFW ASIC</doc>
+             line="12">The type of OXFW ASIC</doc>
       </member>
       <member name="digi00x"
               value="5"
@@ -557,7 +557,7 @@ enumerations.</doc>
               glib:name="HITAKI_ALSA_FIREWIRE_TYPE_DIGI00X">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="11">The type of Digi00x series.</doc>
+             line="13">The type of Digi00x series.</doc>
       </member>
       <member name="tascam"
               value="6"
@@ -566,7 +566,7 @@ enumerations.</doc>
               glib:name="HITAKI_ALSA_FIREWIRE_TYPE_TASCAM">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="12">The type of Tascam FireWire series.</doc>
+             line="14">The type of Tascam FireWire series.</doc>
       </member>
       <member name="motu"
               value="7"
@@ -575,7 +575,7 @@ enumerations.</doc>
               glib:name="HITAKI_ALSA_FIREWIRE_TYPE_MOTU">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="13">The type of MOTU FireWire series.</doc>
+             line="15">The type of MOTU FireWire series.</doc>
       </member>
       <member name="fireface"
               value="8"
@@ -584,7 +584,7 @@ enumerations.</doc>
               glib:name="HITAKI_ALSA_FIREWIRE_TYPE_FIREFACE">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="14">The type of RME Fireface series.</doc>
+             line="16">The type of RME Fireface series.</doc>
       </member>
     </enumeration>
     <interface name="EfwProtocol"
@@ -970,7 +970,7 @@ driver.</doc>
                  glib:error-domain="hitaki-efw-protocol-error-quark">
       <doc xml:space="preserve"
            filename="../src/hitaki_enum_types.h"
-           line="57">The enumerations to report status of response in Fireworks protocol.</doc>
+           line="59">The enumerations to report status of response in Fireworks protocol.</doc>
       <member name="ok"
               value="0"
               c:identifier="HITAKI_EFW_PROTOCOL_ERROR_OK"
@@ -978,7 +978,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_OK">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="59">The transaction finished successfully.</doc>
+             line="61">The transaction finished successfully.</doc>
       </member>
       <member name="bad"
               value="1"
@@ -987,7 +987,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="60">The request or response includes invalid header.</doc>
+             line="62">The request or response includes invalid header.</doc>
       </member>
       <member name="bad_command"
               value="2"
@@ -996,7 +996,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_COMMAND">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="61">The request includes invalid category or command.</doc>
+             line="63">The request includes invalid category or command.</doc>
       </member>
       <member name="comm_err"
               value="3"
@@ -1005,7 +1005,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_COMM_ERR">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="62">The transaction fails due to communication error.</doc>
+             line="64">The transaction fails due to communication error.</doc>
       </member>
       <member name="bad_quad_count"
               value="4"
@@ -1014,7 +1014,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_QUAD_COUNT">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="63">The number of quadlets in transaction is invalid.</doc>
+             line="65">The number of quadlets in transaction is invalid.</doc>
       </member>
       <member name="unsupported"
               value="5"
@@ -1023,7 +1023,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_UNSUPPORTED">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="64">The request is not supported.</doc>
+             line="66">The request is not supported.</doc>
       </member>
       <member name="timeout"
               value="6"
@@ -1032,7 +1032,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_TIMEOUT">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="65">The transaction is canceled due to response timeout.</doc>
+             line="67">The transaction is canceled due to response timeout.</doc>
       </member>
       <member name="dsp_timeout"
               value="7"
@@ -1041,7 +1041,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_DSP_TIMEOUT">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="66">The operation for DSP did not finish within timeout.</doc>
+             line="68">The operation for DSP did not finish within timeout.</doc>
       </member>
       <member name="bad_rate"
               value="8"
@@ -1050,7 +1050,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_RATE">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="67">The request includes invalid value for sampling frequency.</doc>
+             line="69">The request includes invalid value for sampling frequency.</doc>
       </member>
       <member name="bad_clock"
               value="9"
@@ -1059,7 +1059,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_CLOCK">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="68">The request includes invalid value for source of clock.</doc>
+             line="70">The request includes invalid value for source of clock.</doc>
       </member>
       <member name="bad_channel"
               value="10"
@@ -1068,7 +1068,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_CHANNEL">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="69">The request includes invalid value for the number of channel.</doc>
+             line="71">The request includes invalid value for the number of channel.</doc>
       </member>
       <member name="bad_pan"
               value="11"
@@ -1077,7 +1077,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_PAN">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="70">The request includes invalid value for panning.</doc>
+             line="72">The request includes invalid value for panning.</doc>
       </member>
       <member name="flash_busy"
               value="12"
@@ -1086,7 +1086,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_FLASH_BUSY">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="71">The on-board flash is busy and not operable.</doc>
+             line="73">The on-board flash is busy and not operable.</doc>
       </member>
       <member name="bad_mirror"
               value="13"
@@ -1095,7 +1095,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_MIRROR">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="72">The request includes invalid value for mirroring channel.</doc>
+             line="74">The request includes invalid value for mirroring channel.</doc>
       </member>
       <member name="bad_led"
               value="14"
@@ -1104,7 +1104,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_LED">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="73">The request includes invalid value for LED.</doc>
+             line="75">The request includes invalid value for LED.</doc>
       </member>
       <member name="bad_parameter"
               value="15"
@@ -1113,7 +1113,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_BAD_PARAMETER">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="74">The request includes invalid value of parameter.</doc>
+             line="76">The request includes invalid value of parameter.</doc>
       </member>
       <member name="incomplete"
               value="-2147483648"
@@ -1122,7 +1122,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_INCOMPLETE">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="75">The transaction finishes incompletely.</doc>
+             line="77">The transaction finishes incompletely.</doc>
       </member>
       <member name="invalid"
               value="-1"
@@ -1131,7 +1131,7 @@ driver.</doc>
               glib:name="HITAKI_EFW_PROTOCOL_ERROR_INVALID">
         <doc xml:space="preserve"
              filename="../src/hitaki_enum_types.h"
-             line="76">The transaction finished with invalid condition.</doc>
+             line="78">The transaction finished with invalid condition.</doc>
       </member>
       <function name="quark" c:identifier="hitaki_efw_protocol_error_quark">
         <doc xml:space="preserve"
