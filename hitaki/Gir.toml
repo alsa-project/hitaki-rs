@@ -30,11 +30,11 @@ name = "Hitaki.EfwProtocol"
 status = "generate"
 manual_traits = ["EfwProtocolExtManual"]
     [[object.function]]
-    pattern = "transaction"
+    name = "transaction"
     ignore = true
     doc_trait_name = "EfwProtocolExtManual"
     [[object.signal]]
-    pattern = "responded"
+    name = "responded"
     ignore = true
     doc_trait_name = "EfwProtocolExtManual"
 
@@ -43,14 +43,14 @@ name = "Hitaki.MotuRegisterDsp"
 status = "generate"
 manual_traits = ["MotuRegisterDspManual"]
     [[object.signal]]
-    pattern = "changed"
+    name = "changed"
     ignore = true
     [[object.function]]
-    pattern = "read_parameter"
+    name = "read_parameter"
     ignore = true
     doc_trait_name = "SndMotuExtManual"
     [[object.function]]
-    pattern = "read_meter"
+    name = "read_meter"
     ignore = true
     doc_trait_name = "SndMotuExtManual"
 
@@ -59,7 +59,7 @@ name = "Hitaki.MotuCommandDsp"
 status = "generate"
 manual_traits = ["MotuCommandDspManual"]
     [[object.function]]
-    pattern = "read_meter"
+    name = "read_meter"
     ignore = true
     doc_trait_name = "MotuCommandDspManual"
 
@@ -69,39 +69,39 @@ status = "generate"
 concurrency = "send+sync"
 manual_traits = ["SndMotuRegisterDspParameterExtManual"]
     [[object.function]]
-    pattern = "get_input_flag"
+    name = "get_input_flag"
     ignore = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
     [[object.function]]
-    pattern = "get_input_gain_and_invert"
+    name = "get_input_gain_and_invert"
     ignore = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
     [[object.function]]
-    pattern = "get_mixer_output_paired_flag"
+    name = "get_mixer_output_paired_flag"
     ignore = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
     [[object.function]]
-    pattern = "get_mixer_output_paired_volume"
+    name = "get_mixer_output_paired_volume"
     ignore = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
     [[object.function]]
-    pattern = "get_mixer_source_flag"
+    name = "get_mixer_source_flag"
     ignore = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
     [[object.function]]
-    pattern = "get_mixer_source_gain"
+    name = "get_mixer_source_gain"
     ignore = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
     [[object.function]]
-    pattern = "get_mixer_source_paired_balance"
+    name = "get_mixer_source_paired_balance"
     ignore = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
     [[object.function]]
-    pattern = "get_mixer_source_paired_width"
+    name = "get_mixer_source_paired_width"
     ignore = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
     [[object.function]]
-    pattern = "get_mixer_source_pan"
+    name = "get_mixer_source_pan"
     ignore = true
     doc_trait_name = "SndMotuRegisterDspParameterExtManual"
 
@@ -110,6 +110,6 @@ name = "Hitaki.TascamProtocol"
 status = "generate"
 manual_traits = ["TascamProtocolExtManual"]
     [[object.function]]
-    pattern = "read_state"
+    name = "read_state"
     ignore = true
     doc_trait_name = "TascamProtocolExtManual"
