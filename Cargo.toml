@@ -11,3 +11,11 @@ exclude = [
 default-members = [
     "hitaki",
 ]
+
+# For my convenience to generate README.md for each crates by my tool.
+[workspace.metadata.library.hitaki]
+repository = "https://github.com/alsa-project/libhitaki"
+purpose = """
+operate ALSA HwDep character device for model specific functionalities supported by drivers
+in ALSA firewire stack
+"""
