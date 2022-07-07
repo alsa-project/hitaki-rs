@@ -2,6 +2,7 @@
 use crate::*;
 
 impl SndMotuRegisterDspParameter {
+    #[doc(alias = "hitaki_snd_motu_register_dsp_parameter_get_input_flag")]
     pub fn input_flag(&self) -> &[u8; 10] {
         unsafe {
             let mut ptr = std::ptr::null_mut() as *const [u8; 10];
@@ -13,6 +14,7 @@ impl SndMotuRegisterDspParameter {
         }
     }
 
+    #[doc(alias = "hitaki_snd_motu_register_dsp_parameter_get_input_gain_and_invert")]
     pub fn input_gain_and_invert(&self) -> &[u8; 10] {
         unsafe {
             let mut ptr = std::ptr::null_mut() as *const [u8; 10];
@@ -24,6 +26,7 @@ impl SndMotuRegisterDspParameter {
         }
     }
 
+    #[doc(alias = "hitaki_snd_motu_register_dsp_parameter_get_mixer_output_paired_flag")]
     pub fn mixer_output_paired_flag(&self) -> &[u8; 4] {
         unsafe {
             let mut ptr = std::ptr::null_mut() as *const [u8; 4];
@@ -35,6 +38,7 @@ impl SndMotuRegisterDspParameter {
         }
     }
 
+    #[doc(alias = "hitaki_snd_motu_register_dsp_parameter_get_mixer_output_paired_volume")]
     pub fn mixer_output_paired_volume(&self) -> &[u8; 4] {
         unsafe {
             let mut ptr = std::ptr::null_mut() as *const [u8; 4];
@@ -46,6 +50,7 @@ impl SndMotuRegisterDspParameter {
         }
     }
 
+    #[doc(alias = "hitaki_snd_motu_register_dsp_parameter_get_mixer_source_flag")]
     pub fn mixer_source_flag(&self, mixer: usize) -> &[u8; 20] {
         unsafe {
             let mut ptr = std::ptr::null_mut() as *const [u8; 20];
@@ -58,6 +63,7 @@ impl SndMotuRegisterDspParameter {
         }
     }
 
+    #[doc(alias = "hitaki_snd_motu_register_dsp_parameter_get_mixer_source_gain")]
     pub fn mixer_source_gain(&self, mixer: usize) -> &[u8; 20] {
         unsafe {
             let mut ptr = std::ptr::null_mut() as *const [u8; 20];
@@ -70,6 +76,7 @@ impl SndMotuRegisterDspParameter {
         }
     }
 
+    #[doc(alias = "hitaki_snd_motu_register_dsp_parameter_get_mixer_source_paired_balance")]
     pub fn mixer_source_paired_balance(&self, mixer: usize) -> &[u8; 20] {
         unsafe {
             let mut ptr = std::ptr::null_mut() as *const [u8; 20];
@@ -82,6 +89,7 @@ impl SndMotuRegisterDspParameter {
         }
     }
 
+    #[doc(alias = "hitaki_snd_motu_register_dsp_parameter_get_mixer_source_paired_width")]
     pub fn mixer_source_paired_width(&self, mixer: usize) -> &[u8; 20] {
         unsafe {
             let mut ptr = std::ptr::null_mut() as *const [u8; 20];
@@ -94,6 +102,7 @@ impl SndMotuRegisterDspParameter {
         }
     }
 
+    #[doc(alias = "hitaki_snd_motu_register_dsp_parameter_get_mixer_source_pan")]
     pub fn mixer_source_pan(&self, mixer: usize) -> &[u8; 20] {
         unsafe {
             let mut ptr = std::ptr::null_mut() as *const [u8; 20];

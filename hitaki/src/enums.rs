@@ -3,6 +3,7 @@
 use super::*;
 
 impl AlsaFirewireError {
+    #[doc(alias = "hitaki_alsa_firewire_error_to_label")]
     pub fn to_label(&self) -> &'static str {
         unsafe {
             let mut ptr = std::ptr::null_mut() as *const i8;
@@ -13,6 +14,7 @@ impl AlsaFirewireError {
 }
 
 impl EfwProtocolError {
+    #[doc(alias = "hitaki_efw_protocol_error_to_label")]
     pub fn to_label(&self) -> &'static str {
         unsafe {
             let mut ptr = std::ptr::null_mut() as *const i8;

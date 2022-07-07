@@ -2,12 +2,16 @@
 use crate::*;
 
 pub trait MotuRegisterDspExtManual {
+    #[doc(alias = "hitaki_motu_register_dsp_read_parameter")]
     fn read_parameter(&self, param: &mut SndMotuRegisterDspParameter) -> Result<(), glib::Error>;
 
+    #[doc(alias = "hitaki_motu_register_dsp_read_byte_meter")]
     fn read_byte_meter(&self, meter: &mut [u8; 48]) -> Result<(), glib::Error>;
 
+    #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self, &[u32]) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    #[doc(alias = "changed")]
     fn emit_changed(&self, events: &[u32]);
 }
 

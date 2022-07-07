@@ -2,6 +2,7 @@
 use crate::*;
 
 pub trait MotuCommandDspExtManual {
+    #[doc(alias = "hitaki_motu_command_dsp_read_float_meter")]
     fn read_float_meter(&self, meter: &mut [f32; 400]) -> Result<(), glib::Error>;
 }
 

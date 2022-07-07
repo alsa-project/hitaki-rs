@@ -2,6 +2,7 @@
 use crate::*;
 
 pub trait TascamProtocolExtManual {
+    #[doc(alias = "hitaki_tascam_protocol_read_state")]
     fn read_state(&self, state: &mut Vec<u32>) -> Result<(), glib::Error>;
 }
 

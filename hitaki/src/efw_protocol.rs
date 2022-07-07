@@ -5,6 +5,7 @@
 use crate::*;
 
 pub trait EfwProtocolExtManual {
+    #[doc(alias = "hitaki_efw_protocol_transaction")]
     fn transaction(
         &self,
         category: u32,
@@ -14,6 +15,7 @@ pub trait EfwProtocolExtManual {
         timeout_ms: u32,
     ) -> Result<(), glib::Error>;
 
+    #[doc(alias = "responded")]
     fn emit_responded(
         &self,
         version: u32,
@@ -24,6 +26,7 @@ pub trait EfwProtocolExtManual {
         params: &[u32],
     );
 
+    #[doc(alias = "responded")]
     fn connect_responded<F>(&self, f: F) -> SignalHandlerId
     where
         F: Fn(&Self, u32, u32, u32, u32, EfwProtocolError, &[u32]) + 'static;
