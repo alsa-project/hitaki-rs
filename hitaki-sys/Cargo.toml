@@ -5,8 +5,13 @@ links = "hitaki"
 name = "hitaki-sys"
 version = "0.1.0"
 # For publishing.
-authors = ["Takashi Sakamoto <o-takashi@sakamocchi.jp>"]
-description = "FFI bindings for libhitaki library"
+authors = ["Takashi Sakamoto"]
+categories = ["external-ffi-bindings", "hardware-support", "os::linux-apis"]
+description = "FFI bindings for hitaki library"
+documentation = "https://docs.rs/hitaki-sys/"
+exclude = ["Gir.toml"]
+homepage = "https://alsa-project.github.io/gobject-introspection-docs/"
+keywords = ["ieee1394", "firewire", "alsa", "glib", "ffi"]
 license = "MIT"
 repository = "https://github.com/alsa-project/hitaki-rs/"
 [package.metadata.docs.rs]
