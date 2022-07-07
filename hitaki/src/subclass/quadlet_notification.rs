@@ -1,10 +1,14 @@
 // SPDX-License-Identifier: MIT
 use super::*;
 
+/// Trait which should be implemented by subclass of
+/// [`QuadletNotification`][crate::QuadletNotification].
 pub trait QuadletNotificationImpl: ObjectImpl {
     fn notified(&self, unit: &Self::Type, msg: u32);
 }
 
+/// Trait which is automatically implemented to implementator of
+/// [`QuadletNotificationImpl`][self::QuadletNotificationImpl]
 pub trait QuadletNotificationImplExt: ObjectSubclass {
     fn parent_notified(&self, unit: &Self::Type, msg: u32);
 }

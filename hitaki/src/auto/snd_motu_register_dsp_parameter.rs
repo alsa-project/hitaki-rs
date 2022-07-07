@@ -7,6 +7,10 @@ use glib::translate::*;
 use std::mem;
 
 glib::wrapper! {
+    /// A boxed object for parameters in MOTU register DSP model.
+    ///
+    /// A [`SndMotuRegisterDspParameter`][crate::SndMotuRegisterDspParameter] is a boxed object for container of parameter in register
+    /// DSP model of Mark of the Unicorn (MOTU) FireWire series.
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct SndMotuRegisterDspParameter(Boxed<ffi::HitakiSndMotuRegisterDspParameter>);
 
@@ -18,11 +22,24 @@ glib::wrapper! {
 }
 
 impl SndMotuRegisterDspParameter {
+    /// Instantiate [`SndMotuRegisterDspParameter`][crate::SndMotuRegisterDspParameter] object and return the instance.
+    ///
+    /// # Returns
+    ///
+    /// an instance of [`SndMotuRegisterDspParameter`][crate::SndMotuRegisterDspParameter].
     #[doc(alias = "hitaki_snd_motu_register_dsp_parameter_new")]
     pub fn new() -> SndMotuRegisterDspParameter {
         unsafe { from_glib_full(ffi::hitaki_snd_motu_register_dsp_parameter_new()) }
     }
 
+    /// Get the array with elements for the data of paired headphone output source. The data has index
+    /// value of source.
+    ///
+    /// # Returns
+    ///
+    ///
+    /// ## `assignment`
+    /// The value of paired headphone assignment.
     #[doc(alias = "hitaki_snd_motu_register_dsp_parameter_get_headphone_output_paired_assignment")]
     #[doc(alias = "get_headphone_output_paired_assignment")]
     pub fn headphone_output_paired_assignment(&self) -> u8 {
@@ -37,6 +54,14 @@ impl SndMotuRegisterDspParameter {
         }
     }
 
+    /// Get the array with elements for the data of paired headphone output volume. The data has volume
+    /// value between 0x00 and 0x80.
+    ///
+    /// # Returns
+    ///
+    ///
+    /// ## `volume`
+    /// The value of paired headphone output.
     #[doc(alias = "hitaki_snd_motu_register_dsp_parameter_get_headphone_output_paired_volume")]
     #[doc(alias = "get_headphone_output_paired_volume")]
     pub fn headphone_output_paired_volume(&self) -> u8 {
@@ -51,6 +76,14 @@ impl SndMotuRegisterDspParameter {
         }
     }
 
+    /// Get the data for flags of line input boost. The data consists of bit flags for corresponding line
+    /// input channel. When the flag stands, the input is boosted.
+    ///
+    /// # Returns
+    ///
+    ///
+    /// ## `boost_flag`
+    /// The flag of boost for line input.
     #[doc(alias = "hitaki_snd_motu_register_dsp_parameter_get_line_input_boost_flag")]
     #[doc(alias = "get_line_input_boost_flag")]
     pub fn line_input_boost_flag(&self) -> u8 {
@@ -65,6 +98,15 @@ impl SndMotuRegisterDspParameter {
         }
     }
 
+    /// Get the data for flags of line input nominal level. The data consists of bit flags for
+    /// corresponding line input channel. When the flag stands, the nominal level of input is +4 dBu,
+    /// else -10 dBV.
+    ///
+    /// # Returns
+    ///
+    ///
+    /// ## `nominal_level_flag`
+    /// The flag of boost for line input.
     #[doc(alias = "hitaki_snd_motu_register_dsp_parameter_get_line_input_nominal_level_flag")]
     #[doc(alias = "get_line_input_nominal_level_flag")]
     pub fn line_input_nominal_level_flag(&self) -> u8 {
@@ -79,6 +121,14 @@ impl SndMotuRegisterDspParameter {
         }
     }
 
+    /// Get the array with elements for the data of paired main output volume. The data has volume value
+    /// between 0x00 and 0x80.
+    ///
+    /// # Returns
+    ///
+    ///
+    /// ## `volume`
+    /// The value of paired main output.
     #[doc(alias = "hitaki_snd_motu_register_dsp_parameter_get_main_output_paired_volume")]
     #[doc(alias = "get_main_output_paired_volume")]
     pub fn main_output_paired_volume(&self) -> u8 {

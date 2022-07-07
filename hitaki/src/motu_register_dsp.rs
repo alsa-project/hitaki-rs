@@ -1,16 +1,48 @@
 // SPDX-License-Identifier: MIT
 use crate::*;
 
+/// Trait containing the rest of [`struct@MotuRegisterDsp`] methods.
+///
+/// # Implementors
+///
+/// [`MotuRegisterDsp`][struct@crate::MotuRegisterDsp], [`SndMotu`][struct@crate::SndMotu]
 pub trait MotuRegisterDspExtManual {
+    /// Read cached parameter for register DSP models.
+    /// ## `param`
+    /// A [`SndMotuRegisterDspParameter`][crate::SndMotuRegisterDspParameter].
+    ///
+    /// # Returns
+    ///
+    /// TRUE if the overall operation finished successfully, else FALSE.
     #[doc(alias = "hitaki_motu_register_dsp_read_parameter")]
     fn read_parameter(&self, param: &mut SndMotuRegisterDspParameter) -> Result<(), glib::Error>;
 
+    /// Read cached data of meter information for register DSP models.
+    /// ## `meter`
+    /// The data of meter. Index 0 to 23 for inputs and index 24
+    ///         to 47 for outputs.
+    ///
+    /// # Returns
+    ///
+    /// TRUE if the overall operation finished successfully, else FALSE.
     #[doc(alias = "hitaki_motu_register_dsp_read_byte_meter")]
     fn read_byte_meter(&self, meter: &mut [u8; 48]) -> Result<(), glib::Error>;
 
+    /// Emitted when MOTU register DSP models transfer events by messages in the sequence of
+    /// isochronous packet. The event consists of encoded data. The most significant byte is the
+    /// type of message. The next two bytes are two identifiers. The least significant byte is
+    /// value. The meaning of identifier 0, 1 and value is decided depending on the type. For
+    /// detail, see `sound/firewire/motu/motu-register-dsp-message-parser.c` in Linux kernel.
+    /// ## `events`
+    /// The array with element for unsigned
+    ///          32 bit encoded data.
     #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self, &[u32]) + 'static>(&self, f: F) -> SignalHandlerId;
 
+    /// Emit changed event with given parameters.
+    ///
+    /// ## `events`
+    /// The array with encoded data.
     #[doc(alias = "changed")]
     fn emit_changed(&self, events: &[u32]);
 }

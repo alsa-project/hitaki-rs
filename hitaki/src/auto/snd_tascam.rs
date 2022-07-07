@@ -9,6 +9,16 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    /// A GObject-derived object for sound unit of TASCAM FireWire series.
+    ///
+    /// The [`SndTascam`][crate::SndTascam] is an object class derived from `GObject::Object` with protocol
+    /// implementation for TASCAM FireWire series supported by ALSA firewire-tascam driver
+    /// (`snd-firewire-tascam`). The image of state consists of 64 quadlets according to
+    /// `SNDRV_FIREWIRE_TASCAM_STATE_COUNT` in UAPI of ALSA firewire stack.
+    ///
+    /// # Implements
+    ///
+    /// [`AlsaFirewireExt`][trait@crate::prelude::AlsaFirewireExt], [`TascamProtocolExt`][trait@crate::prelude::TascamProtocolExt], [`TascamProtocolExtManual`][trait@crate::prelude::TascamProtocolExtManual]
     #[doc(alias = "HitakiSndTascam")]
     pub struct SndTascam(Object<ffi::HitakiSndTascam, ffi::HitakiSndTascamClass>) @implements AlsaFirewire, TascamProtocol;
 
@@ -20,6 +30,11 @@ glib::wrapper! {
 impl SndTascam {
     pub const NONE: Option<&'static SndTascam> = None;
 
+    /// Instantiate [`SndTascam`][crate::SndTascam] object and return the instance.
+    ///
+    /// # Returns
+    ///
+    /// an instance of [`SndTascam`][crate::SndTascam].
     #[doc(alias = "hitaki_snd_tascam_new")]
     pub fn new() -> SndTascam {
         unsafe { from_glib_full(ffi::hitaki_snd_tascam_new()) }

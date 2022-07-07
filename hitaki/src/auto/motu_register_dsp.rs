@@ -7,6 +7,16 @@ use glib::object::IsA;
 use std::fmt;
 
 glib::wrapper! {
+    /// An interface for protocol of register DSP models in MOTU FireWire series.
+    ///
+    /// The register DSP models in Mark of the Unicorn (MOTU) FireWire series transfer isochronous
+    /// packets to delivers PCM frames and MIDI messages as well as DSP parameters and metering
+    /// information. The [`MotuRegisterDsp`][crate::MotuRegisterDsp] is an object interface for the parameters and
+    /// metering information in the register DSP protocol.
+    ///
+    /// # Implements
+    ///
+    /// [`MotuRegisterDspExt`][trait@crate::prelude::MotuRegisterDspExt], [`MotuRegisterDspManual`][trait@crate::prelude::MotuRegisterDspManual]
     #[doc(alias = "HitakiMotuRegisterDsp")]
     pub struct MotuRegisterDsp(Interface<ffi::HitakiMotuRegisterDsp, ffi::HitakiMotuRegisterDspInterface>);
 
@@ -19,6 +29,11 @@ impl MotuRegisterDsp {
     pub const NONE: Option<&'static MotuRegisterDsp> = None;
 }
 
+/// Trait containing the part of [`struct@MotuRegisterDsp`] methods.
+///
+/// # Implementors
+///
+/// [`MotuRegisterDsp`][struct@crate::MotuRegisterDsp], [`SndMotu`][struct@crate::SndMotu]
 pub trait MotuRegisterDspExt: 'static {
     //#[doc(alias = "hitaki_motu_register_dsp_read_byte_meter")]
     //fn read_byte_meter(&self, meter: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 3 }; 48) -> Result<(), glib::Error>;

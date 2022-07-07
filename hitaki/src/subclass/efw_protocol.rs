@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 use super::*;
 
+/// Trait which should be implemented by subclass of [`EfwProtocol`][crate::EfwProtocol].
 pub trait EfwProtocolImpl: ObjectImpl {
     fn transmit_request(&self, unit: &Self::Type, buffer: &[u8]) -> Result<(), Error>;
     fn get_seqnum(&self, unit: &Self::Type) -> u32;
@@ -16,6 +17,8 @@ pub trait EfwProtocolImpl: ObjectImpl {
     );
 }
 
+/// Trait which is automatically implemented to implementator of
+/// [`EfwProtocolImpl`][self::EfwProtocolImpl]
 pub trait EfwProtocolImplExt: ObjectSubclass {
     fn parent_transmit_request(&self, unit: &Self::Type, buffer: &[u8]) -> Result<(), Error>;
     fn parent_get_seqnum(&self, unit: &Self::Type) -> u32;

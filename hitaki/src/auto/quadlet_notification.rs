@@ -14,6 +14,15 @@ use std::fmt;
 use std::mem::transmute;
 
 glib::wrapper! {
+    /// An interface to operate notification with quadlet message.
+    ///
+    /// Some of units supported by drivers in ALSA firewire stack have the function to notify quadlet
+    /// message for specific purposes. The [`QuadletNotification`][crate::QuadletNotification] is an interface to operate
+    /// the notification.
+    ///
+    /// # Implements
+    ///
+    /// [`QuadletNotificationExt`][trait@crate::prelude::QuadletNotificationExt]
     #[doc(alias = "HitakiQuadletNotification")]
     pub struct QuadletNotification(Interface<ffi::HitakiQuadletNotification, ffi::HitakiQuadletNotificationInterface>);
 
@@ -26,7 +35,15 @@ impl QuadletNotification {
     pub const NONE: Option<&'static QuadletNotification> = None;
 }
 
+/// Trait containing all [`struct@QuadletNotification`] methods.
+///
+/// # Implementors
+///
+/// [`QuadletNotification`][struct@crate::QuadletNotification], [`SndDice`][struct@crate::SndDice], [`SndDigi00x`][struct@crate::SndDigi00x], [`SndMotu`][struct@crate::SndMotu]
 pub trait QuadletNotificationExt: 'static {
+    /// Emitted when the target unit transfers notification.
+    /// ## `message`
+    /// A quadlet message in notification.
     #[doc(alias = "notified")]
     fn connect_notified<F: Fn(&Self, u32) + 'static>(&self, f: F) -> SignalHandlerId;
 

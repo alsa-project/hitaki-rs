@@ -1,7 +1,19 @@
 // SPDX-License-Identifier: MIT
 use crate::*;
 
+/// Trait containing the rest of [`struct@TascamProtocol`] methods.
+///
+/// # Implementors
+///
+/// [`SndTascam`][struct@crate::SndTascam], [`TascamProtocol`][struct@crate::TascamProtocol]
 pub trait TascamProtocolExtManual {
+    /// Read the latest image of device state.
+    /// ## `state`
+    /// The image of state.
+    ///
+    /// # Returns
+    ///
+    /// TRUE if the overall operation finished successfully, else FALSE.
     #[doc(alias = "hitaki_tascam_protocol_read_state")]
     fn read_state(&self, state: &mut Vec<u32>) -> Result<(), glib::Error>;
 }

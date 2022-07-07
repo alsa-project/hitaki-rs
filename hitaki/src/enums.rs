@@ -3,6 +3,10 @@
 use super::*;
 
 impl AlsaFirewireError {
+    /// Retrieve the string label of error from code.
+    ///
+    /// # Returns
+    /// The string label of error.
     #[doc(alias = "hitaki_alsa_firewire_error_to_label")]
     pub fn to_label(&self) -> &'static str {
         unsafe {
@@ -14,6 +18,10 @@ impl AlsaFirewireError {
 }
 
 impl EfwProtocolError {
+    /// Retrieve the string label of error.
+    ///
+    /// # Returns
+    /// The string label of error.
     #[doc(alias = "hitaki_efw_protocol_error_to_label")]
     pub fn to_label(&self) -> &'static str {
         unsafe {

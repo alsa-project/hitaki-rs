@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 use super::*;
 
+/// Trait which should be implemented by subclass of [`AlsaFirewire`][crate::AlsaFirewire].
 pub trait AlsaFirewireImpl: ObjectImpl {
     fn open(&self, unit: &Self::Type, path: &str, open_flag: i32) -> Result<(), Error>;
     fn lock(&self, unit: &Self::Type) -> Result<(), Error>;
@@ -8,6 +9,8 @@ pub trait AlsaFirewireImpl: ObjectImpl {
     fn create_source(&self, unit: &Self::Type) -> Result<Source, Error>;
 }
 
+/// Trait which is automatically implemented to implementator of
+/// [`AlsaFirewireImpl`][self::AlsaFirewireImpl]
 pub trait AlsaFirewireImplExt: ObjectSubclass {
     fn parent_open(&self, unit: &Self::Type, path: &str, open_flag: i32) -> Result<(), Error>;
     fn parent_lock(&self, unit: &Self::Type) -> Result<(), Error>;

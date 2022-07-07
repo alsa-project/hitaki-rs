@@ -1,11 +1,14 @@
 // SPDX-License-Identifier: MIT
 use super::*;
 
+/// Trait which should be implemented by subclass of [`TascamProtocol`][crate::TascamProtocol].
 pub trait TascamProtocolImpl: ObjectImpl {
     fn read_state(&self, unit: &Self::Type, state: &mut Vec<u32>) -> Result<(), Error>;
     fn changed(&self, unit: &Self::Type, index: u32, before: u32, after: u32);
 }
 
+/// Trait which is automatically implemented to implementator of
+/// [`TascamProtocolImpl`][self::TascamProtocolImpl]
 pub trait TascamProtocolImplExt: ObjectSubclass {
     fn parent_read_state(&self, unit: &Self::Type, state: &mut Vec<u32>) -> Result<(), Error>;
     fn parent_changed(&self, unit: &Self::Type, index: u32, before: u32, after: u32);

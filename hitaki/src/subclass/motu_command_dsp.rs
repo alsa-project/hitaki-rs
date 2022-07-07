@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 use super::*;
 
+/// Trait which should be implemented by subclass of [`MotuCommandDsp`][crate::MotuCommandDsp].
 pub trait MotuCommandDspImpl: ObjectImpl {
     fn read_float_meter(
         &self,
@@ -9,6 +10,8 @@ pub trait MotuCommandDspImpl: ObjectImpl {
     ) -> Result<(), glib::Error>;
 }
 
+/// Trait which is automatically implemented to implementator of
+/// [`MotuCommandDspImpl`][self::MotuCommandDspImpl]
 pub trait MotuCommandDspImplExt: ObjectSubclass {
     fn parent_read_float_meter(
         &self,

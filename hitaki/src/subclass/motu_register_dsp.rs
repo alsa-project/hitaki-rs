@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 use super::*;
 
+/// Trait which should be implemented by subclass of [`MotuRegisterDsp`][crate::MotuRegisterDsp].
 pub trait MotuRegisterDspImpl: ObjectImpl {
     fn read_parameter(
         &self,
@@ -11,6 +12,8 @@ pub trait MotuRegisterDspImpl: ObjectImpl {
     fn changed(&self, unit: &Self::Type, events: &[u32]);
 }
 
+/// Trait which is automatically implemented to implementator of
+/// [`MotuRegisterDspImpl`][self::MotuRegisterDspImpl]
 pub trait MotuRegisterDspImplExt: ObjectSubclass {
     fn parent_read_parameter(
         &self,

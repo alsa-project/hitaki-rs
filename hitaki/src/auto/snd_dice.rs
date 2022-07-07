@@ -9,6 +9,14 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    /// A GObject-derived object for sound unit of TCAT DICE ASICs.
+    ///
+    /// The [`SndDice`][crate::SndDice] is object class derived from `GObject::Object` for sound unit of TCAT
+    /// DICE ASICs supported by ALSA dice driver (`snd-dice`).
+    ///
+    /// # Implements
+    ///
+    /// [`AlsaFirewireExt`][trait@crate::prelude::AlsaFirewireExt], [`QuadletNotificationExt`][trait@crate::prelude::QuadletNotificationExt]
     #[doc(alias = "HitakiSndDice")]
     pub struct SndDice(Object<ffi::HitakiSndDice, ffi::HitakiSndDiceClass>) @implements AlsaFirewire, QuadletNotification;
 
@@ -20,6 +28,11 @@ glib::wrapper! {
 impl SndDice {
     pub const NONE: Option<&'static SndDice> = None;
 
+    /// Instantiate [`SndDice`][crate::SndDice] object and return the instance.
+    ///
+    /// # Returns
+    ///
+    /// an instance of [`SndDice`][crate::SndDice].
     #[doc(alias = "hitaki_snd_dice_new")]
     pub fn new() -> SndDice {
         unsafe { from_glib_full(ffi::hitaki_snd_dice_new()) }

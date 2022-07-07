@@ -9,6 +9,15 @@ use glib::translate::*;
 use std::fmt;
 
 glib::wrapper! {
+    /// A GObject-derived object for sound unit of Echo Audio Fireworks.
+    ///
+    /// The [`SndEfw`][crate::SndEfw] is an object class derived from `GObject::Object` with protocol
+    /// implementation for Echo Audio Fireworks devices supported by ALSA fireworks driver
+    /// (`snd-fireworks`).
+    ///
+    /// # Implements
+    ///
+    /// [`AlsaFirewireExt`][trait@crate::prelude::AlsaFirewireExt], [`EfwProtocolExt`][trait@crate::prelude::EfwProtocolExt], [`EfwProtocolExtManual`][trait@crate::prelude::EfwProtocolExtManual]
     #[doc(alias = "HitakiSndEfw")]
     pub struct SndEfw(Object<ffi::HitakiSndEfw, ffi::HitakiSndEfwClass>) @implements AlsaFirewire, EfwProtocol;
 
@@ -20,6 +29,11 @@ glib::wrapper! {
 impl SndEfw {
     pub const NONE: Option<&'static SndEfw> = None;
 
+    /// Instantiate [`SndEfw`][crate::SndEfw] object and return it.
+    ///
+    /// # Returns
+    ///
+    /// an instance of [`SndEfw`][crate::SndEfw].
     #[doc(alias = "hitaki_snd_efw_new")]
     pub fn new() -> SndEfw {
         unsafe { from_glib_full(ffi::hitaki_snd_efw_new()) }

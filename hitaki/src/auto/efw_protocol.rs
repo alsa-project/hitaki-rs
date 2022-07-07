@@ -10,6 +10,15 @@ use std::mem;
 use std::ptr;
 
 glib::wrapper! {
+    /// An interface for Fireworks Protocol.
+    ///
+    /// Echo Audio Fireworks devices listen to specific address space for specific request frame. When
+    /// accepting and handling the request frame, it transfers response frame to specific address in
+    /// requester. The [`EfwProtocol`][crate::EfwProtocol] is an object interface for the Fireworks protocol.
+    ///
+    /// # Implements
+    ///
+    /// [`EfwProtocolExt`][trait@crate::prelude::EfwProtocolExt], [`EfwProtocolExtManual`][trait@crate::prelude::EfwProtocolExtManual]
     #[doc(alias = "HitakiEfwProtocol")]
     pub struct EfwProtocol(Interface<ffi::HitakiEfwProtocol, ffi::HitakiEfwProtocolInterface>);
 
@@ -22,10 +31,38 @@ impl EfwProtocol {
     pub const NONE: Option<&'static EfwProtocol> = None;
 }
 
+/// Trait containing the part of[`struct@EfwProtocol`] methods.
+///
+/// # Implementors
+///
+/// [`EfwProtocol`][struct@crate::EfwProtocol], [`SndEfw`][struct@crate::SndEfw]
 pub trait EfwProtocolExt: 'static {
+    /// Parse the given buffer for response frame of Fireworks transaction. The buffer should includes
+    /// one response frames at least. It results in `signal::EfwProtocol::responded` per response frame.
+    /// It's expected that the function is used by any implementation of [`EfwProtocol`][crate::EfwProtocol].
+    /// ## `buffer`
+    /// The buffer for transaction frames.
     #[doc(alias = "hitaki_efw_protocol_receive_response")]
     fn receive_response(&self, buffer: &[u8]);
 
+    /// Transfer asynchronous transaction for request frame of Fireworks transaction. It calls
+    /// `vfunc::EfwProtocol::transmit_request` internally after composing request frame. It results in
+    /// `signal::EfwProtocol::responded` signal with response parameters when receiving response for the
+    /// transaction.
+    /// ## `category`
+    /// One of category for the transaction.
+    /// ## `command`
+    /// One of commands for the transaction.
+    /// ## `args`
+    /// An array with elements of quadlet data for
+    ///        arguments of command.
+    ///
+    /// # Returns
+    ///
+    /// TRUE if the overall operation finished successfully, else FALSE.
+    ///
+    /// ## `resp_seqnum`
+    /// The sequence number to match response.
     #[doc(alias = "hitaki_efw_protocol_transmit_request")]
     fn transmit_request(
         &self,

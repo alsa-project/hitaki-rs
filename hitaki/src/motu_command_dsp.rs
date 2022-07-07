@@ -1,7 +1,19 @@
 // SPDX-License-Identifier: MIT
 use crate::*;
 
+/// Trait containing the rest of [`struct@MotuCommandDsp`] methods.
+///
+/// # Implementors
+///
+/// [`MotuCommandDsp`][struct@crate::MotuCommandDsp], [`SndMotu`][struct@crate::SndMotu]
 pub trait MotuCommandDspExtManual {
+    /// Read cached data of meter information for command DSP models.
+    /// ## `meter`
+    /// The data for meter.
+    ///
+    /// # Returns
+    ///
+    /// TRUE if the overall operation finished successfully, else FALSE.
     #[doc(alias = "hitaki_motu_command_dsp_read_float_meter")]
     fn read_float_meter(&self, meter: &mut [f32; 400]) -> Result<(), glib::Error>;
 }

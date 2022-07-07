@@ -4,7 +4,34 @@
 
 use crate::*;
 
+/// Trait containing the rest of[`struct@EfwProtocol`] methods.
+///
+/// # Implementors
+///
+/// [`EfwProtocol`][struct@crate::EfwProtocol], [`SndEfw`][struct@crate::SndEfw]
 pub trait EfwProtocolExtManual {
+    /// Transfer asynchronous transaction for request frame of Echo Efw protocol and wait for response
+    /// matched to the command. The call results in `signal::EfwProtocol::responded` signal with data of
+    /// response.
+    /// ## `category`
+    /// One of category for the transaction.
+    /// ## `command`
+    /// One of commands for the transaction.
+    /// ## `args`
+    /// An array with elements for quadlet data as
+    ///        arguments for command.
+    /// ## `params`
+    /// An array with elements for quadlet data
+    ///          to save parameters in response. Callers should give it for buffer with enough space
+    ///          against the request since this library performs no reallocation. Due to the reason, the
+    ///          value of this argument should point to the pointer to the array and immutable. The
+    ///          content of array is mutable for parameters in response.
+    /// ## `timeout_ms`
+    /// The timeout to wait for response.
+    ///
+    /// # Returns
+    ///
+    /// TRUE if the overall operation finished successfully, else FALSE.
     #[doc(alias = "hitaki_efw_protocol_transaction")]
     fn transaction(
         &self,
@@ -26,6 +53,22 @@ pub trait EfwProtocolExtManual {
         params: &[u32],
     );
 
+    /// Emitted when the unit transfers asynchronous packet as response of Echo Audio Efw
+    /// transaction and the process successfully reads the content of response from ALSA Efw
+    /// driver.
+    /// ## `version`
+    /// The version of transaction protocol.
+    /// ## `seqnum`
+    /// The sequence number of response.
+    /// ## `category`
+    /// The value of category field in the response.
+    /// ## `command`
+    /// The value of command field in the response.
+    /// ## `status`
+    /// The status of response.
+    /// ## `params`
+    /// The array with quadlet elements
+    ///          of parameters in response of Fireworks protocol.
     #[doc(alias = "responded")]
     fn connect_responded<F>(&self, f: F) -> SignalHandlerId
     where

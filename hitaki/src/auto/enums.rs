@@ -12,24 +12,33 @@ use glib::StaticType;
 use glib::Type;
 use std::fmt;
 
+/// The enumerations to report result of operation in [`AlsaFirewire`][crate::AlsaFirewire].
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "HitakiAlsaFirewireError")]
 pub enum AlsaFirewireError {
+    /// The system call fails.
     #[doc(alias = "HITAKI_ALSA_FIREWIRE_ERROR_FAILED")]
     Failed,
+    /// The instance is already associated to any ALSA HwDep character device.
     #[doc(alias = "HITAKI_ALSA_FIREWIRE_ERROR_IS_OPENED")]
     IsOpened,
+    /// The instance is not associated to any ALSA HwDep character device yet.
     #[doc(alias = "HITAKI_ALSA_FIREWIRE_ERROR_IS_NOT_OPENED")]
     IsNotOpened,
+    /// The ALSA HwDep character device is used by the other process.
     #[doc(alias = "HITAKI_ALSA_FIREWIRE_ERROR_IS_USED")]
     IsUsed,
+    /// The functionality of packet streaming is prohibited.
     #[doc(alias = "HITAKI_ALSA_FIREWIRE_ERROR_IS_LOCKED")]
     IsLocked,
+    /// The functionality of packet streaming is available.
     #[doc(alias = "HITAKI_ALSA_FIREWIRE_ERROR_IS_UNLOCKED")]
     IsUnlocked,
+    /// The sound card is disconnected.
     #[doc(alias = "HITAKI_ALSA_FIREWIRE_ERROR_IS_DISCONNECTED")]
     IsDisconnected,
+    /// Mismatch between GObject class and thetype of sound unit.
     #[doc(alias = "HITAKI_ALSA_FIREWIRE_ERROR_WRONG_CLASS")]
     WrongClass,
     #[doc(hidden)]
@@ -148,24 +157,33 @@ impl ToValue for AlsaFirewireError {
     }
 }
 
+/// The enumerations for type of sound unit defined by ALSA firewire stack.
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "HitakiAlsaFirewireType")]
 pub enum AlsaFirewireType {
+    /// The type of DICE ASIC.
     #[doc(alias = "HITAKI_ALSA_FIREWIRE_TYPE_DICE")]
     Dice,
+    /// The type of Fireworks board module.
     #[doc(alias = "HITAKI_ALSA_FIREWIRE_TYPE_FIREWORKS")]
     Fireworks,
+    /// The type of BeBoB ASIC.
     #[doc(alias = "HITAKI_ALSA_FIREWIRE_TYPE_BEBOB")]
     Bebob,
+    /// The type of OXFW ASIC
     #[doc(alias = "HITAKI_ALSA_FIREWIRE_TYPE_OXFW")]
     Oxfw,
+    /// The type of Digi00x series.
     #[doc(alias = "HITAKI_ALSA_FIREWIRE_TYPE_DIGI00X")]
     Digi00x,
+    /// The type of Tascam FireWire series.
     #[doc(alias = "HITAKI_ALSA_FIREWIRE_TYPE_TASCAM")]
     Tascam,
+    /// The type of MOTU FireWire series.
     #[doc(alias = "HITAKI_ALSA_FIREWIRE_TYPE_MOTU")]
     Motu,
+    /// The type of RME Fireface series.
     #[doc(alias = "HITAKI_ALSA_FIREWIRE_TYPE_FIREFACE")]
     Fireface,
     #[doc(hidden)]
@@ -260,44 +278,63 @@ impl ToValue for AlsaFirewireType {
     }
 }
 
+/// The enumerations to report status of response in Fireworks protocol.
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
 #[doc(alias = "HitakiEfwProtocolError")]
 pub enum EfwProtocolError {
+    /// The transaction finished successfully.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_OK")]
     Ok,
+    /// The request or response includes invalid header.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_BAD")]
     Bad,
+    /// The request includes invalid category or command.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_BAD_COMMAND")]
     BadCommand,
+    /// The transaction fails due to communication error.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_COMM_ERR")]
     CommErr,
+    /// The number of quadlets in transaction is invalid.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_BAD_QUAD_COUNT")]
     BadQuadCount,
+    /// The request is not supported.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_UNSUPPORTED")]
     Unsupported,
+    /// The transaction is canceled due to response timeout.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_TIMEOUT")]
     Timeout,
+    /// The operation for DSP did not finish within timeout.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_DSP_TIMEOUT")]
     DspTimeout,
+    /// The request includes invalid value for sampling frequency.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_BAD_RATE")]
     BadRate,
+    /// The request includes invalid value for source of clock.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_BAD_CLOCK")]
     BadClock,
+    /// The request includes invalid value for the number of channel.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_BAD_CHANNEL")]
     BadChannel,
+    /// The request includes invalid value for panning.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_BAD_PAN")]
     BadPan,
+    /// The on-board flash is busy and not operable.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_FLASH_BUSY")]
     FlashBusy,
+    /// The request includes invalid value for mirroring channel.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_BAD_MIRROR")]
     BadMirror,
+    /// The request includes invalid value for LED.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_BAD_LED")]
     BadLed,
+    /// The request includes invalid value of parameter.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_BAD_PARAMETER")]
     BadParameter,
+    /// The transaction finishes incompletely.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_INCOMPLETE")]
     Incomplete,
+    /// The transaction finished with invalid condition.
     #[doc(alias = "HITAKI_EFW_PROTOCOL_ERROR_INVALID")]
     Invalid,
     #[doc(hidden)]

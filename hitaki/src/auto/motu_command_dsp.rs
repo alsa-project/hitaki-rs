@@ -7,6 +7,16 @@ use glib::object::IsA;
 use std::fmt;
 
 glib::wrapper! {
+    /// An interface for protocol of command DSP model in MOTU FireWire series.
+    ///
+    /// The command DSP models in Mark of the Unicorn (MOTU) FireWire series transfer isochronous
+    /// packets to deliver PCM frames and MIDI messages as well as metering information. The
+    /// [`MotuCommandDsp`][crate::MotuCommandDsp] is an object interface for the metering information in the command DSP
+    /// protocol.
+    ///
+    /// # Implements
+    ///
+    /// [`MotuCommandDspExt`][trait@crate::prelude::MotuCommandDspExt], [`MotuCommandDspManual`][trait@crate::prelude::MotuCommandDspManual]
     #[doc(alias = "HitakiMotuCommandDsp")]
     pub struct MotuCommandDsp(Interface<ffi::HitakiMotuCommandDsp, ffi::HitakiMotuCommandDspInterface>);
 
@@ -19,6 +29,11 @@ impl MotuCommandDsp {
     pub const NONE: Option<&'static MotuCommandDsp> = None;
 }
 
+/// Trait containing the part of [`struct@MotuCommandDsp`] methods.
+///
+/// # Implementors
+///
+/// [`MotuCommandDsp`][struct@crate::MotuCommandDsp], [`SndMotu`][struct@crate::SndMotu]
 pub trait MotuCommandDspExt: 'static {
     //#[doc(alias = "hitaki_motu_command_dsp_read_float_meter")]
     //fn read_float_meter(&self, meter: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 400) -> Result<(), glib::Error>;
