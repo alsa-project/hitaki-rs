@@ -1,11 +1,12 @@
 [package]
+edition = "2018"
+name = "hitaki"
+version = "0.1.0"
+# For publishing.
 authors = ["Takashi Sakamoto <o-takashi@sakamocchi.jp>"]
 description = "API bindings for libhitaki library"
-edition = "2018"
 license = "MIT"
-name = "hitaki"
 repository = "https://github.com/alsa-project/hitaki-rs/"
-version = "0.1.0"
 
 [lib]
 name = "hitaki"
