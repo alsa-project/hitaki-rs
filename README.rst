@@ -2,7 +2,7 @@
 Rust bindings for hitaki library
 ================================
 
-2022/07/07
+2022/07/08
 Takashi Sakamoto
 
 Introduction
@@ -12,7 +12,9 @@ Introduction
 
   * https://github.com/alsa-project/libhitaki
 
-The latest release is version 0.0.90.
+* The crates are available in `crates.io <https://crates.io/>`_ as well.
+
+* The latest release is version 0.0.91. This is pre-release to publish crates in crates.io.
 
 License
 =======
@@ -35,5 +37,3 @@ Dependencies
   * ``bitflags`` >= 1.0
   * ``glib`` >= 0.15
   * FFI crate (``hitaki-sys``)
-
-End
