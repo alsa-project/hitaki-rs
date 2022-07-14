@@ -24,12 +24,14 @@ impl<O: IsA<TascamProtocol>> TascamProtocolExtManual for O {
             let mut count = state.len();
             let mut error = std::ptr::null_mut();
 
-            let _ = ffi::hitaki_tascam_protocol_read_state(
+            let is_ok = ffi::hitaki_tascam_protocol_read_state(
                 self.as_ref().to_glib_none().0,
                 &state.as_mut_ptr(),
                 &mut count,
                 &mut error,
             );
+            assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
+
             if error.is_null() {
                 state.set_len(count);
                 Ok(())

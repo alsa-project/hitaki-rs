@@ -72,7 +72,7 @@ impl<T: EfwProtocolImpl> EfwProtocolImplExt for T {
                 .expect("no parent \"get_seqnum\" implementation");
 
             let mut seqnum = 0u32;
-            let _ = func(
+            func(
                 unit.unsafe_cast_ref::<EfwProtocol>().to_glib_none().0,
                 &mut seqnum,
             );
@@ -99,7 +99,7 @@ impl<T: EfwProtocolImpl> EfwProtocolImplExt for T {
                 .responded
                 .expect("no parent \"responded\" implementation");
 
-            let _ = func(
+            func(
                 unit.unsafe_cast_ref::<EfwProtocol>().to_glib_none().0,
                 version,
                 seqnum,
