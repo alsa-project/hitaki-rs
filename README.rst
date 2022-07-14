@@ -16,6 +16,19 @@ Introduction
 
 * The latest release is version 0.0.91. This is pre-release to publish crates in crates.io.
 
+Crates
+======
+
+API bindings for safe and high-level abstractions
+-------------------------------------------------
+
+* [hitaki crate](hitaki/README.md)
+
+`FFI bindings <https://doc.rust-lang.org/cargo/reference/build-scripts.html#-sys-packages>`_
+--------------------------------------------------------------------------------------------
+
+* [hitaki-sys crate](hitaki-sys/README.md)
+
 License
 =======
 
@@ -34,6 +47,5 @@ Dependencies
 * API crate (``hitaki``)
 
   * ``libc`` >= 0.2
-  * ``bitflags`` >= 1.0
   * ``glib`` >= 0.15
   * FFI crate (``hitaki-sys``)
