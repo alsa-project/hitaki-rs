@@ -3,7 +3,7 @@ build = "build.rs"
 edition = "2018"
 links = "hitaki"
 name = "hitaki-sys"
-version = "0.0.91"
+version = "0.2.0"
 # For publishing.
 authors = ["Takashi Sakamoto"]
 categories = ["external-ffi-bindings", "hardware-support", "os::linux-apis"]

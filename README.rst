@@ -2,7 +2,7 @@
 Rust bindings for hitaki library
 ================================
 
-2022/07/08
+2022/07/14
 Takashi Sakamoto
 
 Introduction
@@ -14,7 +14,7 @@ Introduction
 
 * The crates are available in `crates.io <https://crates.io/>`_ as well.
 
-* The latest release is version 0.0.91. This is pre-release to publish crates in crates.io.
+* The latest release is version 0.2.0.
 
 Crates
 ======
