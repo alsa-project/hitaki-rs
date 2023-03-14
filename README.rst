@@ -2,7 +2,7 @@
 Rust bindings for hitaki library
 ================================
 
-2022/07/14
+2023/03/13
 Takashi Sakamoto
 
 Introduction
@@ -14,7 +14,7 @@ Introduction
 
 * The crates are available in `crates.io <https://crates.io/>`_ as well.
 
-* The latest release is version 0.2.0.
+* The latest release is version 0.3.0.
 
 Crates
 ======
@@ -22,12 +22,12 @@ Crates
 API bindings for safe and high-level abstractions
 -------------------------------------------------
 
-* [hitaki crate](hitaki/README.md)
+* `hitaki crate <hitaki/README.md>`_
 
 `FFI bindings <https://doc.rust-lang.org/cargo/reference/build-scripts.html#-sys-packages>`_
 --------------------------------------------------------------------------------------------
 
-* [hitaki-sys crate](hitaki-sys/README.md)
+* `hitaki-sys crate <hitaki-sys/README.md>`_
 
 License
 =======
