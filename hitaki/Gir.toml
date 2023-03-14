@@ -11,10 +11,12 @@ generate = [
     "Hitaki.AlsaFirewireType",
     "Hitaki.AlsaFirewire",
     "Hitaki.QuadletNotification",
+    "Hitaki.TimestampedQuadletNotification",
     "Hitaki.SndUnit",
     "Hitaki.SndDice",
     "Hitaki.SndDigi00x",
     "Hitaki.SndEfw",
+    "Hitaki.SndFireface",
     "Hitaki.SndMotu",
     "Hitaki.SndTascam",
 ]

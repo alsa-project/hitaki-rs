@@ -31,7 +31,7 @@ impl EfwProtocol {
     pub const NONE: Option<&'static EfwProtocol> = None;
 }
 
-/// Trait containing the part of[`struct@EfwProtocol`] methods.
+/// Trait containing the part of [`struct@EfwProtocol`] methods.
 ///
 /// # Implementors
 ///

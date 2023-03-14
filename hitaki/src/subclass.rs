@@ -18,11 +18,14 @@ mod quadlet_notification;
 // For subclass of [`TascamProtocol`][crate::TascamProtocol].
 mod tascam_protocol;
 
+// For subclass of [`TimestampedQuadletNotification`][crate::TimestampedQuadletNotification].
+mod timestamped_quadlet_notification;
+
 /// For convenience to provide traits and their blanket implementations to write subclass.
 pub mod prelude {
     pub use super::{
         alsa_firewire::*, efw_protocol::*, motu_command_dsp::*, motu_register_dsp::*,
-        quadlet_notification::*, tascam_protocol::*,
+        quadlet_notification::*, tascam_protocol::*, timestamped_quadlet_notification::*,
     };
 }
 
