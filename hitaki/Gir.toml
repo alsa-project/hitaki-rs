@@ -4,7 +4,7 @@ work_mode = "normal"
 library = "Hitaki"
 version = "0.0"
 use_gi_docgen = true
-min_cfg_version = "0.0"
+min_cfg_version = "0.2"
 single_version_file = true
 
 generate = [
