@@ -27,6 +27,9 @@ pub use self::snd_digi00x::SndDigi00x;
 mod snd_efw;
 pub use self::snd_efw::SndEfw;
 
+mod snd_fireface;
+pub use self::snd_fireface::SndFireface;
+
 mod snd_motu;
 pub use self::snd_motu::SndMotu;
 
@@ -38,6 +41,9 @@ pub use self::snd_unit::SndUnit;
 
 mod tascam_protocol;
 pub use self::tascam_protocol::TascamProtocol;
+
+mod timestamped_quadlet_notification;
+pub use self::timestamped_quadlet_notification::TimestampedQuadletNotification;
 
 mod snd_motu_register_dsp_parameter;
 pub use self::snd_motu_register_dsp_parameter::SndMotuRegisterDspParameter;
@@ -55,4 +61,5 @@ pub mod traits {
     pub use super::motu_register_dsp::MotuRegisterDspExt;
     pub use super::quadlet_notification::QuadletNotificationExt;
     pub use super::tascam_protocol::TascamProtocolExt;
+    pub use super::timestamped_quadlet_notification::TimestampedQuadletNotificationExt;
 }

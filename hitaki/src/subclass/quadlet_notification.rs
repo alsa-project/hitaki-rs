@@ -64,7 +64,7 @@ mod test {
         use std::cell::RefCell;
 
         #[derive(Default)]
-        pub struct QuadletNotificationTest(RefCell<u32>, [u32; 4]);
+        pub struct QuadletNotificationTest(RefCell<u32>);
 
         #[glib::object_subclass]
         impl ObjectSubclass for QuadletNotificationTest {

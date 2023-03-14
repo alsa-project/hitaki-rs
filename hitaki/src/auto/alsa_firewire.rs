@@ -41,7 +41,7 @@ impl AlsaFirewire {
 ///
 /// # Implementors
 ///
-/// [`AlsaFirewire`][struct@crate::AlsaFirewire], [`SndDice`][struct@crate::SndDice], [`SndDigi00x`][struct@crate::SndDigi00x], [`SndEfw`][struct@crate::SndEfw], [`SndMotu`][struct@crate::SndMotu], [`SndTascam`][struct@crate::SndTascam], [`SndUnit`][struct@crate::SndUnit]
+/// [`AlsaFirewire`][struct@crate::AlsaFirewire], [`SndDice`][struct@crate::SndDice], [`SndDigi00x`][struct@crate::SndDigi00x], [`SndEfw`][struct@crate::SndEfw], [`SndFireface`][struct@crate::SndFireface], [`SndMotu`][struct@crate::SndMotu], [`SndTascam`][struct@crate::SndTascam], [`SndUnit`][struct@crate::SndUnit]
 pub trait AlsaFirewireExt: 'static {
     /// Allocate [`glib::Source`][crate::glib::Source]  to handle events from ALSA HwDep character device.
     ///
