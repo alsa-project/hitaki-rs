@@ -253,6 +253,20 @@ impl ::std::fmt::Debug for HitakiSndEfwClass {
 
 #[derive(Copy, Clone)]
 #[repr(C)]
+pub struct HitakiSndFirefaceClass {
+    pub parent_class: gobject::GObjectClass,
+}
+
+impl ::std::fmt::Debug for HitakiSndFirefaceClass {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("HitakiSndFirefaceClass @ {:p}", self))
+            .field("parent_class", &self.parent_class)
+            .finish()
+    }
+}
+
+#[derive(Copy, Clone)]
+#[repr(C)]
 pub struct HitakiSndMotuClass {
     pub parent_class: gobject::GObjectClass,
 }
@@ -331,6 +345,26 @@ impl ::std::fmt::Debug for HitakiTascamProtocolInterface {
     }
 }
 
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct HitakiTimestampedQuadletNotificationInterface {
+    pub iface: gobject::GTypeInterface,
+    pub notified_at:
+        Option<unsafe extern "C" fn(*mut HitakiTimestampedQuadletNotification, c_uint, c_uint)>,
+}
+
+impl ::std::fmt::Debug for HitakiTimestampedQuadletNotificationInterface {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!(
+            "HitakiTimestampedQuadletNotificationInterface @ {:p}",
+            self
+        ))
+        .field("iface", &self.iface)
+        .field("notified_at", &self.notified_at)
+        .finish()
+    }
+}
+
 // Classes
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -369,6 +403,20 @@ pub struct HitakiSndEfw {
 impl ::std::fmt::Debug for HitakiSndEfw {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("HitakiSndEfw @ {:p}", self))
+            .field("parent_instance", &self.parent_instance)
+            .finish()
+    }
+}
+
+#[derive(Copy, Clone)]
+#[repr(C)]
+pub struct HitakiSndFireface {
+    pub parent_instance: gobject::GObject,
+}
+
+impl ::std::fmt::Debug for HitakiSndFireface {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("HitakiSndFireface @ {:p}", self))
             .field("parent_instance", &self.parent_instance)
             .finish()
     }
@@ -489,6 +537,18 @@ impl ::std::fmt::Debug for HitakiTascamProtocol {
     }
 }
 
+#[repr(C)]
+pub struct HitakiTimestampedQuadletNotification {
+    _data: [u8; 0],
+    _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
+}
+
+impl ::std::fmt::Debug for HitakiTimestampedQuadletNotification {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        write!(f, "HitakiTimestampedQuadletNotification @ {:p}", self)
+    }
+}
+
 #[link(name = "hitaki")]
 extern "C" {
 
@@ -603,6 +663,12 @@ extern "C" {
     pub fn hitaki_snd_efw_new() -> *mut HitakiSndEfw;
 
     //=========================================================================
+    // HitakiSndFireface
+    //=========================================================================
+    pub fn hitaki_snd_fireface_get_type() -> GType;
+    pub fn hitaki_snd_fireface_new() -> *mut HitakiSndFireface;
+
+    //=========================================================================
     // HitakiSndMotu
     //=========================================================================
     pub fn hitaki_snd_motu_get_type() -> GType;
@@ -714,5 +780,10 @@ extern "C" {
         count: *mut size_t,
         error: *mut *mut glib::GError,
     ) -> gboolean;
+
+    //=========================================================================
+    // HitakiTimestampedQuadletNotification
+    //=========================================================================
+    pub fn hitaki_timestamped_quadlet_notification_get_type() -> GType;
 
 }

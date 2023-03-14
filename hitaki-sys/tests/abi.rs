@@ -312,6 +312,20 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         },
     ),
     (
+        "HitakiSndFireface",
+        Layout {
+            size: size_of::<HitakiSndFireface>(),
+            alignment: align_of::<HitakiSndFireface>(),
+        },
+    ),
+    (
+        "HitakiSndFirefaceClass",
+        Layout {
+            size: size_of::<HitakiSndFirefaceClass>(),
+            alignment: align_of::<HitakiSndFirefaceClass>(),
+        },
+    ),
+    (
         "HitakiSndMotu",
         Layout {
             size: size_of::<HitakiSndMotu>(),
@@ -365,6 +379,13 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         Layout {
             size: size_of::<HitakiTascamProtocolInterface>(),
             alignment: align_of::<HitakiTascamProtocolInterface>(),
+        },
+    ),
+    (
+        "HitakiTimestampedQuadletNotificationInterface",
+        Layout {
+            size: size_of::<HitakiTimestampedQuadletNotificationInterface>(),
+            alignment: align_of::<HitakiTimestampedQuadletNotificationInterface>(),
         },
     ),
 ];

@@ -22,6 +22,8 @@ int main() {
     printf("%s;%zu;%zu\n", "HitakiSndDigi00xClass", sizeof(HitakiSndDigi00xClass), alignof(HitakiSndDigi00xClass));
     printf("%s;%zu;%zu\n", "HitakiSndEfw", sizeof(HitakiSndEfw), alignof(HitakiSndEfw));
     printf("%s;%zu;%zu\n", "HitakiSndEfwClass", sizeof(HitakiSndEfwClass), alignof(HitakiSndEfwClass));
+    printf("%s;%zu;%zu\n", "HitakiSndFireface", sizeof(HitakiSndFireface), alignof(HitakiSndFireface));
+    printf("%s;%zu;%zu\n", "HitakiSndFirefaceClass", sizeof(HitakiSndFirefaceClass), alignof(HitakiSndFirefaceClass));
     printf("%s;%zu;%zu\n", "HitakiSndMotu", sizeof(HitakiSndMotu), alignof(HitakiSndMotu));
     printf("%s;%zu;%zu\n", "HitakiSndMotuClass", sizeof(HitakiSndMotuClass), alignof(HitakiSndMotuClass));
     printf("%s;%zu;%zu\n", "HitakiSndMotuRegisterDspParameter", sizeof(HitakiSndMotuRegisterDspParameter), alignof(HitakiSndMotuRegisterDspParameter));
@@ -30,5 +32,6 @@ int main() {
     printf("%s;%zu;%zu\n", "HitakiSndUnit", sizeof(HitakiSndUnit), alignof(HitakiSndUnit));
     printf("%s;%zu;%zu\n", "HitakiSndUnitClass", sizeof(HitakiSndUnitClass), alignof(HitakiSndUnitClass));
     printf("%s;%zu;%zu\n", "HitakiTascamProtocolInterface", sizeof(HitakiTascamProtocolInterface), alignof(HitakiTascamProtocolInterface));
+    printf("%s;%zu;%zu\n", "HitakiTimestampedQuadletNotificationInterface", sizeof(HitakiTimestampedQuadletNotificationInterface), alignof(HitakiTimestampedQuadletNotificationInterface));
     return 0;
 }
