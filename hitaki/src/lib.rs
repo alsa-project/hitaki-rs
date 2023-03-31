@@ -24,7 +24,7 @@ pub mod prelude {
 /// For subclass implementations derived from provided class.
 pub mod subclass;
 
-// To access to hinawa-sys crate for FFI.
+// To access to hitaki-sys crate for FFI.
 pub use ffi;
 
 // For links in documentation.
