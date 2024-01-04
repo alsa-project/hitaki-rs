@@ -1,6 +1,6 @@
 [workspace]
 members = [
-    "hitaki-sys",
+    "hitaki/sys",
     "hitaki",
 ]
 
@@ -14,7 +14,7 @@ default-members = [
 
 # For development purpose.
 [patch.crates-io]
-hitaki-sys = { path = "hitaki-sys" }
+hitaki-sys = { path = "hitaki/sys" }
 
 # For my convenience to generate README.md for each crates by my tool.
 [workspace.metadata.library.hitaki]
