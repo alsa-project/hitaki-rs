@@ -21,7 +21,7 @@ name = "hitaki"
 [dependencies]
 libc = "0.2"
 glib = "0.15"
-ffi = { package = "hitaki-sys", path = "../hitaki-sys", version = "0.3" }
+ffi = { package = "hitaki-sys", version = "0.3" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"

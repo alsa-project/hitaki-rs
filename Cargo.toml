@@ -12,6 +12,10 @@ default-members = [
     "hitaki",
 ]
 
+# For development purpose.
+[patch.crates-io]
+hitaki-sys = { path = "hitaki-sys" }
+
 # For my convenience to generate README.md for each crates by my tool.
 [workspace.metadata.library.hitaki]
 repository = "https://github.com/alsa-project/libhitaki"
