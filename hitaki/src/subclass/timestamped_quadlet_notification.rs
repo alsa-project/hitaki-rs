@@ -90,24 +90,26 @@ mod test {
             fn properties() -> &'static [ParamSpec] {
                 use once_cell::sync::Lazy;
                 static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                    vec![ParamSpecUInt::new(
-                        "msg",
-                        "msg",
-                        "the message in notification",
-                        0,
-                        0x0000ffff as u32,
-                        0,
-                        ParamFlags::READABLE,
-                    ),
-                    ParamSpecUInt::new(
-                        "tstamp",
-                        "tstamp",
-                        "the time stamp in notification",
-                        0,
-                        0x0000ffff as u32,
-                        0,
-                        ParamFlags::READABLE,
-                    )]
+                    vec![
+                        ParamSpecUInt::new(
+                            "msg",
+                            "msg",
+                            "the message in notification",
+                            0,
+                            0x0000ffff as u32,
+                            0,
+                            ParamFlags::READABLE,
+                        ),
+                        ParamSpecUInt::new(
+                            "tstamp",
+                            "tstamp",
+                            "the time stamp in notification",
+                            0,
+                            0x0000ffff as u32,
+                            0,
+                            ParamFlags::READABLE,
+                        ),
+                    ]
                 });
 
                 PROPERTIES.as_ref()
