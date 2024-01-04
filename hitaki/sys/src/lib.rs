@@ -11,7 +11,7 @@
     clippy::unreadable_literal,
     clippy::upper_case_acronyms
 )]
-#![cfg_attr(feature = "dox", feature(doc_cfg))]
+#![cfg_attr(docsrs, feature(doc_cfg))]
 
 #[allow(unused_imports)]
 use libc::{
@@ -91,7 +91,7 @@ pub struct HitakiAlsaFirewireInterface {
 
 impl ::std::fmt::Debug for HitakiAlsaFirewireInterface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiAlsaFirewireInterface @ {:p}", self))
+        f.debug_struct(&format!("HitakiAlsaFirewireInterface @ {self:p}"))
             .field("iface", &self.iface)
             .field("open", &self.open)
             .field("lock", &self.lock)
@@ -130,7 +130,7 @@ pub struct HitakiEfwProtocolInterface {
 
 impl ::std::fmt::Debug for HitakiEfwProtocolInterface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiEfwProtocolInterface @ {:p}", self))
+        f.debug_struct(&format!("HitakiEfwProtocolInterface @ {self:p}"))
             .field("iface", &self.iface)
             .field("transmit_request", &self.transmit_request)
             .field("get_seqnum", &self.get_seqnum)
@@ -154,7 +154,7 @@ pub struct HitakiMotuCommandDspInterface {
 
 impl ::std::fmt::Debug for HitakiMotuCommandDspInterface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiMotuCommandDspInterface @ {:p}", self))
+        f.debug_struct(&format!("HitakiMotuCommandDspInterface @ {self:p}"))
             .field("iface", &self.iface)
             .field("read_float_meter", &self.read_float_meter)
             .finish()
@@ -184,7 +184,7 @@ pub struct HitakiMotuRegisterDspInterface {
 
 impl ::std::fmt::Debug for HitakiMotuRegisterDspInterface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiMotuRegisterDspInterface @ {:p}", self))
+        f.debug_struct(&format!("HitakiMotuRegisterDspInterface @ {self:p}"))
             .field("iface", &self.iface)
             .field("read_parameter", &self.read_parameter)
             .field("read_byte_meter", &self.read_byte_meter)
@@ -202,7 +202,7 @@ pub struct HitakiQuadletNotificationInterface {
 
 impl ::std::fmt::Debug for HitakiQuadletNotificationInterface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiQuadletNotificationInterface @ {:p}", self))
+        f.debug_struct(&format!("HitakiQuadletNotificationInterface @ {self:p}"))
             .field("iface", &self.iface)
             .field("notified", &self.notified)
             .finish()
@@ -217,7 +217,7 @@ pub struct HitakiSndDiceClass {
 
 impl ::std::fmt::Debug for HitakiSndDiceClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiSndDiceClass @ {:p}", self))
+        f.debug_struct(&format!("HitakiSndDiceClass @ {self:p}"))
             .field("parent_class", &self.parent_class)
             .finish()
     }
@@ -231,7 +231,7 @@ pub struct HitakiSndDigi00xClass {
 
 impl ::std::fmt::Debug for HitakiSndDigi00xClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiSndDigi00xClass @ {:p}", self))
+        f.debug_struct(&format!("HitakiSndDigi00xClass @ {self:p}"))
             .field("parent_class", &self.parent_class)
             .finish()
     }
@@ -245,7 +245,7 @@ pub struct HitakiSndEfwClass {
 
 impl ::std::fmt::Debug for HitakiSndEfwClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiSndEfwClass @ {:p}", self))
+        f.debug_struct(&format!("HitakiSndEfwClass @ {self:p}"))
             .field("parent_class", &self.parent_class)
             .finish()
     }
@@ -259,7 +259,7 @@ pub struct HitakiSndFirefaceClass {
 
 impl ::std::fmt::Debug for HitakiSndFirefaceClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiSndFirefaceClass @ {:p}", self))
+        f.debug_struct(&format!("HitakiSndFirefaceClass @ {self:p}"))
             .field("parent_class", &self.parent_class)
             .finish()
     }
@@ -273,7 +273,7 @@ pub struct HitakiSndMotuClass {
 
 impl ::std::fmt::Debug for HitakiSndMotuClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiSndMotuClass @ {:p}", self))
+        f.debug_struct(&format!("HitakiSndMotuClass @ {self:p}"))
             .field("parent_class", &self.parent_class)
             .finish()
     }
@@ -287,7 +287,7 @@ pub struct HitakiSndMotuRegisterDspParameter {
 
 impl ::std::fmt::Debug for HitakiSndMotuRegisterDspParameter {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiSndMotuRegisterDspParameter @ {:p}", self))
+        f.debug_struct(&format!("HitakiSndMotuRegisterDspParameter @ {self:p}"))
             .finish()
     }
 }
@@ -300,7 +300,7 @@ pub struct HitakiSndTascamClass {
 
 impl ::std::fmt::Debug for HitakiSndTascamClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiSndTascamClass @ {:p}", self))
+        f.debug_struct(&format!("HitakiSndTascamClass @ {self:p}"))
             .field("parent_class", &self.parent_class)
             .finish()
     }
@@ -314,7 +314,7 @@ pub struct HitakiSndUnitClass {
 
 impl ::std::fmt::Debug for HitakiSndUnitClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiSndUnitClass @ {:p}", self))
+        f.debug_struct(&format!("HitakiSndUnitClass @ {self:p}"))
             .field("parent_class", &self.parent_class)
             .finish()
     }
@@ -337,7 +337,7 @@ pub struct HitakiTascamProtocolInterface {
 
 impl ::std::fmt::Debug for HitakiTascamProtocolInterface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiTascamProtocolInterface @ {:p}", self))
+        f.debug_struct(&format!("HitakiTascamProtocolInterface @ {self:p}"))
             .field("iface", &self.iface)
             .field("read_state", &self.read_state)
             .field("changed", &self.changed)
@@ -356,8 +356,7 @@ pub struct HitakiTimestampedQuadletNotificationInterface {
 impl ::std::fmt::Debug for HitakiTimestampedQuadletNotificationInterface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!(
-            "HitakiTimestampedQuadletNotificationInterface @ {:p}",
-            self
+            "HitakiTimestampedQuadletNotificationInterface @ {self:p}"
         ))
         .field("iface", &self.iface)
         .field("notified_at", &self.notified_at)
@@ -374,7 +373,7 @@ pub struct HitakiSndDice {
 
 impl ::std::fmt::Debug for HitakiSndDice {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiSndDice @ {:p}", self))
+        f.debug_struct(&format!("HitakiSndDice @ {self:p}"))
             .field("parent_instance", &self.parent_instance)
             .finish()
     }
@@ -388,7 +387,7 @@ pub struct HitakiSndDigi00x {
 
 impl ::std::fmt::Debug for HitakiSndDigi00x {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiSndDigi00x @ {:p}", self))
+        f.debug_struct(&format!("HitakiSndDigi00x @ {self:p}"))
             .field("parent_instance", &self.parent_instance)
             .finish()
     }
@@ -402,7 +401,7 @@ pub struct HitakiSndEfw {
 
 impl ::std::fmt::Debug for HitakiSndEfw {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiSndEfw @ {:p}", self))
+        f.debug_struct(&format!("HitakiSndEfw @ {self:p}"))
             .field("parent_instance", &self.parent_instance)
             .finish()
     }
@@ -416,7 +415,7 @@ pub struct HitakiSndFireface {
 
 impl ::std::fmt::Debug for HitakiSndFireface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiSndFireface @ {:p}", self))
+        f.debug_struct(&format!("HitakiSndFireface @ {self:p}"))
             .field("parent_instance", &self.parent_instance)
             .finish()
     }
@@ -430,7 +429,7 @@ pub struct HitakiSndMotu {
 
 impl ::std::fmt::Debug for HitakiSndMotu {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiSndMotu @ {:p}", self))
+        f.debug_struct(&format!("HitakiSndMotu @ {self:p}"))
             .field("parent_instance", &self.parent_instance)
             .finish()
     }
@@ -444,7 +443,7 @@ pub struct HitakiSndTascam {
 
 impl ::std::fmt::Debug for HitakiSndTascam {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiSndTascam @ {:p}", self))
+        f.debug_struct(&format!("HitakiSndTascam @ {self:p}"))
             .field("parent_instance", &self.parent_instance)
             .finish()
     }
@@ -458,7 +457,7 @@ pub struct HitakiSndUnit {
 
 impl ::std::fmt::Debug for HitakiSndUnit {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("HitakiSndUnit @ {:p}", self))
+        f.debug_struct(&format!("HitakiSndUnit @ {self:p}"))
             .field("parent_instance", &self.parent_instance)
             .finish()
     }
@@ -473,7 +472,7 @@ pub struct HitakiAlsaFirewire {
 
 impl ::std::fmt::Debug for HitakiAlsaFirewire {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "HitakiAlsaFirewire @ {:p}", self)
+        write!(f, "HitakiAlsaFirewire @ {self:p}")
     }
 }
 
@@ -485,7 +484,7 @@ pub struct HitakiEfwProtocol {
 
 impl ::std::fmt::Debug for HitakiEfwProtocol {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "HitakiEfwProtocol @ {:p}", self)
+        write!(f, "HitakiEfwProtocol @ {self:p}")
     }
 }
 
@@ -497,7 +496,7 @@ pub struct HitakiMotuCommandDsp {
 
 impl ::std::fmt::Debug for HitakiMotuCommandDsp {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "HitakiMotuCommandDsp @ {:p}", self)
+        write!(f, "HitakiMotuCommandDsp @ {self:p}")
     }
 }
 
@@ -509,7 +508,7 @@ pub struct HitakiMotuRegisterDsp {
 
 impl ::std::fmt::Debug for HitakiMotuRegisterDsp {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "HitakiMotuRegisterDsp @ {:p}", self)
+        write!(f, "HitakiMotuRegisterDsp @ {self:p}")
     }
 }
 
@@ -521,7 +520,7 @@ pub struct HitakiQuadletNotification {
 
 impl ::std::fmt::Debug for HitakiQuadletNotification {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "HitakiQuadletNotification @ {:p}", self)
+        write!(f, "HitakiQuadletNotification @ {self:p}")
     }
 }
 
@@ -533,7 +532,7 @@ pub struct HitakiTascamProtocol {
 
 impl ::std::fmt::Debug for HitakiTascamProtocol {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "HitakiTascamProtocol @ {:p}", self)
+        write!(f, "HitakiTascamProtocol @ {self:p}")
     }
 }
 
@@ -545,7 +544,7 @@ pub struct HitakiTimestampedQuadletNotification {
 
 impl ::std::fmt::Debug for HitakiTimestampedQuadletNotification {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        write!(f, "HitakiTimestampedQuadletNotification @ {:p}", self)
+        write!(f, "HitakiTimestampedQuadletNotification @ {self:p}")
     }
 }
 
