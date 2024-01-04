@@ -3,15 +3,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::object::ObjectExt;
-use glib::signal::connect_raw;
-use glib::signal::SignalHandlerId;
-use glib::translate::*;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem::transmute;
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::{boxed::Box as Box_, fmt, mem::transmute};
 
 glib::wrapper! {
     /// An interface to operate notification with quadlet message.
@@ -19,6 +16,14 @@ glib::wrapper! {
     /// Some of units supported by drivers in ALSA firewire stack have the function to notify quadlet
     /// message for specific purposes. The [`QuadletNotification`][crate::QuadletNotification] is an interface to operate
     /// the notification.
+    ///
+    /// ## Signals
+    ///
+    ///
+    /// #### `notified`
+    ///  Emitted when the target unit transfers notification.
+    ///
+    /// Action
     ///
     /// # Implements
     ///
@@ -35,22 +40,21 @@ impl QuadletNotification {
     pub const NONE: Option<&'static QuadletNotification> = None;
 }
 
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::QuadletNotification>> Sealed for T {}
+}
+
 /// Trait containing all [`struct@QuadletNotification`] methods.
 ///
 /// # Implementors
 ///
 /// [`QuadletNotification`][struct@crate::QuadletNotification], [`SndDice`][struct@crate::SndDice], [`SndDigi00x`][struct@crate::SndDigi00x], [`SndMotu`][struct@crate::SndMotu]
-pub trait QuadletNotificationExt: 'static {
+pub trait QuadletNotificationExt: IsA<QuadletNotification> + sealed::Sealed + 'static {
     /// Emitted when the target unit transfers notification.
     /// ## `message`
     /// A quadlet message in notification.
     #[doc(alias = "notified")]
-    fn connect_notified<F: Fn(&Self, u32) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_notified(&self, message: u32);
-}
-
-impl<O: IsA<QuadletNotification>> QuadletNotificationExt for O {
     fn connect_notified<F: Fn(&Self, u32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notified_trampoline<
             P: IsA<QuadletNotification>,
@@ -83,6 +87,8 @@ impl<O: IsA<QuadletNotification>> QuadletNotificationExt for O {
         self.emit_by_name::<()>("notified", &[&message]);
     }
 }
+
+impl<O: IsA<QuadletNotification>> QuadletNotificationExt for O {}
 
 impl fmt::Display for QuadletNotification {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

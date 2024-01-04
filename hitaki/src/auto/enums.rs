@@ -3,13 +3,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use glib::error::ErrorDomain;
-use glib::translate::*;
-use glib::value::FromValue;
-use glib::value::ToValue;
-use glib::Quark;
-use glib::StaticType;
-use glib::Type;
+use glib::{prelude::*, translate::*};
 use std::fmt;
 
 /// The enumerations to report result of operation in [`AlsaFirewire`][crate::AlsaFirewire].
@@ -69,6 +63,7 @@ impl fmt::Display for AlsaFirewireError {
 impl IntoGlib for AlsaFirewireError {
     type GlibType = ffi::HitakiAlsaFirewireError;
 
+    #[inline]
     fn into_glib(self) -> ffi::HitakiAlsaFirewireError {
         match self {
             Self::Failed => ffi::HITAKI_ALSA_FIREWIRE_ERROR_FAILED,
@@ -86,6 +81,7 @@ impl IntoGlib for AlsaFirewireError {
 
 #[doc(hidden)]
 impl FromGlib<ffi::HitakiAlsaFirewireError> for AlsaFirewireError {
+    #[inline]
     unsafe fn from_glib(value: ffi::HitakiAlsaFirewireError) -> Self {
         match value {
             ffi::HITAKI_ALSA_FIREWIRE_ERROR_FAILED => Self::Failed,
@@ -101,33 +97,42 @@ impl FromGlib<ffi::HitakiAlsaFirewireError> for AlsaFirewireError {
     }
 }
 
-impl ErrorDomain for AlsaFirewireError {
-    fn domain() -> Quark {
+impl glib::error::ErrorDomain for AlsaFirewireError {
+    #[inline]
+    fn domain() -> glib::Quark {
         unsafe { from_glib(ffi::hitaki_alsa_firewire_error_quark()) }
     }
 
+    #[inline]
     fn code(self) -> i32 {
         self.into_glib()
     }
 
+    #[inline]
+    #[allow(clippy::match_single_binding)]
     fn from(code: i32) -> Option<Self> {
-        match code {
-            ffi::HITAKI_ALSA_FIREWIRE_ERROR_FAILED => Some(Self::Failed),
-            ffi::HITAKI_ALSA_FIREWIRE_ERROR_IS_OPENED => Some(Self::IsOpened),
-            ffi::HITAKI_ALSA_FIREWIRE_ERROR_IS_NOT_OPENED => Some(Self::IsNotOpened),
-            ffi::HITAKI_ALSA_FIREWIRE_ERROR_IS_USED => Some(Self::IsUsed),
-            ffi::HITAKI_ALSA_FIREWIRE_ERROR_IS_LOCKED => Some(Self::IsLocked),
-            ffi::HITAKI_ALSA_FIREWIRE_ERROR_IS_UNLOCKED => Some(Self::IsUnlocked),
-            ffi::HITAKI_ALSA_FIREWIRE_ERROR_IS_DISCONNECTED => Some(Self::IsDisconnected),
-            ffi::HITAKI_ALSA_FIREWIRE_ERROR_WRONG_CLASS => Some(Self::WrongClass),
-            _ => Some(Self::Failed),
+        match unsafe { from_glib(code) } {
+            Self::__Unknown(_) => Some(Self::Failed),
+            value => Some(value),
         }
     }
 }
 
 impl StaticType for AlsaFirewireError {
-    fn static_type() -> Type {
+    #[inline]
+    #[doc(alias = "hitaki_alsa_firewire_error_get_type")]
+    fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::hitaki_alsa_firewire_error_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for AlsaFirewireError {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -135,15 +140,17 @@ impl glib::value::ValueType for AlsaFirewireError {
     type Type = Self;
 }
 
-unsafe impl<'a> FromValue<'a> for AlsaFirewireError {
+unsafe impl<'a> glib::value::FromValue<'a> for AlsaFirewireError {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl ToValue for AlsaFirewireError {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -152,8 +159,16 @@ impl ToValue for AlsaFirewireError {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<AlsaFirewireError> for glib::Value {
+    #[inline]
+    fn from(v: AlsaFirewireError) -> Self {
+        ToValue::to_value(&v)
     }
 }
 
@@ -214,6 +229,7 @@ impl fmt::Display for AlsaFirewireType {
 impl IntoGlib for AlsaFirewireType {
     type GlibType = ffi::HitakiAlsaFirewireType;
 
+    #[inline]
     fn into_glib(self) -> ffi::HitakiAlsaFirewireType {
         match self {
             Self::Dice => ffi::HITAKI_ALSA_FIREWIRE_TYPE_DICE,
@@ -231,6 +247,7 @@ impl IntoGlib for AlsaFirewireType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::HitakiAlsaFirewireType> for AlsaFirewireType {
+    #[inline]
     unsafe fn from_glib(value: ffi::HitakiAlsaFirewireType) -> Self {
         match value {
             ffi::HITAKI_ALSA_FIREWIRE_TYPE_DICE => Self::Dice,
@@ -247,8 +264,20 @@ impl FromGlib<ffi::HitakiAlsaFirewireType> for AlsaFirewireType {
 }
 
 impl StaticType for AlsaFirewireType {
-    fn static_type() -> Type {
+    #[inline]
+    #[doc(alias = "hitaki_alsa_firewire_type_get_type")]
+    fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::hitaki_alsa_firewire_type_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for AlsaFirewireType {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -256,15 +285,17 @@ impl glib::value::ValueType for AlsaFirewireType {
     type Type = Self;
 }
 
-unsafe impl<'a> FromValue<'a> for AlsaFirewireType {
+unsafe impl<'a> glib::value::FromValue<'a> for AlsaFirewireType {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl ToValue for AlsaFirewireType {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -273,8 +304,16 @@ impl ToValue for AlsaFirewireType {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<AlsaFirewireType> for glib::Value {
+    #[inline]
+    fn from(v: AlsaFirewireType) -> Self {
+        ToValue::to_value(&v)
     }
 }
 
@@ -427,43 +466,41 @@ impl FromGlib<ffi::HitakiEfwProtocolError> for EfwProtocolError {
     }
 }
 
-impl ErrorDomain for EfwProtocolError {
-    fn domain() -> Quark {
+impl glib::error::ErrorDomain for EfwProtocolError {
+    #[inline]
+    fn domain() -> glib::Quark {
         unsafe { from_glib(ffi::hitaki_efw_protocol_error_quark()) }
     }
 
+    #[inline]
     fn code(self) -> i32 {
         self.into_glib()
     }
 
+    #[inline]
+    #[allow(clippy::match_single_binding)]
     fn from(code: i32) -> Option<Self> {
-        match code {
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_OK => Some(Self::Ok),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_BAD => Some(Self::Bad),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_BAD_COMMAND => Some(Self::BadCommand),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_COMM_ERR => Some(Self::CommErr),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_BAD_QUAD_COUNT => Some(Self::BadQuadCount),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_UNSUPPORTED => Some(Self::Unsupported),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_TIMEOUT => Some(Self::Timeout),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_DSP_TIMEOUT => Some(Self::DspTimeout),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_BAD_RATE => Some(Self::BadRate),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_BAD_CLOCK => Some(Self::BadClock),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_BAD_CHANNEL => Some(Self::BadChannel),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_BAD_PAN => Some(Self::BadPan),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_FLASH_BUSY => Some(Self::FlashBusy),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_BAD_MIRROR => Some(Self::BadMirror),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_BAD_LED => Some(Self::BadLed),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_BAD_PARAMETER => Some(Self::BadParameter),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_INCOMPLETE => Some(Self::Incomplete),
-            ffi::HITAKI_EFW_PROTOCOL_ERROR_INVALID => Some(Self::Invalid),
-            value => Some(Self::__Unknown(value)),
+        match unsafe { from_glib(code) } {
+            value => Some(value),
         }
     }
 }
 
 impl StaticType for EfwProtocolError {
-    fn static_type() -> Type {
+    #[inline]
+    #[doc(alias = "hitaki_efw_protocol_error_get_type")]
+    fn static_type() -> glib::Type {
         unsafe { from_glib(ffi::hitaki_efw_protocol_error_get_type()) }
+    }
+}
+
+impl glib::HasParamSpec for EfwProtocolError {
+    type ParamSpec = glib::ParamSpecEnum;
+    type SetValue = Self;
+    type BuilderFn = fn(&str, Self) -> glib::ParamSpecEnumBuilder<Self>;
+
+    fn param_spec_builder() -> Self::BuilderFn {
+        Self::ParamSpec::builder_with_default
     }
 }
 
@@ -471,15 +508,17 @@ impl glib::value::ValueType for EfwProtocolError {
     type Type = Self;
 }
 
-unsafe impl<'a> FromValue<'a> for EfwProtocolError {
+unsafe impl<'a> glib::value::FromValue<'a> for EfwProtocolError {
     type Checker = glib::value::GenericValueTypeChecker<Self>;
 
+    #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl ToValue for EfwProtocolError {
+    #[inline]
     fn to_value(&self) -> glib::Value {
         let mut value = glib::Value::for_value_type::<Self>();
         unsafe {
@@ -488,7 +527,15 @@ impl ToValue for EfwProtocolError {
         value
     }
 
+    #[inline]
     fn value_type(&self) -> glib::Type {
         Self::static_type()
+    }
+}
+
+impl From<EfwProtocolError> for glib::Value {
+    #[inline]
+    fn from(v: EfwProtocolError) -> Self {
+        ToValue::to_value(&v)
     }
 }

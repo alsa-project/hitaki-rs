@@ -3,15 +3,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::object::ObjectExt;
-use glib::signal::connect_raw;
-use glib::signal::SignalHandlerId;
-use glib::translate::*;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem::transmute;
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::{boxed::Box as Box_, fmt, mem::transmute};
 
 glib::wrapper! {
     /// An interface for protocol of TASCAM FireWire series.
@@ -19,6 +16,14 @@ glib::wrapper! {
     /// TASCAM FireWire series transfer image of device state by either isochronous or asynchronous
     /// packets. The [`TascamProtocol`][crate::TascamProtocol] is an object interface for the image and the change of state
     /// in the TASCAM FireWire protocol.
+    ///
+    /// ## Signals
+    ///
+    ///
+    /// #### `changed`
+    ///  Emitted when the part of image differed for the change of device state.
+    ///
+    /// Action
     ///
     /// # Implements
     ///
@@ -35,12 +40,17 @@ impl TascamProtocol {
     pub const NONE: Option<&'static TascamProtocol> = None;
 }
 
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::TascamProtocol>> Sealed for T {}
+}
+
 /// Trait containing the part of [`struct@TascamProtocol`] methods.
 ///
 /// # Implementors
 ///
 /// [`SndTascam`][struct@crate::SndTascam], [`TascamProtocol`][struct@crate::TascamProtocol]
-pub trait TascamProtocolExt: 'static {
+pub trait TascamProtocolExt: IsA<TascamProtocol> + sealed::Sealed + 'static {
     /// Emitted when the part of image differed for the change of device state.
     /// ## `index`
     /// the numeric index on image of status and control info.
@@ -49,12 +59,6 @@ pub trait TascamProtocolExt: 'static {
     /// ## `after`
     /// the value of info after changed.
     #[doc(alias = "changed")]
-    fn connect_changed<F: Fn(&Self, u32, u32, u32) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_changed(&self, index: u32, before: u32, after: u32);
-}
-
-impl<O: IsA<TascamProtocol>> TascamProtocolExt for O {
     fn connect_changed<F: Fn(&Self, u32, u32, u32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn changed_trampoline<
             P: IsA<TascamProtocol>,
@@ -91,6 +95,8 @@ impl<O: IsA<TascamProtocol>> TascamProtocolExt for O {
         self.emit_by_name::<()>("changed", &[&index, &before, &after]);
     }
 }
+
+impl<O: IsA<TascamProtocol>> TascamProtocolExt for O {}
 
 impl fmt::Display for TascamProtocol {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

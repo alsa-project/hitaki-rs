@@ -128,7 +128,7 @@ unsafe extern "C" fn motu_register_dsp_read_parameter<T: MotuRegisterDspImpl>(
         Ok(()) => glib::ffi::GTRUE,
         Err(err) => {
             if !error.is_null() {
-                *error = err.into_raw();
+                *error = err.into_glib_ptr();
             }
             glib::ffi::GFALSE
         }
@@ -149,7 +149,7 @@ unsafe extern "C" fn motu_register_dsp_read_byte_meter<T: MotuRegisterDspImpl>(
         Ok(()) => glib::ffi::GTRUE,
         Err(err) => {
             if !error.is_null() {
-                *error = err.into_raw();
+                *error = err.into_glib_ptr();
             }
             glib::ffi::GFALSE
         }
@@ -171,18 +171,19 @@ unsafe extern "C" fn motu_register_dsp_changed<T: MotuRegisterDspImpl>(
 
 #[cfg(test)]
 mod test {
-    use crate::{prelude::*, subclass::motu_register_dsp::*};
-    use glib::{
-        subclass::{object::*, types::*},
-        Object, ParamFlags, ParamSpec, ParamSpecUInt, ToValue, Value,
-    };
+    use crate::{prelude::*, subclass::prelude::*, *};
+    use glib::{subclass::prelude::*, ObjectExt, Properties};
 
     mod imp {
         use super::*;
         use std::cell::RefCell;
 
-        #[derive(Default)]
-        pub struct MotuRegisterDspTest(RefCell<u32>);
+        #[derive(Properties)]
+        #[properties(wrapper_type = super::MotuRegisterDspTest)]
+        pub struct MotuRegisterDspTest {
+            #[property(get)]
+            result: RefCell<u32>,
+        }
 
         #[glib::object_subclass]
         impl ObjectSubclass for MotuRegisterDspTest {
@@ -191,35 +192,14 @@ mod test {
             type Interfaces = (MotuRegisterDsp,);
 
             fn new() -> Self {
-                Self::default()
-            }
-        }
-
-        impl ObjectImpl for MotuRegisterDspTest {
-            fn properties() -> &'static [ParamSpec] {
-                use once_cell::sync::Lazy;
-                static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                    vec![ParamSpecUInt::new(
-                        "result",
-                        "result",
-                        "the result to handle notification",
-                        0,
-                        0x0000ffff as u32,
-                        0,
-                        ParamFlags::READABLE,
-                    )]
-                });
-
-                PROPERTIES.as_ref()
-            }
-
-            fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
-                match pspec.name() {
-                    "result" => self.0.borrow().to_value(),
-                    _ => unimplemented!(),
+                Self {
+                    result: Default::default(),
                 }
             }
         }
+
+        #[glib::derived_properties]
+        impl ObjectImpl for MotuRegisterDspTest {}
 
         impl MotuRegisterDspImpl for MotuRegisterDspTest {
             fn read_parameter(
@@ -239,7 +219,7 @@ mod test {
             }
 
             fn changed(&self, _unit: &Self::Type, events: &[u32]) {
-                *self.0.borrow_mut() = events.len() as u32;
+                *self.result.borrow_mut() = events.len() as u32;
             }
         }
     }
@@ -249,20 +229,9 @@ mod test {
             @implements MotuRegisterDsp;
     }
 
-    #[allow(clippy::new_without_default)]
-    impl MotuRegisterDspTest {
-        pub fn new() -> Self {
-            Object::new(&[]).expect("Failed creation/initialization of MotuRegisterDspTest object")
-        }
-
-        pub fn result(&self) -> u32 {
-            self.property::<u32>("result")
-        }
-    }
-
     #[test]
     fn motu_register_dsp_iface() {
-        let unit = MotuRegisterDspTest::new();
+        let unit: MotuRegisterDspTest = glib::object::Object::new();
 
         let mut parameter = SndMotuRegisterDspParameter::new();
         assert_eq!(unit.read_parameter(&mut parameter), Ok(()));

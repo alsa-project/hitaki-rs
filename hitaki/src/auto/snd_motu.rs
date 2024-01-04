@@ -3,10 +3,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::AlsaFirewire;
-use crate::MotuCommandDsp;
-use crate::MotuRegisterDsp;
-use crate::QuadletNotification;
+use crate::{AlsaFirewire, MotuCommandDsp, MotuRegisterDsp, QuadletNotification};
 use glib::translate::*;
 use std::fmt;
 

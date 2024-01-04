@@ -73,7 +73,7 @@ unsafe extern "C" fn motu_command_dsp_read_float_meter<T: MotuCommandDspImpl>(
         Ok(()) => glib::ffi::GTRUE,
         Err(err) => {
             if !error.is_null() {
-                *error = err.into_raw();
+                *error = err.into_glib_ptr();
             }
             glib::ffi::GFALSE
         }
@@ -82,13 +82,12 @@ unsafe extern "C" fn motu_command_dsp_read_float_meter<T: MotuCommandDspImpl>(
 
 #[cfg(test)]
 mod test {
-    use crate::{prelude::*, subclass::motu_command_dsp::*};
-    use glib::{subclass::prelude::*, Object};
+    use crate::{prelude::*, subclass::prelude::*, *};
+    use glib::subclass::prelude::*;
 
     mod imp {
         use super::*;
 
-        #[derive(Default)]
         pub struct MotuCommandDspTest;
 
         #[glib::object_subclass]
@@ -98,7 +97,7 @@ mod test {
             type Interfaces = (MotuCommandDsp,);
 
             fn new() -> Self {
-                Self::default()
+                Self {}
             }
         }
 
@@ -120,16 +119,9 @@ mod test {
             @implements MotuCommandDsp;
     }
 
-    #[allow(clippy::new_without_default)]
-    impl MotuCommandDspTest {
-        pub fn new() -> Self {
-            Object::new(&[]).expect("Failed creation/initialization of MotuCommandDspTest object")
-        }
-    }
-
     #[test]
     fn motu_command_dsp_iface() {
-        let unit = MotuCommandDspTest::new();
+        let unit: MotuCommandDspTest = glib::object::Object::new();
 
         let mut meter = [0f32; 400];
         assert_eq!(unit.read_float_meter(&mut meter), Ok(()));

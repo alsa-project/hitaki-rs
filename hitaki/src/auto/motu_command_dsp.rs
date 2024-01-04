@@ -3,7 +3,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use glib::object::IsA;
+use glib::prelude::*;
 use std::fmt;
 
 glib::wrapper! {
@@ -29,21 +29,19 @@ impl MotuCommandDsp {
     pub const NONE: Option<&'static MotuCommandDsp> = None;
 }
 
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::MotuCommandDsp>> Sealed for T {}
+}
+
 /// Trait containing the part of [`struct@MotuCommandDsp`] methods.
 ///
 /// # Implementors
 ///
 /// [`MotuCommandDsp`][struct@crate::MotuCommandDsp], [`SndMotu`][struct@crate::SndMotu]
-pub trait MotuCommandDspExt: 'static {
-    //#[doc(alias = "hitaki_motu_command_dsp_read_float_meter")]
-    //fn read_float_meter(&self, meter: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 400) -> Result<(), glib::Error>;
-}
+pub trait MotuCommandDspExt: IsA<MotuCommandDsp> + sealed::Sealed + 'static {}
 
-impl<O: IsA<MotuCommandDsp>> MotuCommandDspExt for O {
-    //fn read_float_meter(&self, meter: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 400) -> Result<(), glib::Error> {
-    //    unsafe { TODO: call ffi:hitaki_motu_command_dsp_read_float_meter() }
-    //}
-}
+impl<O: IsA<MotuCommandDsp>> MotuCommandDspExt for O {}
 
 impl fmt::Display for MotuCommandDsp {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

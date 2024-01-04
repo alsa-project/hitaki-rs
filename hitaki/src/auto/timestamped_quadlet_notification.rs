@@ -3,15 +3,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::object::ObjectExt;
-use glib::signal::connect_raw;
-use glib::signal::SignalHandlerId;
-use glib::translate::*;
-use std::boxed::Box as Box_;
-use std::fmt;
-use std::mem::transmute;
+use glib::{
+    prelude::*,
+    signal::{connect_raw, SignalHandlerId},
+    translate::*,
+};
+use std::{boxed::Box as Box_, fmt, mem::transmute};
 
 glib::wrapper! {
     /// An interface to operate notification with quadlet message and time stamp.
@@ -19,6 +16,18 @@ glib::wrapper! {
     /// Some of units supported by drivers in ALSA firewire stack have the function to notify quadlet
     /// message and time stamp for specific purposes. The [`TimestampedQuadletNotification`][crate::TimestampedQuadletNotification] is an
     /// interface to operate the notification.
+    ///
+    /// ## Signals
+    ///
+    ///
+    /// #### `notified-at`
+    ///  Emitted when the target unit transfers notification.
+    ///
+    /// The value of @tstamp is unsigned 16 bit integer including higher 3 bits for three low order
+    /// bits of second field and the rest 13 bits for cycle field in the format of IEEE 1394
+    /// CYCLE_TIMER register.
+    ///
+    /// Action
     ///
     /// # Implements
     ///
@@ -35,12 +44,19 @@ impl TimestampedQuadletNotification {
     pub const NONE: Option<&'static TimestampedQuadletNotification> = None;
 }
 
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::TimestampedQuadletNotification>> Sealed for T {}
+}
+
 /// Trait containing all [`struct@TimestampedQuadletNotification`] methods.
 ///
 /// # Implementors
 ///
 /// [`SndFireface`][struct@crate::SndFireface], [`TimestampedQuadletNotification`][struct@crate::TimestampedQuadletNotification]
-pub trait TimestampedQuadletNotificationExt: 'static {
+pub trait TimestampedQuadletNotificationExt:
+    IsA<TimestampedQuadletNotification> + sealed::Sealed + 'static
+{
     /// Emitted when the target unit transfers notification.
     ///
     /// The value of @tstamp is unsigned 16 bit integer including higher 3 bits for three low order
@@ -50,14 +66,7 @@ pub trait TimestampedQuadletNotificationExt: 'static {
     /// A quadlet message in notification.
     /// ## `tstamp`
     /// The isochronous cycle at which the request arrived.
-    /// Emitted when the target unit transfers notification.
     #[doc(alias = "notified-at")]
-    fn connect_notified_at<F: Fn(&Self, u32, u32) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn emit_notified_at(&self, message: u32, tstamp: u32);
-}
-
-impl<O: IsA<TimestampedQuadletNotification>> TimestampedQuadletNotificationExt for O {
     fn connect_notified_at<F: Fn(&Self, u32, u32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn notified_at_trampoline<
             P: IsA<TimestampedQuadletNotification>,
@@ -92,6 +101,8 @@ impl<O: IsA<TimestampedQuadletNotification>> TimestampedQuadletNotificationExt f
         self.emit_by_name::<()>("notified-at", &[&message, &tstamp]);
     }
 }
+
+impl<O: IsA<TimestampedQuadletNotification>> TimestampedQuadletNotificationExt for O {}
 
 impl fmt::Display for TimestampedQuadletNotification {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

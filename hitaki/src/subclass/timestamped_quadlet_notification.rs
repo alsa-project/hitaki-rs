@@ -62,18 +62,21 @@ unsafe extern "C" fn timestamped_quadlet_notification_notified_at<
 
 #[cfg(test)]
 mod test {
-    use crate::{prelude::*, subclass::timestamped_quadlet_notification::*};
-    use glib::{
-        subclass::{object::*, types::*},
-        Object, ParamFlags, ParamSpec, ParamSpecUInt, ToValue, Value,
-    };
+    use crate::{prelude::*, subclass::prelude::*, *};
+    use glib::{subclass::prelude::*, ObjectExt, Properties};
 
     mod imp {
         use super::*;
         use std::cell::RefCell;
 
-        #[derive(Default)]
-        pub struct TimestampedQuadletNotificationTest(RefCell<(u32, u32)>);
+        #[derive(Properties)]
+        #[properties(wrapper_type = super::TimestampedQuadletNotificationTest)]
+        pub struct TimestampedQuadletNotificationTest {
+            #[property(get)]
+            msg: RefCell<u32>,
+            #[property(get)]
+            tstamp: RefCell<u32>,
+        }
 
         #[glib::object_subclass]
         impl ObjectSubclass for TimestampedQuadletNotificationTest {
@@ -82,51 +85,20 @@ mod test {
             type Interfaces = (TimestampedQuadletNotification,);
 
             fn new() -> Self {
-                Self::default()
-            }
-        }
-
-        impl ObjectImpl for TimestampedQuadletNotificationTest {
-            fn properties() -> &'static [ParamSpec] {
-                use once_cell::sync::Lazy;
-                static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                    vec![
-                        ParamSpecUInt::new(
-                            "msg",
-                            "msg",
-                            "the message in notification",
-                            0,
-                            0x0000ffff as u32,
-                            0,
-                            ParamFlags::READABLE,
-                        ),
-                        ParamSpecUInt::new(
-                            "tstamp",
-                            "tstamp",
-                            "the time stamp in notification",
-                            0,
-                            0x0000ffff as u32,
-                            0,
-                            ParamFlags::READABLE,
-                        ),
-                    ]
-                });
-
-                PROPERTIES.as_ref()
-            }
-
-            fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
-                match pspec.name() {
-                    "msg" => self.0.borrow().0.to_value(),
-                    "tstamp" => self.0.borrow().1.to_value(),
-                    _ => unimplemented!(),
+                Self {
+                    msg: Default::default(),
+                    tstamp: Default::default(),
                 }
             }
         }
 
+        #[glib::derived_properties]
+        impl ObjectImpl for TimestampedQuadletNotificationTest {}
+
         impl TimestampedQuadletNotificationImpl for TimestampedQuadletNotificationTest {
             fn notified_at(&self, _unit: &Self::Type, msg: u32, tstamp: u32) {
-                *self.0.borrow_mut() = (msg, tstamp);
+                *self.msg.borrow_mut() = msg;
+                *self.tstamp.borrow_mut() = tstamp;
             }
         }
     }
@@ -136,26 +108,9 @@ mod test {
             @implements TimestampedQuadletNotification;
     }
 
-    #[allow(clippy::new_without_default)]
-    impl TimestampedQuadletNotificationTest {
-        pub fn new() -> Self {
-            Object::new(&[]).expect(
-                "Failed creation/initialization of TimestampedQuadletNotificationTest object",
-            )
-        }
-
-        pub fn msg(&self) -> u32 {
-            self.property::<u32>("msg")
-        }
-
-        pub fn tstamp(&self) -> u32 {
-            self.property::<u32>("tstamp")
-        }
-    }
-
     #[test]
     fn quadlet_notification_iface() {
-        let unit = TimestampedQuadletNotificationTest::new();
+        let unit: TimestampedQuadletNotificationTest = glib::object::Object::new();
 
         assert_eq!(unit.msg(), 0);
         unit.emit_notified_at(123, 456);

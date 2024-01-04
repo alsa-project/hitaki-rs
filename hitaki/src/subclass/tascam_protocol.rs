@@ -91,7 +91,7 @@ unsafe extern "C" fn tascam_protocol_read_state<T: TascamProtocolImpl>(
         }
         Err(err) => {
             if !error.is_null() {
-                *error = err.into_raw();
+                *error = err.into_glib_ptr();
             }
             glib::ffi::GFALSE
         }
@@ -116,17 +116,13 @@ unsafe extern "C" fn tascam_protocol_changed<T: TascamProtocolImpl>(
 
 #[cfg(test)]
 mod test {
-    use crate::{prelude::*, subclass::tascam_protocol::*};
-    use glib::{
-        subclass::{object::*, types::*},
-        FileError, Object,
-    };
+    use crate::{prelude::*, subclass::prelude::*, *};
+    use glib::{subclass::prelude::*, Error, FileError};
 
     mod imp {
         use super::*;
         use std::cell::RefCell;
 
-        #[derive(Default)]
         pub struct TascamProtocolTest(RefCell<[u32; 4]>);
 
         #[glib::object_subclass]
@@ -136,7 +132,7 @@ mod test {
             type Interfaces = (TascamProtocol,);
 
             fn new() -> Self {
-                Self::default()
+                Self(Default::default())
             }
         }
 
@@ -172,16 +168,9 @@ mod test {
             @implements TascamProtocol;
     }
 
-    #[allow(clippy::new_without_default)]
-    impl TascamProtocolTest {
-        pub fn new() -> Self {
-            Object::new(&[]).expect("Failed creation/initialization of TascamProtocolTest object")
-        }
-    }
-
     #[test]
     fn tascam_protocol_iface() {
-        let unit = TascamProtocolTest::new();
+        let unit: TascamProtocolTest = glib::object::Object::new();
 
         let mut image = vec![0u32; 1];
         assert!(unit.read_state(&mut image).is_err());

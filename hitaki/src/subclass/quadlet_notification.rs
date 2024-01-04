@@ -53,18 +53,19 @@ unsafe extern "C" fn quadlet_notification_notified<T: QuadletNotificationImpl>(
 
 #[cfg(test)]
 mod test {
-    use crate::{prelude::*, subclass::quadlet_notification::*};
-    use glib::{
-        subclass::{object::*, types::*},
-        Object, ParamFlags, ParamSpec, ParamSpecUInt, ToValue, Value,
-    };
+    use crate::{prelude::*, subclass::prelude::*, *};
+    use glib::{subclass::prelude::*, ObjectExt, Properties};
 
     mod imp {
         use super::*;
         use std::cell::RefCell;
 
-        #[derive(Default)]
-        pub struct QuadletNotificationTest(RefCell<u32>);
+        #[derive(Properties)]
+        #[properties(wrapper_type = super::QuadletNotificationTest)]
+        pub struct QuadletNotificationTest {
+            #[property(get)]
+            result: RefCell<u32>,
+        }
 
         #[glib::object_subclass]
         impl ObjectSubclass for QuadletNotificationTest {
@@ -73,39 +74,18 @@ mod test {
             type Interfaces = (QuadletNotification,);
 
             fn new() -> Self {
-                Self::default()
-            }
-        }
-
-        impl ObjectImpl for QuadletNotificationTest {
-            fn properties() -> &'static [ParamSpec] {
-                use once_cell::sync::Lazy;
-                static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                    vec![ParamSpecUInt::new(
-                        "result",
-                        "result",
-                        "the result to handle notification",
-                        0,
-                        0x0000ffff as u32,
-                        0,
-                        ParamFlags::READABLE,
-                    )]
-                });
-
-                PROPERTIES.as_ref()
-            }
-
-            fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
-                match pspec.name() {
-                    "result" => self.0.borrow().to_value(),
-                    _ => unimplemented!(),
+                Self {
+                    result: Default::default(),
                 }
             }
         }
 
+        #[glib::derived_properties]
+        impl ObjectImpl for QuadletNotificationTest {}
+
         impl QuadletNotificationImpl for QuadletNotificationTest {
             fn notified(&self, _unit: &Self::Type, msg: u32) {
-                *self.0.borrow_mut() = msg;
+                *self.result.borrow_mut() = msg;
             }
         }
     }
@@ -115,21 +95,9 @@ mod test {
             @implements QuadletNotification;
     }
 
-    #[allow(clippy::new_without_default)]
-    impl QuadletNotificationTest {
-        pub fn new() -> Self {
-            Object::new(&[])
-                .expect("Failed creation/initialization of QuadletNotificationTest object")
-        }
-
-        pub fn result(&self) -> u32 {
-            self.property::<u32>("result")
-        }
-    }
-
     #[test]
     fn quadlet_notification_iface() {
-        let unit = QuadletNotificationTest::new();
+        let unit: QuadletNotificationTest = glib::object::Object::new();
 
         assert_eq!(unit.result(), 0);
         unit.emit_notified(123);

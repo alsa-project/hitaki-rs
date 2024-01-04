@@ -3,7 +3,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use glib::object::IsA;
+use glib::prelude::*;
 use std::fmt;
 
 glib::wrapper! {
@@ -13,6 +13,18 @@ glib::wrapper! {
     /// packets to delivers PCM frames and MIDI messages as well as DSP parameters and metering
     /// information. The [`MotuRegisterDsp`][crate::MotuRegisterDsp] is an object interface for the parameters and
     /// metering information in the register DSP protocol.
+    ///
+    /// ## Signals
+    ///
+    ///
+    /// #### `changed`
+    ///  Emitted when MOTU register DSP models transfer events by messages in the sequence of
+    /// isochronous packet. The event consists of encoded data. The most significant byte is the
+    /// type of message. The next two bytes are two identifiers. The least significant byte is
+    /// value. The meaning of identifier 0, 1 and value is decided depending on the type. For
+    /// detail, see `sound/firewire/motu/motu-register-dsp-message-parser.c` in Linux kernel.
+    ///
+    /// Action
     ///
     /// # Implements
     ///
@@ -29,21 +41,19 @@ impl MotuRegisterDsp {
     pub const NONE: Option<&'static MotuRegisterDsp> = None;
 }
 
+mod sealed {
+    pub trait Sealed {}
+    impl<T: super::IsA<super::MotuRegisterDsp>> Sealed for T {}
+}
+
 /// Trait containing the part of [`struct@MotuRegisterDsp`] methods.
 ///
 /// # Implementors
 ///
 /// [`MotuRegisterDsp`][struct@crate::MotuRegisterDsp], [`SndMotu`][struct@crate::SndMotu]
-pub trait MotuRegisterDspExt: 'static {
-    //#[doc(alias = "hitaki_motu_register_dsp_read_byte_meter")]
-    //fn read_byte_meter(&self, meter: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 3 }; 48) -> Result<(), glib::Error>;
-}
+pub trait MotuRegisterDspExt: IsA<MotuRegisterDsp> + sealed::Sealed + 'static {}
 
-impl<O: IsA<MotuRegisterDsp>> MotuRegisterDspExt for O {
-    //fn read_byte_meter(&self, meter: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 3 }; 48) -> Result<(), glib::Error> {
-    //    unsafe { TODO: call ffi:hitaki_motu_register_dsp_read_byte_meter() }
-    //}
-}
+impl<O: IsA<MotuRegisterDsp>> MotuRegisterDspExt for O {}
 
 impl fmt::Display for MotuRegisterDsp {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

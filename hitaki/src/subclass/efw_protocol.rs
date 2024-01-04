@@ -177,16 +177,8 @@ unsafe extern "C" fn efw_protocol_responded<T: EfwProtocolImpl>(
 
 #[cfg(test)]
 mod test {
-    use {
-        crate::{
-            EfwProtocol, EfwProtocolError,
-            {subclass::efw_protocol::*, traits::EfwProtocolExt},
-        },
-        glib::{
-            subclass::{object::*, types::*},
-            Object, ParamFlags, ParamSpec, ParamSpecUInt, ToValue, Value,
-        },
-    };
+    use crate::{prelude::*, subclass::prelude::*, *};
+    use glib::{subclass::prelude::*, Error, ObjectExt, Properties};
 
     const CATEGORY: u32 = 123;
     const COMMAND: u32 = 456;
@@ -194,10 +186,14 @@ mod test {
 
     mod imp {
         use super::*;
-        use std::cell::RefCell;
+        use std::cell::Cell;
 
-        #[derive(Default)]
-        pub struct EfwProtocolTestPrivate(RefCell<u32>);
+        #[derive(Properties)]
+        #[properties(wrapper_type = super::EfwProtocolTest)]
+        pub struct EfwProtocolTestPrivate {
+            #[property(get)]
+            seqnum: Cell<u32>,
+        }
 
         #[glib::object_subclass]
         impl ObjectSubclass for EfwProtocolTestPrivate {
@@ -206,35 +202,14 @@ mod test {
             type Interfaces = (EfwProtocol,);
 
             fn new() -> Self {
-                Default::default()
-            }
-        }
-
-        impl ObjectImpl for EfwProtocolTestPrivate {
-            fn properties() -> &'static [ParamSpec] {
-                use once_cell::sync::Lazy;
-                static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                    vec![ParamSpecUInt::new(
-                        "seqnum",
-                        "seqnum",
-                        "the next sequence number of transaction to match between command and response",
-                        0,
-                        0x0000ffff as u32,
-                        0,
-                        ParamFlags::READABLE,
-                    )]
-                });
-
-                PROPERTIES.as_ref()
-            }
-
-            fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
-                match pspec.name() {
-                    "seqnum" => self.0.borrow().to_value(),
-                    _ => unimplemented!(),
+                Self {
+                    seqnum: Default::default(),
                 }
             }
         }
+
+        #[glib::derived_properties]
+        impl ObjectImpl for EfwProtocolTestPrivate {}
 
         impl EfwProtocolImpl for EfwProtocolTestPrivate {
             fn transmit_request(&self, unit: &Self::Type, buffer: &[u8]) -> Result<(), Error> {
@@ -252,8 +227,8 @@ mod test {
             }
 
             fn get_seqnum(&self, _: &Self::Type) -> u32 {
-                let seqnum = *self.0.borrow();
-                *self.0.borrow_mut() += 1;
+                let seqnum = self.seqnum.get();
+                self.seqnum.set(seqnum + 1);
                 seqnum
             }
 
@@ -268,12 +243,12 @@ mod test {
                 params: &[u32],
             ) {
                 assert_eq!(version, 1);
-                assert_eq!(seqnum, *self.0.borrow());
+                assert_eq!(seqnum, self.seqnum.get());
                 assert_eq!(category, CATEGORY);
                 assert_eq!(command, COMMAND);
                 assert_eq!(status, EfwProtocolError::Ok);
                 assert_eq!(params, ARGS);
-                *self.0.borrow_mut() += 1;
+                self.seqnum.set(seqnum + 1);
             }
         }
     }
@@ -283,25 +258,9 @@ mod test {
             @implements EfwProtocol;
     }
 
-    impl Default for EfwProtocolTest {
-        fn default() -> Self {
-            Self::new()
-        }
-    }
-
-    impl EfwProtocolTest {
-        pub fn new() -> Self {
-            Object::new(&[]).expect("Failed to create EfwProtocol")
-        }
-
-        pub fn seqnum(&self) -> u32 {
-            self.property::<u32>("seqnum")
-        }
-    }
-
     #[test]
     fn efw_protocol_iface() {
-        let unit = EfwProtocolTest::new();
+        let unit: EfwProtocolTest = glib::object::Object::new();
 
         let result = unit.transmit_request(CATEGORY, COMMAND, ARGS);
         assert_eq!(result.unwrap() + 1, unit.seqnum());

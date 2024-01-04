@@ -49,8 +49,7 @@ impl SndMotuRegisterDspParameter {
                 self.to_glib_none().0,
                 assignment.as_mut_ptr(),
             );
-            let assignment = assignment.assume_init();
-            assignment
+            assignment.assume_init()
         }
     }
 
@@ -71,8 +70,7 @@ impl SndMotuRegisterDspParameter {
                 self.to_glib_none().0,
                 volume.as_mut_ptr(),
             );
-            let volume = volume.assume_init();
-            volume
+            volume.assume_init()
         }
     }
 
@@ -93,8 +91,7 @@ impl SndMotuRegisterDspParameter {
                 self.to_glib_none().0,
                 boost_flag.as_mut_ptr(),
             );
-            let boost_flag = boost_flag.assume_init();
-            boost_flag
+            boost_flag.assume_init()
         }
     }
 
@@ -116,8 +113,7 @@ impl SndMotuRegisterDspParameter {
                 self.to_glib_none().0,
                 nominal_level_flag.as_mut_ptr(),
             );
-            let nominal_level_flag = nominal_level_flag.assume_init();
-            nominal_level_flag
+            nominal_level_flag.assume_init()
         }
     }
 
@@ -138,8 +134,7 @@ impl SndMotuRegisterDspParameter {
                 self.to_glib_none().0,
                 volume.as_mut_ptr(),
             );
-            let volume = volume.assume_init();
-            volume
+            volume.assume_init()
         }
     }
 }

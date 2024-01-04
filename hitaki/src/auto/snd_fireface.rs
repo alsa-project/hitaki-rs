@@ -3,8 +3,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::AlsaFirewire;
-use crate::TimestampedQuadletNotification;
+use crate::{AlsaFirewire, TimestampedQuadletNotification};
 use glib::translate::*;
 use std::fmt;
 
@@ -13,6 +12,77 @@ glib::wrapper! {
     ///
     /// The [`SndFireface`][crate::SndFireface] is object class derived from `GObject::Object` for sound unit of
     /// RME Fireface series supported by ALSA fireface driver (`snd-fireface`).
+    ///
+    /// For Fireface 400, the object class implements [`TimestampedQuadletNotification`][crate::TimestampedQuadletNotification] interface
+    /// to dispatch event of knob control. The message parameter of event includes unsigned 32 bit
+    /// integer value with encoded data. The kind of data can be detected by below flags:
+    ///
+    /// - `0x00000100`: MIDI message byte received in physical MIDI port 0
+    /// - `0x01000000`: MIDI message byte received in physical MIDI port 1
+    /// - `0x04000000`: signal level of channel
+    ///
+    /// When it is for MIDI port 0, the value includes the message byte masked by `0x000000ff`. When it
+    /// is for MIDI port 1, the value includes the message byte masked by `0x00ff0000`.
+    ///
+    /// When it is for the signal level, the value includes paired channel position masked by
+    /// `0xf0000000`.
+    ///
+    /// - `0x00000000`: Microphone input 0/1
+    /// - `0x10000000`: Line input 0/1
+    /// - `0x20000000`: Line output 0/1
+    /// - `0x30000000`: Line output 2/3
+    /// - `0x40000000`: Line output 4/5
+    /// - `0x50000000`: Headphone output 0/1
+    /// - `0x60000000`: S/PDIF output 0/1
+    /// - `0x70000000`: ADAT output 0/1
+    /// - `0x80000000`: ADAT output 2/3
+    /// - `0x90000000`: ADAT output 4/5
+    /// - `0xa0000000`: ADAT output 6/7
+    ///
+    /// When the value includes flag of `0x02000000`, the value includes signal level for both of
+    /// channels in the pair. Unless, when the value includes flag of `0x08000000`, the signal level is
+    /// just for right channel in the pair. When both flags are not found, the signal level is just for
+    /// left channel in the pair.
+    ///
+    /// The value includes signal level masked by `0x00fffc00`. The range of signal level differs
+    /// depending on channels. For signal level of microphone input:
+    ///
+    /// - `0x00000000`: zero
+    /// - `0x00002800`: +10.0 dB
+    /// - `0x00002c00`: +11.0 dB
+    /// - `0x00003000`: +12.0 dB
+    /// - ...
+    /// - `0x0000fc00`: +63.0 dB:
+    /// - `0x00010000`: +64.0 dB:
+    /// - `0x00010400`: +65.0 dB:
+    ///
+    /// For signal level of line input:
+    ///
+    /// - `0x00000000`: zero
+    /// - `0x00000400`: +0.5 dB
+    /// - `0x00000800`: +1.0 dB
+    /// - `0x00000c00`: +1.5 dB
+    /// - ...
+    /// - `0x00008800`: +17.0 dB:
+    /// - `0x000008c0`: +17.5 dB:
+    /// - `0x00000900`: +18.0 dB:
+    ///
+    /// For signal level of any type of output:
+    ///
+    /// - `0x0000fc00`: -infinite
+    /// - `0x0000f800`: -58.0 dB
+    /// - `0x0000f400`: -56.0 dB
+    /// - `0x0000f000`: -54.0 dB
+    /// - `0x0000ec00`: -53.0 dB
+    /// - `0x0000e800`: -52.0 dB
+    /// - ...
+    /// - `0x00001c00`: -1.0 dB
+    /// - `0x00001800`: 0.0 dB
+    /// - `0x00001400`: 1.0 dB
+    /// - ...
+    /// - `0x00000800`: +4.0 dB
+    /// - `0x00000400`: +5.0 dB
+    /// - `0x00000000`: +6.0 dB
     ///
     /// # Implements
     ///

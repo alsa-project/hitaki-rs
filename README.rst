@@ -47,5 +47,5 @@ Dependencies
 * API crate (``hitaki``)
 
   * ``libc`` >= 0.2
-  * ``glib`` >= 0.15
+  * ``glib`` >= 0.18
   * FFI crate (``hitaki-sys``)

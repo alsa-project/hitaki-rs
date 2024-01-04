@@ -24,12 +24,12 @@ impl<O: IsA<MotuCommandDsp>> MotuCommandDspExtManual for O {
             let ptr: *mut [f32; 400] = meter;
             let mut error = std::ptr::null_mut();
 
-            ffi::hitaki_motu_command_dsp_read_float_meter(
+            let is_ok = ffi::hitaki_motu_command_dsp_read_float_meter(
                 self.as_ref().to_glib_none().0,
                 &ptr,
                 &mut error,
             );
-
+            debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
                 Ok(())
             } else {

@@ -65,7 +65,7 @@ manual_traits = ["MotuRegisterDspManual"]
     manual = true
     doc_trait_name = "SndMotuExtManual"
     [[object.function]]
-    name = "read_meter"
+    name = "read_byte_meter"
     manual = true
     doc_trait_name = "SndMotuExtManual"
 
@@ -74,7 +74,7 @@ name = "Hitaki.MotuCommandDsp"
 status = "generate"
 manual_traits = ["MotuCommandDspManual"]
     [[object.function]]
-    name = "read_meter"
+    name = "read_float_meter"
     manual = true
     doc_trait_name = "MotuCommandDspManual"
 

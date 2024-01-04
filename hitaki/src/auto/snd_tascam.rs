@@ -3,8 +3,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::AlsaFirewire;
-use crate::TascamProtocol;
+use crate::{AlsaFirewire, TascamProtocol};
 use glib::translate::*;
 use std::fmt;
 
