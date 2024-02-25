@@ -5,7 +5,6 @@
 
 use crate::AlsaFirewire;
 use glib::translate::*;
-use std::fmt;
 
 glib::wrapper! {
     /// A GObject-derived object for sound unit without specific function.
@@ -41,11 +40,5 @@ impl SndUnit {
 impl Default for SndUnit {
     fn default() -> Self {
         Self::new()
-    }
-}
-
-impl fmt::Display for SndUnit {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("SndUnit")
     }
 }

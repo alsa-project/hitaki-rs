@@ -9,7 +9,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute, ptr};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     /// An interface to operate ALSA HwDep character device for Audio and Music unit in IEEE 1394 bus.
@@ -96,8 +96,8 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
     #[doc(alias = "hitaki_alsa_firewire_create_source")]
     fn create_source(&self) -> Result<glib::Source, glib::Error> {
         unsafe {
-            let mut source = ptr::null_mut();
-            let mut error = ptr::null_mut();
+            let mut source = std::ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::hitaki_alsa_firewire_create_source(
                 self.as_ref().to_glib_none().0,
                 &mut source,
@@ -121,7 +121,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
     #[doc(alias = "hitaki_alsa_firewire_lock")]
     fn lock(&self) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::hitaki_alsa_firewire_lock(self.as_ref().to_glib_none().0, &mut error);
             debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
             if error.is_null() {
@@ -144,7 +144,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
     #[doc(alias = "hitaki_alsa_firewire_open")]
     fn open(&self, path: &str, open_flag: i32) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::hitaki_alsa_firewire_open(
                 self.as_ref().to_glib_none().0,
                 path.to_glib_none().0,
@@ -169,7 +169,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
     #[doc(alias = "hitaki_alsa_firewire_unlock")]
     fn unlock(&self) -> Result<(), glib::Error> {
         unsafe {
-            let mut error = ptr::null_mut();
+            let mut error = std::ptr::null_mut();
             let is_ok =
                 ffi::hitaki_alsa_firewire_unlock(self.as_ref().to_glib_none().0, &mut error);
             debug_assert_eq!(is_ok == glib::ffi::GFALSE, !error.is_null());
@@ -250,7 +250,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::card-id\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_card_id_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -273,7 +273,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::guid\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_guid_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -299,7 +299,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::is-disconnected\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_is_disconnected_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -325,7 +325,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::is-locked\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_is_locked_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -351,7 +351,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::node-device\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_node_device_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -377,7 +377,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::unit-type\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notify_unit_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -387,9 +387,3 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<AlsaFirewire>> AlsaFirewireExt for O {}
-
-impl fmt::Display for AlsaFirewire {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("AlsaFirewire")
-    }
-}

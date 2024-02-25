@@ -5,7 +5,6 @@
 
 use crate::{AlsaFirewire, QuadletNotification};
 use glib::translate::*;
-use std::fmt;
 
 glib::wrapper! {
     /// A GObject-derived object for sound unit of Digidesign Digi00x family.
@@ -41,11 +40,5 @@ impl SndDigi00x {
 impl Default for SndDigi00x {
     fn default() -> Self {
         Self::new()
-    }
-}
-
-impl fmt::Display for SndDigi00x {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("SndDigi00x")
     }
 }

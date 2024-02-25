@@ -63,7 +63,7 @@ unsafe extern "C" fn timestamped_quadlet_notification_notified_at<
 #[cfg(test)]
 mod test {
     use crate::{prelude::*, subclass::prelude::*, *};
-    use glib::{subclass::prelude::*, ObjectExt, Properties};
+    use glib::{subclass::prelude::*, Properties};
 
     mod imp {
         use super::*;

@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     /// An interface to operate notification with quadlet message and time stamp.
@@ -89,7 +89,7 @@ pub trait TimestampedQuadletNotificationExt:
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notified-at\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notified_at_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -103,9 +103,3 @@ pub trait TimestampedQuadletNotificationExt:
 }
 
 impl<O: IsA<TimestampedQuadletNotification>> TimestampedQuadletNotificationExt for O {}
-
-impl fmt::Display for TimestampedQuadletNotification {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("TimestampedQuadletNotification")
-    }
-}

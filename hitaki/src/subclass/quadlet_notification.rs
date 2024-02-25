@@ -54,7 +54,7 @@ unsafe extern "C" fn quadlet_notification_notified<T: QuadletNotificationImpl>(
 #[cfg(test)]
 mod test {
     use crate::{prelude::*, subclass::prelude::*, *};
-    use glib::{subclass::prelude::*, ObjectExt, Properties};
+    use glib::{subclass::prelude::*, Properties};
 
     mod imp {
         use super::*;

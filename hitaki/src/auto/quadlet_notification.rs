@@ -8,7 +8,7 @@ use glib::{
     signal::{connect_raw, SignalHandlerId},
     translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+use std::boxed::Box as Box_;
 
 glib::wrapper! {
     /// An interface to operate notification with quadlet message.
@@ -75,7 +75,7 @@ pub trait QuadletNotificationExt: IsA<QuadletNotification> + sealed::Sealed + 's
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notified\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
                     notified_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -89,9 +89,3 @@ pub trait QuadletNotificationExt: IsA<QuadletNotification> + sealed::Sealed + 's
 }
 
 impl<O: IsA<QuadletNotification>> QuadletNotificationExt for O {}
-
-impl fmt::Display for QuadletNotification {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("QuadletNotification")
-    }
-}

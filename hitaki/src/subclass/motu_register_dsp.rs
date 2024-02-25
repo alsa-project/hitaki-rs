@@ -172,7 +172,7 @@ unsafe extern "C" fn motu_register_dsp_changed<T: MotuRegisterDspImpl>(
 #[cfg(test)]
 mod test {
     use crate::{prelude::*, subclass::prelude::*, *};
-    use glib::{subclass::prelude::*, ObjectExt, Properties};
+    use glib::{subclass::prelude::*, Properties};
 
     mod imp {
         use super::*;

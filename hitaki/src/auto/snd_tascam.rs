@@ -5,7 +5,6 @@
 
 use crate::{AlsaFirewire, TascamProtocol};
 use glib::translate::*;
-use std::fmt;
 
 glib::wrapper! {
     /// A GObject-derived object for sound unit of TASCAM FireWire series.
@@ -43,11 +42,5 @@ impl SndTascam {
 impl Default for SndTascam {
     fn default() -> Self {
         Self::new()
-    }
-}
-
-impl fmt::Display for SndTascam {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("SndTascam")
     }
 }

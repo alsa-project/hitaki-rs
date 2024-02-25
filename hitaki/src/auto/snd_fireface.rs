@@ -5,7 +5,6 @@
 
 use crate::{AlsaFirewire, TimestampedQuadletNotification};
 use glib::translate::*;
-use std::fmt;
 
 glib::wrapper! {
     /// A GObject-derived object for sound unit of RME Fireface series.
@@ -112,11 +111,5 @@ impl SndFireface {
 impl Default for SndFireface {
     fn default() -> Self {
         Self::new()
-    }
-}
-
-impl fmt::Display for SndFireface {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("SndFireface")
     }
 }

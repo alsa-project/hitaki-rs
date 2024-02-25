@@ -34,8 +34,7 @@ pub trait MotuRegisterDspExtManual {
     /// value. The meaning of identifier 0, 1 and value is decided depending on the type. For
     /// detail, see `sound/firewire/motu/motu-register-dsp-message-parser.c` in Linux kernel.
     /// ## `events`
-    /// The array with element for unsigned
-    ///          32 bit encoded data.
+    /// The array with element for unsigned 32 bit encoded data.
     #[doc(alias = "changed")]
     fn connect_changed<F: Fn(&Self, &[u32]) + 'static>(&self, f: F) -> SignalHandlerId;
 

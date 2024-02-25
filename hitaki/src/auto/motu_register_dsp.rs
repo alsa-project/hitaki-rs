@@ -4,7 +4,6 @@
 // DO NOT EDIT
 
 use glib::prelude::*;
-use std::fmt;
 
 glib::wrapper! {
     /// An interface for protocol of register DSP models in MOTU FireWire series.
@@ -54,9 +53,3 @@ mod sealed {
 pub trait MotuRegisterDspExt: IsA<MotuRegisterDsp> + sealed::Sealed + 'static {}
 
 impl<O: IsA<MotuRegisterDsp>> MotuRegisterDspExt for O {}
-
-impl fmt::Display for MotuRegisterDsp {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("MotuRegisterDsp")
-    }
-}

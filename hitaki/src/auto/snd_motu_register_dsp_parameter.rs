@@ -4,7 +4,6 @@
 // DO NOT EDIT
 
 use glib::translate::*;
-use std::mem;
 
 glib::wrapper! {
     /// A boxed object for parameters in MOTU register DSP model.
@@ -44,7 +43,7 @@ impl SndMotuRegisterDspParameter {
     #[doc(alias = "get_headphone_output_paired_assignment")]
     pub fn headphone_output_paired_assignment(&self) -> u8 {
         unsafe {
-            let mut assignment = mem::MaybeUninit::uninit();
+            let mut assignment = std::mem::MaybeUninit::uninit();
             ffi::hitaki_snd_motu_register_dsp_parameter_get_headphone_output_paired_assignment(
                 self.to_glib_none().0,
                 assignment.as_mut_ptr(),
@@ -65,7 +64,7 @@ impl SndMotuRegisterDspParameter {
     #[doc(alias = "get_headphone_output_paired_volume")]
     pub fn headphone_output_paired_volume(&self) -> u8 {
         unsafe {
-            let mut volume = mem::MaybeUninit::uninit();
+            let mut volume = std::mem::MaybeUninit::uninit();
             ffi::hitaki_snd_motu_register_dsp_parameter_get_headphone_output_paired_volume(
                 self.to_glib_none().0,
                 volume.as_mut_ptr(),
@@ -86,7 +85,7 @@ impl SndMotuRegisterDspParameter {
     #[doc(alias = "get_line_input_boost_flag")]
     pub fn line_input_boost_flag(&self) -> u8 {
         unsafe {
-            let mut boost_flag = mem::MaybeUninit::uninit();
+            let mut boost_flag = std::mem::MaybeUninit::uninit();
             ffi::hitaki_snd_motu_register_dsp_parameter_get_line_input_boost_flag(
                 self.to_glib_none().0,
                 boost_flag.as_mut_ptr(),
@@ -108,7 +107,7 @@ impl SndMotuRegisterDspParameter {
     #[doc(alias = "get_line_input_nominal_level_flag")]
     pub fn line_input_nominal_level_flag(&self) -> u8 {
         unsafe {
-            let mut nominal_level_flag = mem::MaybeUninit::uninit();
+            let mut nominal_level_flag = std::mem::MaybeUninit::uninit();
             ffi::hitaki_snd_motu_register_dsp_parameter_get_line_input_nominal_level_flag(
                 self.to_glib_none().0,
                 nominal_level_flag.as_mut_ptr(),
@@ -129,7 +128,7 @@ impl SndMotuRegisterDspParameter {
     #[doc(alias = "get_main_output_paired_volume")]
     pub fn main_output_paired_volume(&self) -> u8 {
         unsafe {
-            let mut volume = mem::MaybeUninit::uninit();
+            let mut volume = std::mem::MaybeUninit::uninit();
             ffi::hitaki_snd_motu_register_dsp_parameter_get_main_output_paired_volume(
                 self.to_glib_none().0,
                 volume.as_mut_ptr(),

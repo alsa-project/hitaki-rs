@@ -5,7 +5,6 @@
 
 use crate::{AlsaFirewire, MotuCommandDsp, MotuRegisterDsp, QuadletNotification};
 use glib::translate::*;
-use std::fmt;
 
 glib::wrapper! {
     /// A GObject-derived object for sound unit of MOTU FireWire series.
@@ -42,11 +41,5 @@ impl SndMotu {
 impl Default for SndMotu {
     fn default() -> Self {
         Self::new()
-    }
-}
-
-impl fmt::Display for SndMotu {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("SndMotu")
     }
 }

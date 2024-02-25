@@ -178,7 +178,7 @@ unsafe extern "C" fn efw_protocol_responded<T: EfwProtocolImpl>(
 #[cfg(test)]
 mod test {
     use crate::{prelude::*, subclass::prelude::*, *};
-    use glib::{subclass::prelude::*, Error, ObjectExt, Properties};
+    use glib::{subclass::prelude::*, Error, Properties};
 
     const CATEGORY: u32 = 123;
     const COMMAND: u32 = 456;

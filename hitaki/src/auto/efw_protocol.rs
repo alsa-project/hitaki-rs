@@ -4,7 +4,6 @@
 // DO NOT EDIT
 
 use glib::{prelude::*, translate::*};
-use std::{fmt, mem, ptr};
 
 glib::wrapper! {
     /// An interface for Fireworks Protocol.
@@ -93,8 +92,8 @@ pub trait EfwProtocolExt: IsA<EfwProtocol> + sealed::Sealed + 'static {
     ) -> Result<u32, glib::Error> {
         let arg_count = args.len() as _;
         unsafe {
-            let mut resp_seqnum = mem::MaybeUninit::uninit();
-            let mut error = ptr::null_mut();
+            let mut resp_seqnum = std::mem::MaybeUninit::uninit();
+            let mut error = std::ptr::null_mut();
             let is_ok = ffi::hitaki_efw_protocol_transmit_request(
                 self.as_ref().to_glib_none().0,
                 category,
@@ -115,9 +114,3 @@ pub trait EfwProtocolExt: IsA<EfwProtocol> + sealed::Sealed + 'static {
 }
 
 impl<O: IsA<EfwProtocol>> EfwProtocolExt for O {}
-
-impl fmt::Display for EfwProtocol {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("EfwProtocol")
-    }
-}

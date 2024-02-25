@@ -11,8 +11,9 @@ use crate::*;
 /// [`EfwProtocol`][struct@crate::EfwProtocol], [`SndEfw`][struct@crate::SndEfw]
 pub trait EfwProtocolExtManual {
     /// Transfer asynchronous transaction for request frame of Echo Efw protocol and wait for response
-    /// matched to the command. The call results in `signal::EfwProtocol::responded` signal with data of
-    /// response.
+    ///
+    /// matched to the command. The call results in [`responded`][struct@crate::EfwProtocol#responded]
+    /// signal with data of response.
     /// ## `category`
     /// One of category for the transaction.
     /// ## `command`

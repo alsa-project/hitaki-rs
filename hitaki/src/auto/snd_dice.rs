@@ -5,7 +5,6 @@
 
 use crate::{AlsaFirewire, QuadletNotification};
 use glib::translate::*;
-use std::fmt;
 
 glib::wrapper! {
     /// A GObject-derived object for sound unit of TCAT DICE ASICs.
@@ -41,11 +40,5 @@ impl SndDice {
 impl Default for SndDice {
     fn default() -> Self {
         Self::new()
-    }
-}
-
-impl fmt::Display for SndDice {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("SndDice")
     }
 }

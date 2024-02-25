@@ -4,7 +4,6 @@
 // DO NOT EDIT
 
 use glib::{prelude::*, translate::*};
-use std::fmt;
 
 /// The enumerations to report result of operation in [`AlsaFirewire`][crate::AlsaFirewire].
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -37,26 +36,6 @@ pub enum AlsaFirewireError {
     WrongClass,
     #[doc(hidden)]
     __Unknown(i32),
-}
-
-impl fmt::Display for AlsaFirewireError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "AlsaFirewireError::{}",
-            match *self {
-                Self::Failed => "Failed",
-                Self::IsOpened => "IsOpened",
-                Self::IsNotOpened => "IsNotOpened",
-                Self::IsUsed => "IsUsed",
-                Self::IsLocked => "IsLocked",
-                Self::IsUnlocked => "IsUnlocked",
-                Self::IsDisconnected => "IsDisconnected",
-                Self::WrongClass => "WrongClass",
-                _ => "Unknown",
-            }
-        )
-    }
 }
 
 #[doc(hidden)]
@@ -203,26 +182,6 @@ pub enum AlsaFirewireType {
     Fireface,
     #[doc(hidden)]
     __Unknown(i32),
-}
-
-impl fmt::Display for AlsaFirewireType {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "AlsaFirewireType::{}",
-            match *self {
-                Self::Dice => "Dice",
-                Self::Fireworks => "Fireworks",
-                Self::Bebob => "Bebob",
-                Self::Oxfw => "Oxfw",
-                Self::Digi00x => "Digi00x",
-                Self::Tascam => "Tascam",
-                Self::Motu => "Motu",
-                Self::Fireface => "Fireface",
-                _ => "Unknown",
-            }
-        )
-    }
 }
 
 #[doc(hidden)]
@@ -378,36 +337,6 @@ pub enum EfwProtocolError {
     Invalid,
     #[doc(hidden)]
     __Unknown(i32),
-}
-
-impl fmt::Display for EfwProtocolError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "EfwProtocolError::{}",
-            match *self {
-                Self::Ok => "Ok",
-                Self::Bad => "Bad",
-                Self::BadCommand => "BadCommand",
-                Self::CommErr => "CommErr",
-                Self::BadQuadCount => "BadQuadCount",
-                Self::Unsupported => "Unsupported",
-                Self::Timeout => "Timeout",
-                Self::DspTimeout => "DspTimeout",
-                Self::BadRate => "BadRate",
-                Self::BadClock => "BadClock",
-                Self::BadChannel => "BadChannel",
-                Self::BadPan => "BadPan",
-                Self::FlashBusy => "FlashBusy",
-                Self::BadMirror => "BadMirror",
-                Self::BadLed => "BadLed",
-                Self::BadParameter => "BadParameter",
-                Self::Incomplete => "Incomplete",
-                Self::Invalid => "Invalid",
-                _ => "Unknown",
-            }
-        )
-    }
 }
 
 #[doc(hidden)]

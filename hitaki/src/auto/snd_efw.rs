@@ -5,7 +5,6 @@
 
 use crate::{AlsaFirewire, EfwProtocol};
 use glib::translate::*;
-use std::fmt;
 
 glib::wrapper! {
     /// A GObject-derived object for sound unit of Echo Audio Fireworks.
@@ -42,11 +41,5 @@ impl SndEfw {
 impl Default for SndEfw {
     fn default() -> Self {
         Self::new()
-    }
-}
-
-impl fmt::Display for SndEfw {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("SndEfw")
     }
 }

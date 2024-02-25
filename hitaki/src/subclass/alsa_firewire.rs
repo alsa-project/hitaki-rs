@@ -211,7 +211,7 @@ unsafe extern "C" fn alsa_firewire_create_source<T: AlsaFirewireImpl>(
 #[cfg(test)]
 mod tests {
     use crate::{prelude::*, subclass::prelude::*, *};
-    use glib::{subclass::prelude::*, Error, GString, ObjectExt, Properties, Source};
+    use glib::{subclass::prelude::*, Error, GString, Properties, Source};
 
     const CARD_ID: u32 = 117;
     const GUID: u64 = 315;
@@ -295,7 +295,7 @@ mod tests {
 
         assert_eq!(unit.unit_type(), UNIT_TYPE);
         assert_eq!(unit.card_id(), CARD_ID);
-        assert_eq!(unit.node_device().as_str(), NODE_DEVICE);
+        assert_eq!(unit.node_device().unwrap().as_str(), NODE_DEVICE);
         assert_eq!(unit.guid(), GUID);
 
         assert_eq!(unit.is_locked(), false);

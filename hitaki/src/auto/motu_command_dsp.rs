@@ -4,7 +4,6 @@
 // DO NOT EDIT
 
 use glib::prelude::*;
-use std::fmt;
 
 glib::wrapper! {
     /// An interface for protocol of command DSP model in MOTU FireWire series.
@@ -42,9 +41,3 @@ mod sealed {
 pub trait MotuCommandDspExt: IsA<MotuCommandDsp> + sealed::Sealed + 'static {}
 
 impl<O: IsA<MotuCommandDsp>> MotuCommandDspExt for O {}
-
-impl fmt::Display for MotuCommandDsp {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("MotuCommandDsp")
-    }
-}

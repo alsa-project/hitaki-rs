@@ -53,8 +53,7 @@ pub use self::enums::AlsaFirewireError;
 pub use self::enums::AlsaFirewireType;
 pub use self::enums::EfwProtocolError;
 
-#[doc(hidden)]
-pub mod traits {
+pub(crate) mod traits {
     pub use super::alsa_firewire::AlsaFirewireExt;
     pub use super::efw_protocol::EfwProtocolExt;
     pub use super::motu_command_dsp::MotuCommandDspExt;
