@@ -4,7 +4,6 @@ edition = "2021"
 links = "hitaki"
 name = "hitaki-sys"
 version = "0.4.0"
-# For publishing.
 authors = ["Takashi Sakamoto"]
 categories = ["external-ffi-bindings", "hardware-support", "os::linux-apis"]
 description = "FFI bindings for hitaki library"
@@ -18,6 +17,7 @@ repository = "https://github.com/alsa-project/hitaki-rs/"
 [package.metadata.docs.rs]
 rustc-args = ["--cfg", "docsrs"]
 rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
+all-features = true
 
 [package.metadata.system-deps.hitaki]
 name = "hitaki"
@@ -32,15 +32,11 @@ system-deps = "6"
 
 [dependencies]
 libc = "0.2"
-
-[dependencies.glib]
-package = "glib-sys"
-version = "0.18"
-
-[dependencies.gobject]
-package = "gobject-sys"
-version = "0.18"
+glib-sys = "0.19"
+gobject-sys = "0.19"
 
 [dev-dependencies]
 shell-words = "1.0.0"
 tempfile = "3"
+
+[features]
