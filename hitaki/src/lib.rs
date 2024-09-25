@@ -11,7 +11,7 @@ mod snd_motu_register_dsp_parameter;
 mod tascam_protocol;
 
 // For convenience to provide structures and functions.
-pub use crate::{auto::*, enums::*, snd_motu_register_dsp_parameter::*};
+pub use crate::auto::*;
 
 /// For convenience to provide auto-generated/manual traits, and their blanket implementations.
 pub mod prelude {

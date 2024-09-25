@@ -3,6 +3,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -89,7 +90,7 @@ pub trait TimestampedQuadletNotificationExt:
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notified-at\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notified_at_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
