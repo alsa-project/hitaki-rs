@@ -3,7 +3,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::AlsaFirewireType;
+use crate::{ffi, AlsaFirewireType};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -250,7 +250,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::card-id\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_card_id_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -273,7 +273,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::guid\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_guid_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -299,7 +299,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::is-disconnected\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_is_disconnected_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -325,7 +325,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::is-locked\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_is_locked_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -351,7 +351,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::node-device\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_node_device_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -377,7 +377,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             connect_raw(
                 self.as_ptr() as *mut _,
                 b"notify::unit-type\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_unit_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

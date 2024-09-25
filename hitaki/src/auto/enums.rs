@@ -3,6 +3,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::{prelude::*, translate::*};
 
 /// The enumerations to report result of operation in [`AlsaFirewire`][crate::AlsaFirewire].

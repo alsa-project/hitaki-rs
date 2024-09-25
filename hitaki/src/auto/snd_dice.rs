@@ -3,7 +3,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{AlsaFirewire, QuadletNotification};
+use crate::{ffi, AlsaFirewire, QuadletNotification};
 use glib::translate::*;
 
 glib::wrapper! {
