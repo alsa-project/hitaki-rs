@@ -16,7 +16,7 @@ Add the following line to your Cargo.toml file:
 
 ```toml
 [dependencies]
-hitaki = "0.5.0"
+hitaki = "0.6.0"
 ```
 
 The API documentation is available in <https://docs.rs/hitaki/>.
