@@ -19,8 +19,11 @@ use gobject_sys as gobject;
 #[allow(unused_imports)]
 use libc::{
     c_char, c_double, c_float, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void,
-    intptr_t, size_t, ssize_t, uintptr_t, FILE,
+    intptr_t, off_t, size_t, ssize_t, time_t, uintptr_t, FILE,
 };
+#[cfg(unix)]
+#[allow(unused_imports)]
+use libc::{dev_t, gid_t, pid_t, socklen_t, uid_t};
 
 #[allow(unused_imports)]
 use glib::{gboolean, gconstpointer, gpointer, GType};
@@ -468,6 +471,7 @@ impl ::std::fmt::Debug for HitakiSndUnit {
 
 // Interfaces
 #[repr(C)]
+#[allow(dead_code)]
 pub struct HitakiAlsaFirewire {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -480,6 +484,7 @@ impl ::std::fmt::Debug for HitakiAlsaFirewire {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct HitakiEfwProtocol {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -492,6 +497,7 @@ impl ::std::fmt::Debug for HitakiEfwProtocol {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct HitakiMotuCommandDsp {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -504,6 +510,7 @@ impl ::std::fmt::Debug for HitakiMotuCommandDsp {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct HitakiMotuRegisterDsp {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -516,6 +523,7 @@ impl ::std::fmt::Debug for HitakiMotuRegisterDsp {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct HitakiQuadletNotification {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -528,6 +536,7 @@ impl ::std::fmt::Debug for HitakiQuadletNotification {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct HitakiTascamProtocol {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -540,6 +549,7 @@ impl ::std::fmt::Debug for HitakiTascamProtocol {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct HitakiTimestampedQuadletNotification {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
