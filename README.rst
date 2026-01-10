@@ -2,7 +2,7 @@
 Rust bindings for hitaki library
 ================================
 
-2024/09/25
+2026/01/06
 Takashi Sakamoto
 
 Introduction
@@ -14,7 +14,7 @@ Introduction
 
 * The crates are available in `crates.io <https://crates.io/>`_ as well.
 
-* The latest release is version 0.6.0.
+* The latest release is version 0.7.0.
 
 Crates
 ======
@@ -41,11 +41,11 @@ Dependencies
 * FFI crate (``hitaki-sys``)
 
   * ``libc`` >= 0.2
-  * ``glib-sys`` >= 0.20
-  * ``gobject-sys`` >= 0.20
+  * ``glib-sys`` >= 0.21
+  * ``gobject-sys`` >= 0.21
 
 * API crate (``hitaki``)
 
   * ``libc`` >= 0.2
-  * ``glib`` >= 0.20
+  * ``glib`` >= 0.21
   * FFI crate (``hitaki-sys``)

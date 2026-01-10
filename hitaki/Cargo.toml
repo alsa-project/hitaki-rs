@@ -1,7 +1,7 @@
 [package]
 edition = "2021"
 name = "hitaki"
-version = "0.6.0"
+version = "0.7.0"
 # For publishing.
 authors = ["Takashi Sakamoto"]
 categories = ["api-bindings", "hardware-support", "os::linux-apis"]
@@ -12,17 +12,18 @@ homepage = "https://alsa-project.github.io/gobject-introspection-docs/"
 keywords = ["ieee1394", "firewire", "alsa", "glib"]
 license = "MIT"
 repository = "https://github.com/alsa-project/hitaki-rs/"
+
 [package.metadata.docs.rs]
-rustc-args = ["--cfg", "docsrs"]
-rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
+rustdoc-args = ["--generate-link-to-definition"]
+all-features = true
 
 [lib]
 name = "hitaki"
 
 [dependencies]
 libc = "0.2" # As std::ffi::size_t is still experimental.
-glib = "0.20"
-ffi = { package = "hitaki-sys", version = "0.6" }
+glib = "0.21"
+ffi = { package = "hitaki-sys", version = "0.7" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"
