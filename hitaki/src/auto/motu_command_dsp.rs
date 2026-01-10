@@ -29,16 +29,11 @@ impl MotuCommandDsp {
     pub const NONE: Option<&'static MotuCommandDsp> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::MotuCommandDsp>> Sealed for T {}
-}
-
 /// Trait containing the part of [`struct@MotuCommandDsp`] methods.
 ///
 /// # Implementors
 ///
 /// [`MotuCommandDsp`][struct@crate::MotuCommandDsp], [`SndMotu`][struct@crate::SndMotu]
-pub trait MotuCommandDspExt: IsA<MotuCommandDsp> + sealed::Sealed + 'static {}
+pub trait MotuCommandDspExt: IsA<MotuCommandDsp> + 'static {}
 
 impl<O: IsA<MotuCommandDsp>> MotuCommandDspExt for O {}

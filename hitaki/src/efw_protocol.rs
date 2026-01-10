@@ -4,7 +4,7 @@
 
 use crate::*;
 
-/// Trait containing the rest of[`struct@EfwProtocol`] methods.
+/// Trait containing the rest of [`struct@EfwProtocol`] methods.
 ///
 /// # Implementors
 ///
@@ -120,7 +120,7 @@ impl<O: IsA<EfwProtocol>> EfwProtocolExtManual for O {
         status: EfwProtocolError,
         params: &[u32],
     ) {
-        let params_pointer = params.as_ptr() as *mut libc::c_void;
+        let params_pointer = params.as_ptr() as *mut std::ffi::c_void;
         let params_count = params.len() as u32;
 
         self.emit_by_name::<()>(
@@ -149,7 +149,7 @@ impl<O: IsA<EfwProtocol>> EfwProtocolExtManual for O {
             category: u32,
             status: ffi::HitakiEfwProtocolError,
             params: *const u32,
-            params_count: libc::c_uint,
+            params_count: std::ffi::c_uint,
             f: glib::ffi::gpointer,
         ) where
             P: IsA<EfwProtocol>,
@@ -170,7 +170,7 @@ impl<O: IsA<EfwProtocol>> EfwProtocolExtManual for O {
             let f: std::boxed::Box<F> = std::boxed::Box::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"responded\0".as_ptr() as *const _,
+                c"responded".as_ptr() as *const _,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     responded_trampoline::<Self, F> as *const (),
                 )),

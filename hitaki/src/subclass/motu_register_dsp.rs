@@ -159,7 +159,7 @@ unsafe extern "C" fn motu_register_dsp_read_byte_meter<T: MotuRegisterDspImpl>(
 unsafe extern "C" fn motu_register_dsp_changed<T: MotuRegisterDspImpl>(
     unit: *mut ffi::HitakiMotuRegisterDsp,
     events: *const u32,
-    length: c_uint,
+    length: std::ffi::c_uint,
 ) {
     let instance = &*(unit as *mut T::Instance);
     let imp = instance.imp();

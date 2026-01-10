@@ -125,7 +125,7 @@ unsafe impl<T: EfwProtocolImpl> IsImplementable<T> for EfwProtocol {
 unsafe extern "C" fn efw_protocol_transmit_request<T: EfwProtocolImpl>(
     unit: *mut ffi::HitakiEfwProtocol,
     buffer: *const u8,
-    length: size_t,
+    length: libc::size_t,
     error: *mut *mut glib::ffi::GError,
 ) -> glib::ffi::gboolean {
     let instance = &*(unit as *mut T::Instance);
@@ -154,10 +154,10 @@ unsafe extern "C" fn efw_protocol_get_seqnum<T: EfwProtocolImpl>(
 
 unsafe extern "C" fn efw_protocol_responded<T: EfwProtocolImpl>(
     unit: *mut ffi::HitakiEfwProtocol,
-    version: c_uint,
-    seqnum: c_uint,
-    category: c_uint,
-    command: c_uint,
+    version: std::ffi::c_uint,
+    seqnum: std::ffi::c_uint,
+    category: std::ffi::c_uint,
+    command: std::ffi::c_uint,
     status: ffi::HitakiEfwProtocolError,
     params: *const u32,
     param_count: u32,

@@ -91,7 +91,7 @@ impl<O: IsA<MotuRegisterDsp>> MotuRegisterDspExtManual for O {
         unsafe extern "C" fn changed_trampoline<P, F>(
             this: *mut ffi::HitakiMotuRegisterDsp,
             events: *const u32,
-            length: libc::c_uint,
+            length: std::ffi::c_uint,
             f: glib::ffi::gpointer,
         ) where
             P: IsA<MotuRegisterDsp>,
@@ -107,7 +107,7 @@ impl<O: IsA<MotuRegisterDsp>> MotuRegisterDspExtManual for O {
             let f: std::boxed::Box<F> = std::boxed::Box::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"changed\0".as_ptr() as *const _,
+                c"changed".as_ptr() as *const _,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     changed_trampoline::<Self, F> as *const (),
                 )),
@@ -117,7 +117,7 @@ impl<O: IsA<MotuRegisterDsp>> MotuRegisterDspExtManual for O {
     }
 
     fn emit_changed(&self, events: &[u32]) {
-        let events_pointer = events.as_ptr() as *mut libc::c_void;
+        let events_pointer = events.as_ptr() as *mut std::ffi::c_void;
         let events_count = events.len() as u32;
         self.emit_by_name::<()>("changed", &[&events_pointer, &events_count])
     }

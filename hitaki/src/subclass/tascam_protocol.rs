@@ -72,7 +72,7 @@ unsafe impl<T: TascamProtocolImpl> IsImplementable<T> for TascamProtocol {
 unsafe extern "C" fn tascam_protocol_read_state<T: TascamProtocolImpl>(
     unit: *mut ffi::HitakiTascamProtocol,
     state: *const *mut u32,
-    count: *mut size_t,
+    count: *mut libc::size_t,
     error: *mut *mut glib::ffi::GError,
 ) -> glib::ffi::gboolean {
     let instance = &*(unit as *mut T::Instance);
@@ -100,9 +100,9 @@ unsafe extern "C" fn tascam_protocol_read_state<T: TascamProtocolImpl>(
 
 unsafe extern "C" fn tascam_protocol_changed<T: TascamProtocolImpl>(
     unit: *mut ffi::HitakiTascamProtocol,
-    index: c_uint,
-    before: c_uint,
-    after: c_uint,
+    index: std::ffi::c_uint,
+    before: std::ffi::c_uint,
+    after: std::ffi::c_uint,
 ) {
     let instance = &*(unit as *mut T::Instance);
     let imp = instance.imp();

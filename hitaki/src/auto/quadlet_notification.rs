@@ -41,17 +41,12 @@ impl QuadletNotification {
     pub const NONE: Option<&'static QuadletNotification> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::QuadletNotification>> Sealed for T {}
-}
-
 /// Trait containing all [`struct@QuadletNotification`] methods.
 ///
 /// # Implementors
 ///
 /// [`QuadletNotification`][struct@crate::QuadletNotification], [`SndDice`][struct@crate::SndDice], [`SndDigi00x`][struct@crate::SndDigi00x], [`SndMotu`][struct@crate::SndMotu]
-pub trait QuadletNotificationExt: IsA<QuadletNotification> + sealed::Sealed + 'static {
+pub trait QuadletNotificationExt: IsA<QuadletNotification> + 'static {
     /// Emitted when the target unit transfers notification.
     /// ## `message`
     /// A quadlet message in notification.
@@ -62,7 +57,7 @@ pub trait QuadletNotificationExt: IsA<QuadletNotification> + sealed::Sealed + 's
             F: Fn(&P, u32) + 'static,
         >(
             this: *mut ffi::HitakiQuadletNotification,
-            message: libc::c_uint,
+            message: std::ffi::c_uint,
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
@@ -75,7 +70,7 @@ pub trait QuadletNotificationExt: IsA<QuadletNotification> + sealed::Sealed + 's
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notified\0".as_ptr() as *const _,
+                c"notified".as_ptr() as *const _,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notified_trampoline::<Self, F> as *const (),
                 )),

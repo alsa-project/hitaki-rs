@@ -13,7 +13,6 @@ use std::boxed::Box as Box_;
 
 glib::wrapper! {
     /// An interface for protocol of TASCAM FireWire series.
-    ///
     /// TASCAM FireWire series transfer image of device state by either isochronous or asynchronous
     /// packets. The [`TascamProtocol`][crate::TascamProtocol] is an object interface for the image and the change of state
     /// in the TASCAM FireWire protocol.
@@ -41,17 +40,12 @@ impl TascamProtocol {
     pub const NONE: Option<&'static TascamProtocol> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::TascamProtocol>> Sealed for T {}
-}
-
 /// Trait containing the part of [`struct@TascamProtocol`] methods.
 ///
 /// # Implementors
 ///
 /// [`SndTascam`][struct@crate::SndTascam], [`TascamProtocol`][struct@crate::TascamProtocol]
-pub trait TascamProtocolExt: IsA<TascamProtocol> + sealed::Sealed + 'static {
+pub trait TascamProtocolExt: IsA<TascamProtocol> + 'static {
     /// Emitted when the part of image differed for the change of device state.
     /// ## `index`
     /// the numeric index on image of status and control info.
@@ -66,9 +60,9 @@ pub trait TascamProtocolExt: IsA<TascamProtocol> + sealed::Sealed + 'static {
             F: Fn(&P, u32, u32, u32) + 'static,
         >(
             this: *mut ffi::HitakiTascamProtocol,
-            index: libc::c_uint,
-            before: libc::c_uint,
-            after: libc::c_uint,
+            index: std::ffi::c_uint,
+            before: std::ffi::c_uint,
+            after: std::ffi::c_uint,
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
@@ -83,7 +77,7 @@ pub trait TascamProtocolExt: IsA<TascamProtocol> + sealed::Sealed + 'static {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"changed\0".as_ptr() as *const _,
+                c"changed".as_ptr() as *const _,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     changed_trampoline::<Self, F> as *const (),
                 )),

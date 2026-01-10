@@ -45,19 +45,12 @@ impl TimestampedQuadletNotification {
     pub const NONE: Option<&'static TimestampedQuadletNotification> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::TimestampedQuadletNotification>> Sealed for T {}
-}
-
 /// Trait containing all [`struct@TimestampedQuadletNotification`] methods.
 ///
 /// # Implementors
 ///
 /// [`SndFireface`][struct@crate::SndFireface], [`TimestampedQuadletNotification`][struct@crate::TimestampedQuadletNotification]
-pub trait TimestampedQuadletNotificationExt:
-    IsA<TimestampedQuadletNotification> + sealed::Sealed + 'static
-{
+pub trait TimestampedQuadletNotificationExt: IsA<TimestampedQuadletNotification> + 'static {
     /// Emitted when the target unit transfers notification.
     ///
     /// The value of @tstamp is unsigned 16 bit integer including higher 3 bits for three low order
@@ -74,8 +67,8 @@ pub trait TimestampedQuadletNotificationExt:
             F: Fn(&P, u32, u32) + 'static,
         >(
             this: *mut ffi::HitakiTimestampedQuadletNotification,
-            message: libc::c_uint,
-            tstamp: libc::c_uint,
+            message: std::ffi::c_uint,
+            tstamp: std::ffi::c_uint,
             f: glib::ffi::gpointer,
         ) {
             let f: &F = &*(f as *const F);
@@ -89,7 +82,7 @@ pub trait TimestampedQuadletNotificationExt:
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notified-at\0".as_ptr() as *const _,
+                c"notified-at".as_ptr() as *const _,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notified_at_trampoline::<Self, F> as *const (),
                 )),

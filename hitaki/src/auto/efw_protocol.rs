@@ -38,17 +38,12 @@ impl EfwProtocol {
     pub const NONE: Option<&'static EfwProtocol> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::EfwProtocol>> Sealed for T {}
-}
-
 /// Trait containing the part of [`struct@EfwProtocol`] methods.
 ///
 /// # Implementors
 ///
 /// [`EfwProtocol`][struct@crate::EfwProtocol], [`SndEfw`][struct@crate::SndEfw]
-pub trait EfwProtocolExt: IsA<EfwProtocol> + sealed::Sealed + 'static {
+pub trait EfwProtocolExt: IsA<EfwProtocol> + 'static {
     /// Parse the given buffer for response frame of Fireworks transaction. The buffer should includes
     /// one response frames at least. It results in [`responded`][struct@crate::EfwProtocol#responded] per response frame.
     /// It's expected that the function is used by any implementation of [`EfwProtocol`][crate::EfwProtocol].

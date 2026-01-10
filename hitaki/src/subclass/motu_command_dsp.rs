@@ -61,7 +61,7 @@ unsafe impl<T: MotuCommandDspImpl> IsImplementable<T> for MotuCommandDsp {
 
 unsafe extern "C" fn motu_command_dsp_read_float_meter<T: MotuCommandDspImpl>(
     unit: *mut ffi::HitakiMotuCommandDsp,
-    meter: *const *mut [c_float; 400],
+    meter: *const *mut [std::ffi::c_float; 400],
     error: *mut *mut glib::ffi::GError,
 ) -> glib::ffi::gboolean {
     let instance = &*(unit as *mut T::Instance);

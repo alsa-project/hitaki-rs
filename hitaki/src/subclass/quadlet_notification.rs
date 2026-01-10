@@ -41,7 +41,7 @@ unsafe impl<T: QuadletNotificationImpl> IsImplementable<T> for QuadletNotificati
 
 unsafe extern "C" fn quadlet_notification_notified<T: QuadletNotificationImpl>(
     unit: *mut ffi::HitakiQuadletNotification,
-    msg: c_uint,
+    msg: std::ffi::c_uint,
 ) {
     let instance = &*(unit as *mut T::Instance);
     let imp = instance.imp();

@@ -132,8 +132,8 @@ unsafe impl<T: AlsaFirewireImpl> IsImplementable<T> for AlsaFirewire {
 
 unsafe extern "C" fn alsa_firewire_open<T: AlsaFirewireImpl>(
     unit: *mut ffi::HitakiAlsaFirewire,
-    path: *const c_char,
-    open_flag: c_int,
+    path: *const std::ffi::c_char,
+    open_flag: std::ffi::c_int,
     error: *mut *mut glib::ffi::GError,
 ) -> glib::ffi::gboolean {
     let instance = &*(unit as *mut T::Instance);

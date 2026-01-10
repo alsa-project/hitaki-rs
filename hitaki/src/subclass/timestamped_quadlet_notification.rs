@@ -48,8 +48,8 @@ unsafe extern "C" fn timestamped_quadlet_notification_notified_at<
     T: TimestampedQuadletNotificationImpl,
 >(
     unit: *mut ffi::HitakiTimestampedQuadletNotification,
-    msg: c_uint,
-    tstamp: c_uint,
+    msg: std::ffi::c_uint,
+    tstamp: std::ffi::c_uint,
 ) {
     let instance = &*(unit as *mut T::Instance);
     let imp = instance.imp();

@@ -24,10 +24,11 @@ pub mod prelude {
 /// For subclass implementations derived from provided class.
 pub mod subclass;
 
-// To access to hitaki-sys crate for FFI.
+// For applications to handle stuffs in the sys crate.
 pub use ffi;
 
-// For links in documentation.
+// For documentation links to external crates in docs.rs.
 pub(crate) use glib;
 
+// Just for local conveniences.
 use glib::{object::*, signal::*, translate::*};

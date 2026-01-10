@@ -74,17 +74,12 @@ impl AlsaFirewire {
     pub const NONE: Option<&'static AlsaFirewire> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::AlsaFirewire>> Sealed for T {}
-}
-
 /// Trait containing all [`struct@AlsaFirewire`] methods.
 ///
 /// # Implementors
 ///
 /// [`AlsaFirewire`][struct@crate::AlsaFirewire], [`SndDice`][struct@crate::SndDice], [`SndDigi00x`][struct@crate::SndDigi00x], [`SndEfw`][struct@crate::SndEfw], [`SndFireface`][struct@crate::SndFireface], [`SndMotu`][struct@crate::SndMotu], [`SndTascam`][struct@crate::SndTascam], [`SndUnit`][struct@crate::SndUnit]
-pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
+pub trait AlsaFirewireExt: IsA<AlsaFirewire> + 'static {
     /// Allocate [`glib::Source`][crate::glib::Source]  to handle events from ALSA HwDep character device.
     ///
     /// # Returns
@@ -249,7 +244,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::card-id\0".as_ptr() as *const _,
+                c"notify::card-id".as_ptr() as *const _,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_card_id_trampoline::<Self, F> as *const (),
                 )),
@@ -272,7 +267,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::guid\0".as_ptr() as *const _,
+                c"notify::guid".as_ptr() as *const _,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_guid_trampoline::<Self, F> as *const (),
                 )),
@@ -298,7 +293,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::is-disconnected\0".as_ptr() as *const _,
+                c"notify::is-disconnected".as_ptr() as *const _,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_is_disconnected_trampoline::<Self, F> as *const (),
                 )),
@@ -324,7 +319,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::is-locked\0".as_ptr() as *const _,
+                c"notify::is-locked".as_ptr() as *const _,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_is_locked_trampoline::<Self, F> as *const (),
                 )),
@@ -350,7 +345,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::node-device\0".as_ptr() as *const _,
+                c"notify::node-device".as_ptr() as *const _,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_node_device_trampoline::<Self, F> as *const (),
                 )),
@@ -376,7 +371,7 @@ pub trait AlsaFirewireExt: IsA<AlsaFirewire> + sealed::Sealed + 'static {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::unit-type\0".as_ptr() as *const _,
+                c"notify::unit-type".as_ptr() as *const _,
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_unit_type_trampoline::<Self, F> as *const (),
                 )),

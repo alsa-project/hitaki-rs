@@ -20,7 +20,7 @@ rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
 name = "hitaki"
 
 [dependencies]
-libc = "0.2"
+libc = "0.2" # As std::ffi::size_t is still experimental.
 glib = "0.20"
 ffi = { package = "hitaki-sys", version = "0.6" }
 
